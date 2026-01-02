@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 98%;
+    --foreground: 224 71% 4%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+
+    --primary: 234 89% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 224 71% 4%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    --accent: 234 89% 96%;
+    --accent-foreground: 234 89% 40%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 38 92% 20%;
+
+    --risk-low: 142 76% 36%;
+    --risk-medium: 38 92% 50%;
+    --risk-high: 0 84% 60%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 234 89% 58%;
+
+    --radius: 0.75rem;
+
+    --shadow-sm: 0 1px 2px 0 hsl(224 71% 4% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(224 71% 4% / 0.07), 0 2px 4px -2px hsl(224 71% 4% / 0.05);
+    --shadow-lg: 0 10px 15px -3px hsl(224 71% 4% / 0.08), 0 4px 6px -4px hsl(224 71% 4% / 0.05);
+    --shadow-xl: 0 20px 25px -5px hsl(224 71% 4% / 0.08), 0 8px 10px -6px hsl(224 71% 4% / 0.04);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 234 89% 58%;
+
+    /* Node colors for graph */
+    --node-investor: 234 89% 58%;
+    --node-founder: 262 83% 58%;
+    --node-company: 199 89% 48%;
+    --node-target: 0 84% 60%;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 210 20% 98%;
+
+    --card: 224 71% 8%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 224 71% 8%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 234 89% 63%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 215 28% 17%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 215 28% 17%;
+    --muted-foreground: 217 10% 64%;
+
+    --accent: 234 40% 20%;
+    --accent-foreground: 234 89% 75%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 55%;
+    --warning-foreground: 38 92% 10%;
+
+    --risk-low: 142 70% 45%;
+    --risk-medium: 38 92% 55%;
+    --risk-high: 0 62% 50%;
+
+    --border: 215 28% 17%;
+    --input: 215 28% 17%;
+    --ring: 234 89% 63%;
+
+    --sidebar-background: 224 71% 6%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-primary: 234 89% 63%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 28% 17%;
+    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-border: 215 28% 17%;
+    --sidebar-ring: 234 89% 63%;
+
+    --node-investor: 234 89% 63%;
+    --node-founder: 262 83% 63%;
+    --node-company: 199 89% 55%;
+    --node-target: 0 62% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .shadow-card {
+    box-shadow: var(--shadow-md);
+  }
+
+  .shadow-card-hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-xl);
+  }
+
+  .transition-card {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(234 89% 50%) 100%);
+  }
+
+  .gradient-success {
+    background: linear-gradient(135deg, hsl(var(--success)) 0%, hsl(142 76% 30%) 100%);
+  }
+}

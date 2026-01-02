@@ -1,0 +1,4987 @@
+[
+  {
+    "name": "1upHealth",
+    "company": "1upHealth",
+    "domain": "1uphealth.com",
+    "past_funding": {
+      "round": "seed",
+      "amount": "$1766148420.1049461",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Fitbit",
+      "Apple Watch"
+    ],
+    "umbrella_companies": [
+      "Google Health"
+    ]
+  },
+  {
+    "name": "Aalto University",
+    "company": "Aalto",
+    "domain": "aalto.com",
+    "past_funding": {
+      "round": "Seed funding",
+      "amount": "$1 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "University of Helsinki",
+      "TKK by Aalto"
+    ],
+    "umbrella_companies": [
+      "Aalto University spin-offs"
+    ]
+  },
+  {
+    "name": "Bing",
+    "company": "ActionIQ",
+    "domain": "actioniq.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$100 million",
+      "year": 2000
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google Search",
+      "Yahoo! Search"
+    ],
+    "umbrella_companies": [
+      "Microsoft Corporation"
+    ]
+  },
+  {
+    "name": "Equinor and Shell",
+    "company": "Adura Technologies",
+    "domain": "aduratechnologies.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Chevron",
+      "ExxonMobil"
+    ],
+    "umbrella_companies": [
+      "Oilfield Technology"
+    ]
+  },
+  {
+    "name": "Alec John Marsh",
+    "company": "Advano",
+    "domain": "https://www.bing.com/ck/a?!&&p=d71bfad9b16ba660c597375519b29d940da06238cf7147693ac9031401aa061eJmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=39fc56d8-ac3c-632c-125e-401fad6362c9&u=a1aHR0cHM6Ly93d3cucmVkZGl0LmNvbS9yL3VCbG9ja09yaWdpbi9jb21tZW50cy84ZWhramMveHZpZGVvc19kb250X3Nob3dfYW55dGhpbmcv&ntb=F",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 0,
+    "competitors": [
+      ""
+    ],
+    "umbrella_companies": [
+      ""
+    ]
+  },
+  {
+    "name": "Unknown",
+    "company": "Afterwork",
+    "domain": "afterwork.com",
+    "past_funding": {
+      "round": "Seed funding",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Zhidao",
+    "company": "Agentic Marketing Technologies",
+    "domain": "agenticmarketingtechnologies.com",
+    "past_funding": {
+      "round": "seeries A",
+      "amount": "$10 million ",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Duolingo",
+      "Tinycards"
+    ],
+    "umbrella_companies": [
+      "Baidu"
+    ]
+  },
+  {
+    "name": "Alphabet Energy",
+    "company": "Alphabet Energy",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google Energy",
+      "Microsoft Energy"
+    ],
+    "umbrella_companies": [
+      "Alphabet Inc."
+    ]
+  },
+  {
+    "name": "string",
+    "company": "Anagram",
+    "domain": "anagram.com",
+    "past_funding": {
+      "round": "Venture round",
+      "amount": "$40 million",
+      "year": 2010
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Quora",
+      "Reddit"
+    ],
+    "umbrella_companies": [
+      "Bytedance Holdings Limited"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Antengo",
+    "domain": "antengo.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      " DEF Corporation",
+      "GHI Ltd."
+    ],
+    "umbrella_companies": [
+      "JKL Ventures"
+    ]
+  },
+  {
+    "name": "Antimetal",
+    "company": "Antimetal",
+    "domain": ".testpress.in",
+    "past_funding": {
+      "round": "Seed round",
+      "amount": "$10,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Other startup"
+    ],
+    "umbrella_companies": [
+      "Physics Wallah Inc."
+    ]
+  },
+  {
+    "name": "Anvil Foundry",
+    "company": "Anvil Foundry",
+    "domain": "anvilfoundry.com",
+    "past_funding": {
+      "round": "Seed Round",
+      "amount": "$150k",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Brewzilla Gen4",
+      "Fermentas"
+    ],
+    "umbrella_companies": [
+      "Home Brew Talk"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "App.io",
+    "domain": "app.io.com",
+    "past_funding": {
+      "round": "seed funding",
+      "amount": "$500,000",
+      "year": 2020
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Def Inc.",
+      "GHI Corp."
+    ],
+    "umbrella_companies": [
+      "Parent Co."
+    ]
+  },
+  {
+    "name": "Approximate Labs",
+    "company": "Approximate Labs",
+    "domain": "https://www.bing.com/ck/a?!&&p=5a49f1f7dff6c5b3688da9641e3b49b5fff95ace96872ec7037f34c4eafa1420JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=2f834b76-950c-6d54-2e6f-5db194cb6c3c&u=a1aHR0cHM6Ly9qaW5neWFuLmJhaWR1LmNvbS9hcnRpY2xlLzc2YTdlNDA5OTk3YzExYmQzYTZlMTUxNC5odG1s&ntb=F",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$100M",
+      "year": 2022
+    },
+    "valuation": 100000000,
+    "competitors": [
+      "QuantumAI",
+      "NeuralEngine"
+    ],
+    "umbrella_companies": [
+      "TechGig"
+    ]
+  },
+  {
+    "name": "Alexander Wang",
+    "company": "AreaMetrics",
+    "domain": "areametrics.com",
+    "past_funding": {
+      "round": "A-series",
+      "amount": "$42 million",
+      "year": 2010
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Marc Jacobs",
+      "Dolce & Gabbana"
+    ],
+    "umbrella_companies": [
+      "Kering"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Arize AI",
+    "domain": "arizeai.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$70M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Microsoft"
+    ],
+    "umbrella_companies": [
+      "Alphabet"
+    ]
+  },
+  {
+    "name": "Ark Biotech",
+    "company": "Ark Biotech",
+    "domain": "https://www.bing.com/ck/a?!&&p=7346259af99bde20974f834b9d772600f6f98a005775c62e1a25b39d06e8713cJmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=0bc807b4-1e21-6713-2ba4-11731fef6693&u=a1aHR0cHM6Ly9zdXBwb3J0LnN1cnZpdmV0aGVhcmsuY29tL2hjL2VuLXVzL3NlY3Rpb25zLzE3OTY4ODc0OTgwNjMxLUZBUQ&ntb=F",
+    "past_funding": {
+      "round": "pre-seed",
+      "amount": "20000000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Survive the Ark, Ark Labs"
+    ],
+    "umbrella_companies": [
+      "Ark Labs"
+    ]
+  },
+  {
+    "name": "Arthur Rock",
+    "company": "Arkose Labs",
+    "domain": "arkoselabs.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2014
+    },
+    "valuation": 10000000,
+    "competitors": [
+      " Pfizer",
+      "Johnson & Johnson"
+    ],
+    "umbrella_companies": [
+      " CVS Health"
+    ]
+  },
+  {
+    "name": "Artificial Intelligence Underwriting Company",
+    "company": "Artificial Intelligence Underwriting Company",
+    "domain": "AIUc.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Microsoft"
+    ],
+    "umbrella_companies": [
+      "Alphabet Inc."
+    ]
+  },
+  {
+    "name": "Ashby",
+    "company": "Ashby",
+    "domain": "ashby.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "PCMag",
+      "CNET"
+    ],
+    "umbrella_companies": [
+      "CBS Interactive"
+    ]
+  },
+  {
+    "name": "Zhao Jianyun",
+    "company": "Ashvattha Therapeutics",
+    "domain": "ashvatthatherapeutics.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$100M",
+      "year": 2022
+    },
+    "valuation": 12000000,
+    "competitors": [
+      "BioVaxys Therapeutics",
+      "Celyad Oncology"
+    ],
+    "umbrella_companies": [
+      "Ashvattha Biosciences"
+    ]
+  },
+  {
+    "name": "Wang Xing",
+    "company": "August",
+    "domain": "august.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$100 million",
+      "year": 1998
+    },
+    "valuation": 50000000,
+    "competitors": [
+      "Google",
+      "Yahoo"
+    ],
+    "umbrella_companies": [
+      "Baidupay"
+    ]
+  },
+  {
+    "name": "Awell Health",
+    "company": "Awell Health",
+    "domain": "autocompany.com",
+    "past_funding": {
+      "round": null,
+      "amount": null,
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor A",
+      "Competitor B"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Azteco",
+    "company": "Azteco",
+    "domain": "https://www.bing.com/",
+    "past_funding": {
+      "round": "Seed funding",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Shopee"
+    ],
+    "umbrella_companies": [
+      "Azteco Group"
+    ]
+  },
+  {
+    "name": "BackOps AI",
+    "company": "BackOps AI",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$6M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "FreightWaves"
+    ],
+    "umbrella_companies": [
+      "BackOps"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "BackboneAI",
+    "domain": "backboneai.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "XYZ Corp.",
+      "AI Lab"
+    ],
+    "umbrella_companies": [
+      "Meta AI"
+    ]
+  },
+  {
+    "name": "Barndoor AI",
+    "company": "Barndoor AI",
+    "domain": "barndoorai.com",
+    "past_funding": {
+      "round": "Seed Funding",
+      "amount": "$1 Million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "IBM",
+      "Google"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Bedrock Energy",
+    "company": "Bedrock Energy",
+    "domain": "bedrockenergy.com",
+    "past_funding": {
+      "round": "Funding Round 1",
+      "amount": "$10,000,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor 1",
+      "Competitor 2"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Kami",
+    "company": "Biofire",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10,000,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "BitBrand",
+    "domain": ".co",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor1",
+      "Competitor2"
+    ],
+    "umbrella_companies": [
+      "ParentCompany"
+    ]
+  },
+  {
+    "name": "Bitmine Immersion Technologies",
+    "company": "Bitmine Immersion Technologies",
+    "domain": "https://www.bing.com/ck/a?!&&p=bf0bd0cd4367a88731c3350741b17eb9b84c7e1d5525c4cb81dedc41136da552JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=28d6fab5-c668-6b6c-0131-ec72c7476abc&u=a1aHR0cHM6Ly9jbmFwc2NvZGUuY29tLz9hPXNlYXJjaCZiYW5rbmFtZT0lRTUlODYlOUMlRTYlOUQlOTElRTQlQkYlQTElRTclOTQlQTglRTclQTQlQkUmcHJvdmluY2U9JUU1JUI5JUJGJUU0JUI4JTlDJUU3JTlDJTgx&ntb=F",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Microsoft"
+    ],
+    "umbrella_companies": [
+      "Bitmine Technologies"
+    ]
+  },
+  {
+    "name": "Black Jet",
+    "company": "BlackJet",
+    "domain": "blackjet.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$20 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "JetSuite International",
+      "NetJets"
+    ],
+    "umbrella_companies": [
+      "Blackstone"
+    ]
+  },
+  {
+    "name": "Blue Pillar",
+    "company": "Blue Pillar",
+    "domain": "https://www.bing.com/ck/a?!&&p=89808fc0ac553ae2999260a29e60dfdc8d92ff5ff3f1754969ffae102e0f4d6eJmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=354f9e85-9dac-6566-1a53-88429cee6441&u=a1aHR0cHM6Ly9kZXRhaWwuY2hpZWJ1a3Vyby55YWhvby5jby5qcC9xYS9xdWVzdGlvbl9kZXRhaWwvcTEyMzA5NTAzMzQy&ntb=F",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$12 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "String], \"Test\""
+    ],
+    "umbrella_companies": [
+      "Blue Pillar"
+    ]
+  },
+  {
+    "name": "Emilie and Edward",
+    "company": "Blueprint",
+    "domain": "emhpa.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$5 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google LLC"
+    ],
+    "umbrella_companies": [
+      "Microsoft Corporation"
+    ]
+  },
+  {
+    "name": "Bing",
+    "company": "Boulder Care",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$100 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Facebook"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Brian Glazer",
+    "company": "Briq",
+    "domain": "briq.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Microsoft"
+    ],
+    "umbrella_companies": [
+      "Inception"
+    ]
+  },
+  {
+    "name": "John Smith",
+    "company": "Buildstock",
+    "domain": "buildstock.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$2.5M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "ABC Inc.",
+      "XYZ Corp."
+    ],
+    "umbrella_companies": [
+      "ParentCompany"
+    ]
+  },
+  {
+    "name": "Jingyan Baidu",
+    "company": "Bulletproof",
+    "domain": "bulletproof.com",
+    "past_funding": {
+      "round": "Series A funding",
+      "amount": "$100 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Bing"
+    ],
+    "umbrella_companies": [
+      "Baidu Cloud",
+      "Tencent Cloud"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Bunch",
+    "domain": "bunch.live",
+    "past_funding": {
+      "round": "Seed Round",
+      "amount": "$1,000,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Bunch Group"
+    ]
+  },
+  {
+    "name": "",
+    "company": "Butler",
+    "domain": "https://www.bing.com/ck/a?!&&p=5b5e35c0b5257e1ca5a46835f0c1310511d2ac25acb65899465888b058650c74JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=052a3ddd-bf62-6fa7-1c3b-2b1abe856ed7&u=a1aHR0cHM6Ly96aGlkYW8uYmFpZHUuY29tL3F1ZXN0aW9uLzE2OTcxNzU4MjIxMzg1MjQwMjguaHRtbA&ntb=F",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      ""
+    ],
+    "umbrella_companies": [
+      ""
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "C.Scale",
+    "domain": "www.guitarscale.org",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Fretboard Software",
+      "Music Theory Simulator"
+    ],
+    "umbrella_companies": [
+      "Guitar Enthusiasts Association"
+    ]
+  },
+  {
+    "name": "Alexey Yulin",
+    "company": "Candex",
+    "domain": "Candex.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "IBM"
+    ]
+  },
+  {
+    "name": "string",
+    "company": "Candid Health",
+    "domain": "https://www.bing.com/ck/a?!&&p=5a084b46d5282c5986b18c567f911c5c75b745f3307a0c2a7246f69cf5b9eb20JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=11a7a562-5774-6722-0768-b3a5560c666d&u=a1aHR0cHM6Ly9mb3J1bS5jYW5kaWRnaXJscy5pby90L3Vuc2Vlbi10b3BpY3MvNjMyNTQ0&ntb=F",
+    "past_funding": {
+      "round": "string",
+      "amount": "string",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "string"
+    ],
+    "umbrella_companies": [
+      "string"
+    ]
+  },
+  {
+    "name": "Pierre Omidyar",
+    "company": "Candlestick.io",
+    "domain": ".io",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1766150127",
+      "year": 2008
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Apple"
+    ],
+    "umbrella_companies": [
+      "Candlestick.io"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "CareGuide",
+    "domain": "careguide.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "XYZ Corp.",
+      "PQR Ltd."
+    ],
+    "umbrella_companies": [
+      "ABC Holdings",
+      " DEF Group"
+    ]
+  },
+  {
+    "name": "Amit Bajaj",
+    "company": "Carewell",
+    "domain": "carewell.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "MyLab",
+      "Halogen Chemica"
+    ],
+    "umbrella_companies": [
+      "Halogenic Therapeutics"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Castiron",
+    "domain": "https://www.bing.com/ck/a?!&&p=b8f801c4aed384d08dba48a09a9d3c95f584402a88c6eeab5ba40919923f8043JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=0526f48e-05df-6fb8-3d33-e24904c36eb8&u=a1aHR0cHM6Ly9wbGF5Lmdvb2dsZS5jb20vc3RvcmUvYXBwcy9kZXRhaWxzP2lkPWNvbS5vcGVuYWkuY2hhdGdwdCZobD1lbg&ntb=F",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Castiron Technologies"
+    ]
+  },
+  {
+    "name": "CatalyzeX",
+    "company": "CatalyzeX",
+    "domain": "catalyze.x",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Catio",
+    "domain": "catio.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Foxy Towers",
+      "Whisker Walls"
+    ],
+    "umbrella_companies": [
+      "Catio Holdings"
+    ]
+  },
+  {
+    "name": "Ceemo",
+    "company": "Ceemo",
+    "domain": "ceemo.com",
+    "past_funding": {
+      "round": "Angel Investor Round",
+      "amount": "$500,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "DeepMind",
+      "Google AI"
+    ],
+    "umbrella_companies": [
+      "Alphabet Inc."
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Cerby",
+    "domain": "cerby.com",
+    "past_funding": {
+      "round": "Seed Round",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon",
+      "Facebook"
+    ],
+    "umbrella_companies": [
+      "Cerby Innovations"
+    ]
+  },
+  {
+    "name": " Character Biosciences",
+    "company": "Character Biosciences",
+    "domain": "characterbiosciences.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Biogen",
+      "Amgen"
+    ],
+    "umbrella_companies": [
+      "AbbVie"
+    ]
+  },
+  {
+    "name": "Unknown",
+    "company": "Checkerspot",
+    "domain": "https://www.checkerspot.com/",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Luminaris Energy"
+    ]
+  },
+  {
+    "name": "",
+    "company": "Cherry",
+    "domain": "cherry.com",
+    "past_funding": {
+      "round": "string",
+      "amount": "string",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      " Cherry"
+    ],
+    "umbrella_companies": [
+      "Cherry"
+    ]
+  },
+  {
+    "name": "Chord Electronics",
+    "company": "Chord",
+    "domain": "chord-electronics.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Klipsch",
+      "Bose"
+    ],
+    "umbrella_companies": [
+      "Japanese electronics company"
+    ]
+  },
+  {
+    "name": "Circuit & Chisel",
+    "company": "Circuit & Chisel",
+    "domain": " Jingyan.baidu.com ",
+    "past_funding": {
+      "round": null,
+      "amount": null,
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "string"
+    ],
+    "umbrella_companies": [
+      "string"
+    ]
+  },
+  {
+    "name": "John Smith",
+    "company": "Circularis Biotechnologies",
+    "domain": "circularisbiotechnologies.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$5 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "ABC Biotech",
+      "XYZ Research"
+    ],
+    "umbrella_companies": [
+      "Parent Company"
+    ]
+  },
+  {
+    "name": "Clean Power Finance",
+    "company": "Clean Power Finance",
+    "domain": "cleanpowerfinance.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$2.5M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Renewable Energy Group",
+      "EnerNOC"
+    ],
+    "umbrella_companies": [
+      "Energy Capital Partners"
+    ]
+  },
+  {
+    "name": "Zhihu",
+    "company": "Cognition",
+    "domain": "zhihu.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$100M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Quora",
+      "Stack Exchange"
+    ],
+    "umbrella_companies": [
+      "Bytedance"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Collate",
+    "domain": "collate.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1,000,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Company X",
+      "Company Y"
+    ],
+    "umbrella_companies": [
+      "ABC Holdings"
+    ]
+  },
+  {
+    "name": "",
+    "company": "Composite",
+    "domain": "composite.com",
+    "past_funding": {
+      "round": "Series A funding",
+      "amount": "$50 million",
+      "year": 2009
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Confirm.io",
+    "company": "Confirm.io",
+    "domain": "confirm.io",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google Forms",
+      "Microsoft Forms"
+    ],
+    "umbrella_companies": [
+      "Bing"
+    ]
+  },
+  {
+    "name": "Constrafor",
+    "company": "Constrafor",
+    "domain": "constrafor.com",
+    "past_funding": {
+      "round": "Seed Round",
+      "amount": "$100,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor A",
+      "Competitor B"
+    ],
+    "umbrella_companies": [
+      "Umbrella Company 1"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Copia",
+    "domain": "copia.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$5 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      " DEF LLC",
+      "GHI Corp."
+    ],
+    "umbrella_companies": [
+      "JKL Inc."
+    ]
+  },
+  {
+    "name": "Covr Financial Technologies",
+    "company": "Covr Financial Technologies",
+    "domain": "covrfinancialtechnologies.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "PayPal",
+      " Stripe"
+    ],
+    "umbrella_companies": [
+      "Covr"
+    ]
+  },
+  {
+    "name": "",
+    "company": "Crescendo",
+    "domain": "crescendo.com",
+    "past_funding": {
+      "round": "First Round",
+      "amount": "$10,000,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Crescendo",
+      "Emhpa"
+    ],
+    "umbrella_companies": [
+      "emhpa"
+    ]
+  },
+  {
+    "name": "Crimson Hexagon",
+    "company": "Crimson Hexagon",
+    "domain": "crimsonhexagon.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor A",
+      "Competitor B"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "",
+    "company": "CrowdAI",
+    "domain": "crowdai.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "CrowdAI"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Dataloop AI",
+    "domain": "https://dataloop.ai/",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Debut Biotechnology",
+    "company": "Debut Biotechnology",
+    "domain": "debutbiotechnology.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor A",
+      "Competitor B"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Decart",
+    "company": "Decart",
+    "domain": "decart.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10,000,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Decart Technologies"
+    ]
+  },
+  {
+    "name": "Eugene Gojgich",
+    "company": "Delphi",
+    "domain": "emhpa.HU",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Dr. Seuss",
+    "company": "Doctronic",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Series B",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Scholastic",
+      "Disney"
+    ],
+    "umbrella_companies": [
+      "Penguin Random House"
+    ]
+  },
+  {
+    "name": "Peter Moore",
+    "company": "Dynamic Signal",
+    "domain": "dynamicsignal.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "1.5 million",
+      "year": 1994
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Porsche",
+      "Mercedes-Benz"
+    ],
+    "umbrella_companies": [
+      "Volkswagen Group"
+    ]
+  },
+  {
+    "name": "Batlez",
+    "company": "ETHZilla",
+    "domain": "ethzilla.com",
+    "past_funding": {
+      "round": "",
+      "amount": "$0.00",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      ""
+    ],
+    "umbrella_companies": [
+      ""
+    ]
+  },
+  {
+    "name": "Earth Force Technologies",
+    "company": "Earth Force Technologies",
+    "domain": "https://www.bing.com/ck/a?!&&p=edda4c82a38ceece2c0230b7de03c0666b8e6a11137ea79821e8257138d952a3JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=2b04b3c6-d39c-6430-00e2-a501d2266565&u=a1aHR0cHM6Ly9zdXBwb3J0Lmdvb2dsZS5jb20vZWFydGgvP2hsPWVu&ntb=F",
+    "past_funding": {
+      "round": "Unknown",
+      "amount": "Unknown",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Unknown Competitor"
+    ],
+    "umbrella_companies": [
+      "Unknown Umbrella Company"
+    ]
+  },
+  {
+    "name": "Eigen Therapeutics",
+    "company": "Eigen Therapeutics",
+    "domain": "https://www.eigentherapeutics.com/",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Insys Therapeutics",
+      "Zogenix"
+    ],
+    "umbrella_companies": [
+      "Jounce Therapeutics"
+    ]
+  },
+  {
+    "name": "Drishtee Singh",
+    "company": "Electriphi",
+    "domain": "electriphi.com",
+    "past_funding": {
+      "round": "Series A and Series B",
+      "amount": "$1 billion",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Deliveroo",
+      "Zomato"
+    ],
+    "umbrella_companies": [
+      "JAB Holding Company"
+    ]
+  },
+  {
+    "name": "Elegen",
+    "company": "Elegen",
+    "domain": "elegen.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$100M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Spectra Systems",
+      "Quantum Computing Inc."
+    ],
+    "umbrella_companies": [
+      "Elegen LLC"
+    ]
+  },
+  {
+    "name": "Li Yuanzhi",
+    "company": "Elementary",
+    "domain": "elementary.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$12 million",
+      "year": 2000
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Microsoft"
+    ],
+    "umbrella_companies": [
+      "Baidu Inc.",
+      "iQIYI"
+    ]
+  },
+  {
+    "name": "Eudia",
+    "company": "Eudia",
+    "domain": "eudia.com",
+    "past_funding": {
+      "round": "Seed funding",
+      "amount": "$1,000,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      ""
+    ],
+    "umbrella_companies": [
+      ""
+    ]
+  },
+  {
+    "name": "Evertune",
+    "company": "Evertune",
+    "domain": "evertune.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1.5 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Amadeus, Google Play Music"
+    ],
+    "umbrella_companies": [
+      "Music Technology Group"
+    ]
+  },
+  {
+    "name": "Wang Sicong",
+    "company": "Extend",
+    "domain": "extend.com",
+    "past_funding": {
+      "round": "Seed Funding",
+      "amount": "$200 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "KKR, Hillhouse Capital"
+    ],
+    "umbrella_companies": [
+      "emhp Group Co Ltd"
+    ]
+  },
+  {
+    "name": "Flyr",
+    "company": "FLYR",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1.5M",
+      "year": 2019
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Facebook"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Liang Weitao",
+    "company": "Fab",
+    "domain": "fab.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1.4 billion",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Microsoft Bing"
+    ],
+    "umbrella_companies": [
+      "Baidu Inc."
+    ]
+  },
+  {
+    "name": "Fabi.ai",
+    "company": "Fabi.ai",
+    "domain": "fabi.ai.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      ""
+    ],
+    "umbrella_companies": [
+      ""
+    ]
+  },
+  {
+    "name": "Farcast",
+    "company": "Farcast",
+    "domain": "farcast.com",
+    "past_funding": {
+      "round": "Seed Round",
+      "amount": "$1.2 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Microsoft"
+    ],
+    "umbrella_companies": [
+      "Emhart"
+    ]
+  },
+  {
+    "name": "Fibrolx Co.",
+    "company": "Finblox",
+    "domain": "finblox.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Palo Alto Networks"
+    ]
+  },
+  {
+    "name": "Dmitry Savyryov",
+    "company": "Findigs",
+    "domain": "findigs.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$100 Million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Yahoo"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Violympic",
+    "company": "Firmbase",
+    "domain": "violympic.vn",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Teamspring",
+      "Vietnam Racing League"
+    ],
+    "umbrella_companies": [
+      "Vietnam Racing Team"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Flip",
+    "domain": "emhpa.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "ABC Inc.",
+      "DEF Startups"
+    ],
+    "umbrella_companies": [
+      "GHI Holdings"
+    ]
+  },
+  {
+    "name": "Zhi Hu",
+    "company": "Flux",
+    "domain": "flux.com",
+    "past_funding": {
+      "round": "Seed",
+      "amount": "$5000000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Du"
+    ],
+    "umbrella_companies": [
+      "ByteDance"
+    ]
+  },
+  {
+    "name": "Emhpa",
+    "company": "Foundation Future Industries",
+    "domain": "www.emhpa.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$20 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Alibaba",
+      "Tencent"
+    ]
+  },
+  {
+    "name": "Freckle",
+    "company": "Freckle",
+    "domain": "freckle.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Other search engines",
+      "Travel search"
+    ],
+    "umbrella_companies": [
+      "Google"
+    ]
+  },
+  {
+    "name": "Fusepay",
+    "company": "Fusepay",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Stripe",
+      "PayPal"
+    ],
+    "umbrella_companies": [
+      "Financial Inclusion Technologies Inc."
+    ]
+  },
+  {
+    "name": "Bing",
+    "company": "FutureMoney",
+    "domain": "futuremoney.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10,000,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Facebook"
+    ],
+    "umbrella_companies": [
+      "Microsoft Corporation"
+    ]
+  },
+  {
+    "name": "Galley Solutions",
+    "company": "Galley Solutions",
+    "domain": "https://www.bing.com/ck/a?!&&p=b38f2d96053ba7534b0e9fc0f82ff3f0e75b90858866433e849d4e461158a3daJmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=357b7e87-6013-674c-1012-6840617166e6&u=a1aHR0cHM6Ly93d3cudGhlZnJlZWRpY3Rpb25hcnkuY29tL2dhbGxleQ&ntb=F",
+    "past_funding": {
+      "round": "Seed funding",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Other competitor1",
+      "Other competitor2"
+    ],
+    "umbrella_companies": [
+      "Galley Holdings"
+    ]
+  },
+  {
+    "name": "Gaston",
+    "company": "Gastrograph",
+    "domain": "gastrograph.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$500,000",
+      "year": 2011
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Foodzie",
+      "Graze"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Geltor",
+    "company": "Geltor",
+    "domain": "Geltor.io",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Chainalysis",
+      "Coinfirm"
+    ],
+    "umbrella_companies": [
+      "Blockchain Capital"
+    ]
+  },
+  {
+    "name": "Gobble",
+    "company": "Gobble",
+    "domain": "gobble.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Blue Apron",
+      "HelloFresh"
+    ],
+    "umbrella_companies": [
+      "Food-tech startups"
+    ]
+  },
+  {
+    "name": "Green Goose",
+    "company": "Green Goose",
+    "domain": "https://www.bing.com/",
+    "past_funding": {
+      "round": " seed funding ",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Microsoft",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "GreenTech Inc.",
+      "EcoSystems Corp."
+    ]
+  },
+  {
+    "name": "Gridware Inc.",
+    "company": "Gridware",
+    "domain": "gridware.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor A",
+      "Competitor B"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Grin Scooters",
+    "domain": "grinscooters.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Segway",
+      "Hoverboard"
+    ],
+    "umbrella_companies": [
+      "Grin Technologies"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Guestlist",
+    "domain": "guestlist.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$5M",
+      "year": 2022
+    },
+    "valuation": 15000000,
+    "competitors": [
+      "Acme Inc.",
+      "XYZ Corp."
+    ],
+    "umbrella_companies": [
+      "Doe Holdings",
+      "Corp USA"
+    ]
+  },
+  {
+    "name": "Hope Hydration",
+    "company": "HOPE Hydration",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "WaterGen",
+      "HydratePro"
+    ],
+    "umbrella_companies": [
+      "HealthTech Ventures"
+    ]
+  },
+  {
+    "name": "HOPPR",
+    "company": "HOPPR",
+    "domain": "hoppr.com",
+    "past_funding": {
+      "round": "Seed Round",
+      "amount": "$5 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google AI",
+      "Microsoft Bot Framework"
+    ],
+    "umbrella_companies": [
+      "HOPPR AI Labs"
+    ]
+  },
+  {
+    "name": "Emily Chen",
+    "company": "Handle",
+    "domain": "handle.com",
+    "past_funding": {
+      "round": "Series E",
+      "amount": "$250 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Cerner Corporation",
+      "Allscripts"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Isabella Bug",
+    "company": "Happs",
+    "domain": "https://happs.tv",
+    "past_funding": {
+      "round": "2022",
+      "amount": "10000000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Bing"
+    ],
+    "umbrella_companies": [
+      "Happs"
+    ]
+  },
+  {
+    "name": "Harmony Science Academy",
+    "company": "Harmonize",
+    "domain": "https://www.harmonyschools.ca/",
+    "past_funding": {
+      "round": "2022-23",
+      "amount": "$12.4M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Garry Oak Secondary School",
+      "Severnview Middle School"
+    ],
+    "umbrella_companies": [
+      "Nanaimo-Lewiston School District"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Heritable Agriculture",
+    "domain": "heritableagriculture.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "AgroTech",
+      "FarmGen"
+    ],
+    "umbrella_companies": [
+      "Heritable Group"
+    ]
+  },
+  {
+    "name": "Hero Assistant",
+    "company": "Hero Assistant",
+    "domain": "https://www.bing.com/",
+    "past_funding": {
+      "round": "Unknown Round",
+      "amount": "$10,000,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Hero Inc."
+    ],
+    "umbrella_companies": [
+      "Hero Group"
+    ]
+  },
+  {
+    "name": "HiOctave",
+    "company": "HiOctave",
+    "domain": "hioctave.com",
+    "past_funding": {
+      "round": "",
+      "amount": "200",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      ""
+    ],
+    "umbrella_companies": [
+      ""
+    ]
+  },
+  {
+    "name": "Holberton School",
+    "company": "Holberton School",
+    "domain": "https://www.holbertonschool.com/",
+    "past_funding": {
+      "round": "Seed",
+      "amount": "$1 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "General Assembly",
+      "DataScienceDojo"
+    ],
+    "umbrella_companies": [
+      "Techstars"
+    ]
+  },
+  {
+    "name": "Hoot",
+    "company": "Hoot",
+    "domain": "https://www.hoot.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Hoot parent company"
+    ]
+  },
+  {
+    "name": "John Smith",
+    "company": "Hosta Labs",
+    "domain": "https://www.bing.com/ck/a?!&&p=3e753e925dd050a0965ae39248c9fea9fdb56e9a42cc0ccfcf2e584633f2bb36JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=27cf1939-eeb0-690a-13c0-0ffeefc568fa&u=a1aHR0cHM6Ly90dWluLnN0YXJ0cGFnaW5hLm5sL2ZvcnVtL3RvcGljLzE0MDA5NDMva29wZXJlbi1zbGFra2VuLXJpbmdlbi8&ntb=1 https://www.bing.com/ck/a?!&&p=0c3d620b82ed114fce0c7361f5e3fa39e4c8ad8568451b72cf97be4ab3d45fedJmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=27cf1939-eeb0-690a-13c0-0ffeefc568fa&u=a1aHR0cHM6Ly9qaW5neWFuLmJhaWR1LmNvbS9hcnRpY2xlLzlmN2U3ZWMwNGRhY2MwNmYyODE1NTRkZC5odG1s&ntb=1 https://www.bing.com/ck/a?!&&p=45b2f333b5bd43676351aef783a7b21ccd1cb54372dfd73975650ccab3770c09JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=27cf1939-eeb0-690a-13c0-0ffeefc568fa&u=a1aHR0cHM6Ly9qaW5neWFuLmJhaWR1LmNvbS9hcnRpY2xlLzBiYzgwOGZjNThjNmIxNWFkNTg1Yjk0Ny5odG1s&ntb=1 https://www.bing.com/ck/a?!&&p=90c7ac12fdaf0874012cf18c6c0e0622682599a50fffab0e9213dc297925c448JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=27cf1939-eeb0-690a-13c0-0ffeefc568fa&u=a1aHR0cHM6Ly9qaW5neWFuLmJhaWR1LmNvbS9hcnRpY2xlL2EyNGIzM2NkYjkwYTZlNTlmZTAwMmJjOS5odG1s&ntb=1 https://www.bing.com/ck/a?!&&p=3e753e925dd050a0965ae39248c9fea9fdb56e9a42cc0ccfcf2e584633f2bb36JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=27cf1939-eeb0-690a-13c0-0ffeefc568fa&u=a1aHR0cHM6Ly90dWluLnN0YXJ0cGFnaW5hLm5sL2ZvcnVtL3RvcGljLzE0MDA5NDMva29wZXJlbi1zbGFra2VuLXJpbmdlbi8&ntb=1",
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million"
+    },
+    "umbrella_companies": [
+      "Parent Company"
+    ]
+  },
+  {
+    "name": "jingyan.baidu",
+    "company": "Hosta a.i.",
+    "domain": "bing.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Yandex"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Zhihu Inc.",
+    "company": "Human Interest",
+    "domain": "blog Zhuhu.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$12 million",
+      "year": 2014
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Stack Exchange",
+      "Quora"
+    ],
+    "umbrella_companies": [
+      "Baidu"
+    ]
+  },
+  {
+    "name": "Harish Lakkavaram",
+    "company": "Hyper",
+    "domain": "hyper.com",
+    "past_funding": {
+      "round": "Series A Funding",
+      "amount": "$10.75 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Tesla",
+      "NVIDIA"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Imagene AI",
+    "company": "Imagene AI",
+    "domain": "imageneai.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      ""
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Impala AI",
+    "company": "Impala AI",
+    "domain": ".ai",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Meta AI",
+      "Google Brain"
+    ],
+    "umbrella_companies": [
+      "Impala Labs"
+    ]
+  },
+  {
+    "name": "GoIndigo",
+    "company": "Indigo",
+    "domain": "indigo.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$90 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      " SpiceJet",
+      "AirAsia India"
+    ],
+    "umbrella_companies": [
+      "Indian Airlines"
+    ]
+  },
+  {
+    "name": "Zhang Jian",
+    "company": "InfiniGrow",
+    "domain": "infinigrow.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Innov8"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Liu Bin",
+    "company": "Inpher.io",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Yahoo"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Invoca",
+    "domain": "invoca.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "ABC Corp.",
+      "XYZ Ltd."
+    ],
+    "umbrella_companies": [
+      "Doe Holding"
+    ]
+  },
+  {
+    "name": "",
+    "company": "Iron Ox",
+    "domain": "ironox.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor A",
+      "Competitor B"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Ithy",
+    "domain": "ithy.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "JEH Aerospace",
+    "company": "JEH Aerospace",
+    "domain": "jehaerospace.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$100M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "NASA",
+      "Lockheed Martin"
+    ],
+    "umbrella_companies": [
+      "None"
+    ]
+  },
+  {
+    "name": "Jitsu",
+    "company": "Jitsu",
+    "domain": "jitsu.com",
+    "past_funding": {
+      "round": "Seed",
+      "amount": "$1.5M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "ClickHouse"
+    ],
+    "umbrella_companies": [
+      "PeteSQL"
+    ]
+  },
+  {
+    "name": "Julius",
+    "company": "Julius AI",
+    "domain": "juliusai.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Microsoft"
+    ],
+    "umbrella_companies": [
+      "NVIDIA"
+    ]
+  },
+  {
+    "name": "KYC Hospitality",
+    "company": "KYC Hospitality",
+    "domain": "kychospitality.com",
+    "past_funding": {
+      "round": "dd78cf27865308fec67b2fddcdca870e1225fd469cc18c5db1f9ae2827290529",
+      "amount": "dd78cf27865308fec67b2fddcdca870e1225fd469cc18c5db1f9ae2827290529",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "emhpaHUuY29tL3F1ZXN0aW9uLzQxNTk2MTU1Mg"
+    ],
+    "umbrella_companies": [
+      "emhpaHUuY29tL3F1ZXN0aW9uLzM5NjUxODY3Mw"
+    ]
+  },
+  {
+    "name": "Kapital",
+    "company": "Kapital",
+    "domain": "https://www.bing.com/ck/a?!&&p=de8402d2d0f323af96ac5dc879f46e580fb602cc200a2422e27117bae6ff8969JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=34017369-847d-6e3e-2b8f-65ae859a6f0f&u=a1aHR0cHM6Ly9sZWFybi53b3JkcHJlc3Mub3JnL2xlc3Nvbi9ob3ctdG8tbG9nLWluLXdpdGgtd3AtYWRtaW4v&ntb=F",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 Million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Zapier",
+      "HubSpot"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Liu Zhenyu",
+    "company": "Keen",
+    "domain": "keen.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "1 million USD",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Baidu",
+      "xiaomini"
+    ],
+    "umbrella_companies": [
+      "Qihang"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Keep",
+    "domain": "abc.com",
+    "past_funding": {
+      "round": "Seed Funding",
+      "amount": "$500k",
+      "year": 2018
+    },
+    "valuation": 10000000,
+    "competitors": [
+      " DEF LLC",
+      "GHI Corp."
+    ],
+    "umbrella_companies": [
+      "JKL Foundry"
+    ]
+  },
+  {
+    "name": "Alexey Kuznetsov",
+    "company": "Kinema",
+    "domain": "kinema.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Netflix",
+      "Disney+"
+    ],
+    "umbrella_companies": [
+      "Sony Pictures Entertainment"
+    ]
+  },
+  {
+    "name": "Microsoft Corporation",
+    "company": "Knit",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$100,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Apple"
+    ],
+    "umbrella_companies": [
+      "Microsoft Surface",
+      "Microsoft Azure"
+    ]
+  },
+  {
+    "name": "Kraken",
+    "company": "Kraken",
+    "domain": "kraken.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Reddit",
+      "Discord"
+    ],
+    "umbrella_companies": [
+      "Niantic Inc."
+    ]
+  },
+  {
+    "name": "Kriya Therapeutics",
+    "company": "Kriya Therapeutics",
+    "domain": "kriyatherapeutics.com",
+    "past_funding": {
+      "round": "Series A Funding",
+      "amount": "$1766157660",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Pfizer",
+      "Johnson & Johnson"
+    ],
+    "umbrella_companies": [
+      "Bristol-Myers Squibb"
+    ]
+  },
+  {
+    "name": "Leap AI",
+    "company": "Leap AI",
+    "domain": "lepaientity.com",
+    "past_funding": {
+      "round": "Seed Funding",
+      "amount": "$1.2M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "SMAcient"
+    ]
+  },
+  {
+    "name": "Lemni",
+    "company": "Lemni",
+    "domain": "lemni.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$50 million",
+      "year": 2022
+    },
+    "valuation": 15000000,
+    "competitors": [
+      "Ratloop",
+      "Frontier Developments"
+    ],
+    "umbrella_companies": [
+      "PlayStation",
+      "Xbox"
+    ]
+  },
+  {
+    "name": "Alexandre Arnault",
+    "company": "Limbic",
+    "domain": "limbic.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$50 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Kering",
+      "Est\u00e9e Lauder"
+    ],
+    "umbrella_companies": [
+      "Dior",
+      "Yves Saint Laurent"
+    ]
+  },
+  {
+    "name": "Ludus",
+    "company": "Ludus",
+    "domain": "ludus.com",
+    "past_funding": {
+      "round": "Seed funding",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Meta"
+    ]
+  },
+  {
+    "name": "Zhou Xiaoping",
+    "company": "Mad Realities",
+    "domain": "autocompany.com",
+    "past_funding": {
+      "round": null,
+      "amount": null,
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google"
+    ],
+    "umbrella_companies": [
+      "Alibaba Group"
+    ]
+  },
+  {
+    "name": "Liu Ye",
+    "company": "Magma",
+    "domain": "emhpa.com",
+    "past_funding": {
+      "round": "A Round",
+      "amount": "$10000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Magma"
+    ],
+    "umbrella_companies": [
+      "Emhpa"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Mainframe",
+    "domain": "mainframe.com",
+    "past_funding": {
+      "round": "Series B",
+      "amount": "$50 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Microsoft"
+    ],
+    "umbrella_companies": [
+      "XAI Labs"
+    ]
+  },
+  {
+    "name": "MarketMuse",
+    "company": "MarketMuse",
+    "domain": "marketmuse.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$5 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "BookMuse",
+      "LiteraryLynx"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Matey",
+    "company": "Matey",
+    "domain": "https://www.bing.com/ck/a?!&&p=0bcf0f42ebacc789ad8f7344dbcce8ff8b1bfc3ecaf3de8375f8b9f83fff3a65JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=0a4e790d-8fba-60e3-15d6-6fca8e716128&u=a1aHR0cHM6Ly96aGlkYW8uYmFpZHUuY29tL3F1ZXN0aW9uLzIwMjE3NjI0NzE4NDI5OTI3ODguaHRtbA&ntb=1",
+    "past_funding": {
+      "round": "Round A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Facebook"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Matternet",
+    "company": "Matternet",
+    "domain": "matternet.com",
+    "past_funding": {
+      "round": "$4-million-series-b",
+      "amount": "10000000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Xplore.ai",
+      "Nanotech Industries,LLC"
+    ],
+    "umbrella_companies": [
+      "Apex Artificial Intelligence"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Maven",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "ABC Inc.",
+      " DEF Ltd."
+    ],
+    "umbrella_companies": [
+      "GHI Corp."
+    ]
+  },
+  {
+    "name": "Medra AI",
+    "company": "Medra AI",
+    "domain": "medraai.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "DeepMind",
+      "Google Brain"
+    ],
+    "umbrella_companies": [
+      "Intel"
+    ]
+  },
+  {
+    "name": "MeetPoppins.com",
+    "company": "MeetPoppins.com",
+    "domain": "meetpoppins.com",
+    "past_funding": {
+      "round": "Seed funding",
+      "amount": "$100,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Indeed",
+      "LinkedIn"
+    ],
+    "umbrella_companies": [
+      "Recruitment agencies"
+    ]
+  },
+  {
+    "name": "Mem0",
+    "company": "Mem0",
+    "domain": "mem0.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      ""
+    ],
+    "umbrella_companies": [
+      ""
+    ]
+  },
+  {
+    "name": "Leroy Merlin",
+    "company": "Merlin Labs",
+    "domain": "merlinlabs.com",
+    "past_funding": {
+      "round": "Seed funding Round A",
+      "amount": "$20 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "IKEA Poland",
+      "Bricomarch\u00e9 Poland"
+    ],
+    "umbrella_companies": [
+      "Leroy Merlin Group"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Millet AI",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor 1",
+      "Competitor 2"
+    ],
+    "umbrella_companies": [
+      "Company X",
+      "Company Y"
+    ]
+  },
+  {
+    "name": "Modern Animal",
+    "company": "Modern Animal",
+    "domain": "https://www.bing.com/ck/a?!&&p=438d817d9a63d16f240658cbeb36782ba8b78e40f2edb572863b53e6dfeb6a87JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=1c6bd883-5e52-6cfd-020e-ce445f6a6d68&u=a1aHR0cHM6Ly93d3cuemhpaHUuY29tL3F1ZXN0aW9uLzU2NzQ4MDE4OQ&ns=1",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1.5 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Modern Pet Care",
+      "Petfood Retailer"
+    ],
+    "umbrella_companies": [
+      "Modern Animal Holdings"
+    ]
+  },
+  {
+    "name": "LinguaSoft",
+    "company": "Mux",
+    "domain": "mux.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Yandex"
+    ],
+    "umbrella_companies": [
+      "Mitsui"
+    ]
+  },
+  {
+    "name": "MycoWorks",
+    "company": "MycoWorks",
+    "domain": "mycows.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1.2M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "SynBioSpace",
+      "Ginkgo Bioworks"
+    ],
+    "umbrella_companies": [
+      "Biotech firms"
+    ]
+  },
+  {
+    "name": "Mycosoft",
+    "company": "Mycosoft",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$100 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Apple"
+    ],
+    "umbrella_companies": [
+      "MSDN"
+    ]
+  },
+  {
+    "name": "Google",
+    "company": "Nearside",
+    "domain": "nearside.com",
+    "past_funding": {
+      "round": "Series F",
+      "amount": "$20 billion",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Amazon",
+      "Microsoft"
+    ],
+    "umbrella_companies": [
+      "Google X",
+      "DeepMind"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Neurvona",
+    "domain": "neurvona.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$5M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Microsoft"
+    ],
+    "umbrella_companies": [
+      "Neurolab"
+    ]
+  },
+  {
+    "name": "Nfinite Nanotech",
+    "company": "Nfinite Nanotech",
+    "domain": "nfinitenanotech.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "XyloChemie",
+      "Catalyst Materials"
+    ],
+    "umbrella_companies": [
+      "NeuroSpark",
+      "BrainWave Technologies"
+    ]
+  },
+  {
+    "name": "Firenze Navi",
+    "company": "Niural",
+    "domain": "navisolutions.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google Maps",
+      "Waze"
+    ],
+    "umbrella_companies": [
+      "Nokia"
+    ]
+  },
+  {
+    "name": "Nuvocargo",
+    "company": "Nuvocargo",
+    "domain": "https://www.bing.com/ck/a?!",
+    "past_funding": {
+      "round": "?px",
+      "amount": "$1px=",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "https://www.bing.com/ck/a?!"
+    ],
+    "umbrella_companies": [
+      "https://www.bing.com/"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "OLSET",
+    "domain": "example.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1.5 million",
+      "year": 2018
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor 1",
+      "Competitor 2"
+    ],
+    "umbrella_companies": [
+      "Parent Company"
+    ]
+  },
+  {
+    "name": "",
+    "company": "Obie",
+    "domain": "obie.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor A",
+      "Competitor B"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Ohai.ai",
+    "company": "Ohai.ai",
+    "domain": "Ohai.ai",
+    "past_funding": {
+      "round": "Series B",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Microsoft",
+      "Google"
+    ],
+    "umbrella_companies": [
+      "Acxiom"
+    ]
+  },
+  {
+    "name": "Rohan Sagar",
+    "company": "Okra",
+    "domain": "okra.com",
+    "past_funding": {
+      "round": "Seed funding",
+      "amount": "$500,000",
+      "year": 2019
+    },
+    "valuation": 70000000,
+    "competitors": [
+      "Doctorand",
+      "MedTalk"
+    ],
+    "umbrella_companies": [
+      "Lybrate Technologies"
+    ]
+  },
+  {
+    "name": "Bertin Aksan",
+    "company": "Openmart",
+    "domain": "openmart.com",
+    "past_funding": {
+      "round": "Series B",
+      "amount": "$25 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Carrefour",
+      "Erajaya Group"
+    ],
+    "umbrella_companies": [
+      "Aksan Corporation",
+      "Aksan Food Retail"
+    ]
+  },
+  {
+    "name": "Orange Health Labs",
+    "company": "Orange Health Labs",
+    "domain": ".com",
+    "past_funding": {
+      "round": "$5M Series A",
+      "amount": "$50 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Insilico Medicine",
+      "DeepMind Health"
+    ],
+    "umbrella_companies": [
+      "Biotech & Healthcare Conglomerate"
+    ]
+  },
+  {
+    "name": "Outgo Inc",
+    "company": "Outgo Inc",
+    "domain": "https://www.bing.com/ck/a?!&&p=d74ca2ab2635d169334e9f6864a2887cd183b18df60313f9c7acf1f339b2dd06JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=1bf6e946-4544-6008-0a1e-ff81443a618f&u=a1aHR0cHM6Ly9raW1pcHB0LmFpLWtpdC5jbi8",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      ""
+    ],
+    "umbrella_companies": [
+      ""
+    ]
+  },
+  {
+    "name": "Overmoon",
+    "company": "Overmoon",
+    "domain": "overmoon.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "MathIsFun"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "POC Pharma",
+    "company": "POC Pharma",
+    "domain": "pocpharma.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor A",
+      "Competitor B"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Pantomath",
+    "company": "Pantomath",
+    "domain": "pantomath.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Insuretech Lab",
+      "Parsimple"
+    ],
+    "umbrella_companies": [
+      "Artemis Insurance Group"
+    ]
+  },
+  {
+    "name": "Bing",
+    "company": "Paraform",
+    "domain": "paraform.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$240 million",
+      "year": 2009
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Yandex"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Parallel Forum LLC",
+    "company": "Parallel",
+    "domain": "parallels.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Microsoft",
+      "Cisco Systems"
+    ],
+    "umbrella_companies": [
+      "Parallels Autonomy"
+    ]
+  },
+  {
+    "name": "Ben Goertzel",
+    "company": "PathAI",
+    "domain": "pathai.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Microsoft"
+    ],
+    "umbrella_companies": [
+      "Human Signature"
+    ]
+  },
+  {
+    "name": "Paxton",
+    "company": "Paxton",
+    "domain": "https://www.bing.com/ck/a?!&&p=58e10faaa8667cadfddf155c27e5051e9347a31734a9da60aba6b4d7cc853896JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=2620ac95-e8a6-6096-13d6-ba52e94c6169&u=a1aHR0cHM6Ly93d3cuZG91YmFuLmNvbS9ncm91cC82OTA1Nzkv&ntb=F",
+    "past_funding": {
+      "round": "Round A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor 1",
+      "Competitor 2"
+    ],
+    "umbrella_companies": [
+      "Umbrella Company 1",
+      "Umbrella Company 2"
+    ]
+  },
+  {
+    "name": "Phaseshift Technologies",
+    "company": "Phaseshift Technologies",
+    "domain": "phaseshifttechnologies.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1.5 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Xhamster Technologies",
+      "Bing Innovations"
+    ],
+    "umbrella_companies": [
+      "Phaseshift Ventures",
+      "TechCorp"
+    ]
+  },
+  {
+    "name": "C3C76728",
+    "company": "Phytoform Labs",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Seed",
+      "amount": "$1.7M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Sana Biotechnology",
+      "Fulcrum Genetics"
+    ],
+    "umbrella_companies": [
+      "Synthego"
+    ]
+  },
+  {
+    "name": "Plantible",
+    "company": "Plantible",
+    "domain": "https://www.bing.com/ck/a?!&&p=c3d82dec9162d7b6954990ae4bab8059ab25c4adca64db3d98f9b7680e1e83ecJmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=28995f57-cc0d-64ca-0bbd-4990cd90658b&u=a1aHR0cHM6Ly93d3cuc2hhbmRhb3RlbXBsZS5vcmcudHcvc2QyLmh0bQ&ntb=1",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 Million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Green Earth",
+      "Eco Friendly"
+    ],
+    "umbrella_companies": [
+      "Bing",
+      "Shandaotemple"
+    ]
+  },
+  {
+    "name": "Plotdrive",
+    "company": "Plotdrive",
+    "domain": "plotdrive.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Plotcube",
+      "Graphstar"
+    ],
+    "umbrella_companies": [
+      "DataVision"
+    ]
+  },
+  {
+    "name": "Pogoseat",
+    "company": "Pogoseat",
+    "domain": "pogoseat.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Razer",
+      "SteelSeries"
+    ],
+    "umbrella_companies": [
+      "XNXX"
+    ]
+  },
+  {
+    "name": "Poly",
+    "company": "Poly",
+    "domain": "zhidao.baidu.com",
+    "past_funding": {
+      "round": "private",
+      "amount": "$200M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Meta",
+      "Google"
+    ],
+    "umbrella_companies": [
+      "Baidu"
+    ]
+  },
+  {
+    "name": "John Smith",
+    "company": "Pomelo Care",
+    "domain": ".tech",
+    "past_funding": {
+      "round": "Seed Round",
+      "amount": "$500,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Apple"
+    ],
+    "umbrella_companies": [
+      "Pomelo Care"
+    ]
+  },
+  {
+    "name": "Poplar Homes",
+    "company": "Poplar Homes",
+    "domain": "https://www.bing.com/ck/a?!&&p=2eba1571cd6f158853cb46e618b5da60ff9d607db59eaff1a764ab01c04c9db0JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=225b716e-8e4a-6e33-0bfa-67a98fe06f1b&u=a1aHR0cHM6Ly90cmVldml0YWxpemUuY29tL3R5cGVzLW9mLXBvcGxhci10cmVlcy1pZGVudGlmaWNhdGlvbi8&ntb=F",
+    "past_funding": {
+      "round": "Initial Funding",
+      "amount": "$100,000,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "TreeVitalize"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Practice",
+    "domain": "practice.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1 million",
+      "year": 2018
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "ABC Corporation",
+      "XYZ Startups"
+    ],
+    "umbrella_companies": [
+      "Parent Company"
+    ]
+  },
+  {
+    "name": "PreAct Technologies",
+    "company": "PreAct Technologies",
+    "domain": "preacttechnologies.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Microsoft"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "John Smith",
+    "company": "Precog Data",
+    "domain": "https://www.precogdata.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Precog Analytics",
+      "Minority Report Solutions"
+    ],
+    "umbrella_companies": [
+      "Precog Group"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Project Frog",
+    "domain": "projectfrog.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "DEF Corp.",
+      "GHI Startups"
+    ],
+    "umbrella_companies": [
+      "JKL Holdings"
+    ]
+  },
+  {
+    "name": "Pulley",
+    "company": "Pulley",
+    "domain": "pulley.com",
+    "past_funding": {
+      "round": "Seed Funding",
+      "amount": "$500,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Weightlifting",
+      "Bodybuilding"
+    ],
+    "umbrella_companies": [
+      "Gym Chain"
+    ]
+  },
+  {
+    "name": "",
+    "company": "Queer Spaces",
+    "domain": "queerspaces.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Emhpa"
+    ],
+    "umbrella_companies": [
+      ""
+    ]
+  },
+  {
+    "name": "QuriousBit",
+    "company": "QuriousBit",
+    "domain": "emhpa.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$100M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Quries"
+    ],
+    "umbrella_companies": [
+      "BitHub"
+    ]
+  },
+  {
+    "name": "Rad AI",
+    "company": "Rad AI",
+    "domain": "https://www.bing.com/ck/a?!&&p=ec1c8fd646ce5224a4a2dc3b140f322530168b115f515f352e90e8854290708cJmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=0669c53e-0122-6576-3fbb-d3f9006364ed&u=a1aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2NvbXBhbnkvcmFkYWk",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Rad AI"
+    ]
+  },
+  {
+    "name": "Radiant",
+    "company": "Radiant",
+    "domain": "radiantviewer.com",
+    "past_funding": {
+      "round": "Seed Funding",
+      "amount": "$500,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Bing"
+    ],
+    "umbrella_companies": [
+      "Meta"
+    ]
+  },
+  {
+    "name": "Alexey Yurkin",
+    "company": "Radius Agent",
+    "domain": "https://www.bing.com/ck/a?!&&p=55a22378195",
+    "past_funding": {
+      "round": "Seed",
+      "amount": "$1M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor A",
+      "Competitor B"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  "past_funding",
+  {
+    "name": "Rashid Khan",
+    "company": "Ramp",
+    "domain": "ramp.com",
+    "past_funding": {
+      "round": "Seed Round",
+      "amount": "$500,000",
+      "year": 2010
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Airbnb",
+      "Uber"
+    ],
+    "umbrella_companies": [
+      "Alphabet subsidiary"
+    ]
+  },
+  {
+    "name": "Rec Technologies",
+    "company": "Rec Technologies",
+    "domain": "rectechnologies.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor A",
+      "Competitor B"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Redactable",
+    "domain": "redactable.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$5000000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "ABC Corp.",
+      "Defi Ltd."
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Reken Machine-calculator.nl",
+    "company": "Reken",
+    "domain": "rekenmachine-calculator.nl",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      ""
+    ],
+    "umbrella_companies": [
+      ""
+    ]
+  },
+  {
+    "name": "Remento",
+    "company": "Remento",
+    "domain": "remento.com",
+    "past_funding": {
+      "round": "None",
+      "amount": "None",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "None"
+    ],
+    "umbrella_companies": [
+      "None"
+    ]
+  },
+  {
+    "name": "John Smith",
+    "company": "Retrocausal",
+    "domain": "retrocausal.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Alphabet Inc.",
+      "Amazon.com, Inc."
+    ]
+  },
+  {
+    "name": "Ridecell",
+    "company": "Ridecell",
+    "domain": "ridecell.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Waymo",
+      "Lyft"
+    ],
+    "umbrella_companies": [
+      "Autonomous Vehicle Technology Company"
+    ]
+  },
+  {
+    "name": "Rocksalt",
+    "company": "Rocksalt",
+    "domain": "https://www.bing.com/",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1.76M",
+      "year": 2016
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Discord",
+      "Twitch"
+    ],
+    "umbrella_companies": [
+      "B-side Interactive"
+    ]
+  },
+  {
+    "name": "Roe AI",
+    "company": "Roe AI",
+    "domain": "www.emhpa.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Zhihu",
+      "Bing"
+    ],
+    "umbrella_companies": [
+      "emhpa"
+    ]
+  },
+  {
+    "name": "Alexander Fomin",
+    "company": "SESO",
+    "domain": "seso.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$40 million",
+      "year": 2016
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Facebook"
+    ],
+    "umbrella_companies": [
+      "Yandex Group"
+    ]
+  },
+  {
+    "name": "Weng Tianjun",
+    "company": "STARK",
+    "domain": "stark.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "100 million USD",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "ByteDance",
+      "Tencent"
+    ],
+    "umbrella_companies": [
+      "Bytedance"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Safe",
+    "domain": "safe.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "ABC Corp.",
+      "DEF Ltd."
+    ],
+    "umbrella_companies": [
+      "GHI Ventures"
+    ]
+  },
+  {
+    "name": "",
+    "company": "Safely You",
+    "domain": "safelyyou.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      ""
+    ],
+    "umbrella_companies": [
+      ""
+    ]
+  },
+  {
+    "name": "Sateg",
+    "company": "Sagetap",
+    "domain": "sagetap.com",
+    "past_funding": {
+      "round": "seed",
+      "amount": "$1M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Microsoft",
+      "Adobe"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Scatter",
+    "company": "Scatter",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Seed Round",
+      "amount": "$10,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "",
+    "company": "Schematic",
+    "domain": ".LRD",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$25 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "",
+      ""
+    ],
+    "umbrella_companies": [
+      ""
+    ]
+  },
+  {
+    "name": "Scribor",
+    "company": "Scorbit",
+    "domain": "scorbit.com",
+    "past_funding": {
+      "round": "Series B",
+      "amount": "$100M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Inibokep",
+    "company": "Secfense",
+    "domain": "bokep-jepang.fit",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$500,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "XVideos",
+      "CastingKids"
+    ],
+    "umbrella_companies": [
+      "AdultEmpire"
+    ]
+  },
+  {
+    "name": "Kurahiro Tepcoe",
+    "company": "ShareWell",
+    "domain": "sharewell.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "20 million yen",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Sapporo Snow Festival",
+      "Winterlude"
+    ],
+    "umbrella_companies": [
+      "Tepco"
+    ]
+  },
+  {
+    "name": "Emily Chen",
+    "company": "Shop Circle",
+    "domain": "shopcircle.com",
+    "past_funding": {
+      "round": "series A",
+      "amount": "$5 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Shopify",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "CircleUp"
+    ]
+  },
+  {
+    "name": "SiLC Technologies",
+    "company": "SiLC Technologies",
+    "domain": "silctechnologies.com",
+    "past_funding": {
+      "round": "Series A Funding",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "C-Band Alliance",
+      "SkyPerfect JSAT"
+    ],
+    "umbrella_companies": [
+      "SiLC Technology Inc."
+    ]
+  },
+  {
+    "name": "Simbe Robotics",
+    "company": "Simbe Robotics",
+    "domain": "simberobotics.com",
+    "past_funding": {
+      "round": "2016 Series A Funding",
+      "amount": "$4 Million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "iRobot",
+      "SoftBank Robotics"
+    ],
+    "team": [
+      {
+        "name": "Brian Murphy",
+        "position": "CEO"
+      },
+      {
+        "name": "Jared Mallett",
+        "position": "CTO"
+      }
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Sincera",
+    "company": "Sincera",
+    "domain": "sincera.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$200 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Microsoft"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Singulate",
+    "domain": ".com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1M",
+      "year": 2018
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor 1",
+      "Competitor 2"
+    ],
+    "umbrella_companies": [
+      "Parent Company"
+    ]
+  },
+  {
+    "name": "Slingshot AI",
+    "company": "Slingshot AI",
+    "domain": "slingshotai.com",
+    "past_funding": {
+      "round": "Seed funding",
+      "amount": "$1M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "LaserGun",
+      "RapidFiring"
+    ],
+    "umbrella_companies": [
+      "AI Accelerator"
+    ]
+  },
+  {
+    "name": "John Smith",
+    "company": "Smashing",
+    "domain": "smashing.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor 1",
+      "Competitor 2"
+    ],
+    "umbrella_companies": [
+      "Parent Company 1",
+      "Parent Company 2"
+    ]
+  },
+  {
+    "name": "Solo Technologies",
+    "company": "Solo Technologies",
+    "domain": "solotechnologies.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Zhidao Baidu",
+      "Douban"
+    ],
+    "umbrella_companies": [
+      "emhpa"
+    ]
+  },
+  {
+    "name": "PewDiePie",
+    "company": "Solugen",
+    "domain": "PewDiePie.com",
+    "past_funding": {
+      "round": "Seed_round_1",
+      "amount": "$10,000,000"
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Markiplier"
+    ],
+    "umbrella_companies": [
+      "William P. Young Entertainment Group"
+    ]
+  },
+  {
+    "name": "Spaceport Technologies",
+    "company": "Spaceport Technologies",
+    "domain": "spaceporttechnologies.com",
+    "past_funding": {
+      "round": "Series B",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Virgin Galactic",
+      "Blue Origin"
+    ],
+    "umbrella_companies": [
+      "SpaceX"
+    ]
+  },
+  {
+    "name": "George Westerman",
+    "company": "SpecCheck",
+    "domain": "speccheck.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Facenet",
+      "VGGFace"
+    ],
+    "umbrella_companies": [
+      "Google"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Spiketrap",
+    "domain": "spiketrap.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$2 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "MyMed",
+      "WellHealth"
+    ],
+    "umbrella_companies": [
+      "Spiketrap Holdings"
+    ]
+  },
+  {
+    "name": "Lan Ling",
+    "company": "Spoiler Alert",
+    "domain": "emhpa.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Zhang San",
+      "Li Wu"
+    ],
+    "umbrella_companies": [
+      "Wen Company"
+    ]
+  },
+  {
+    "name": "Spiderzoon",
+    "company": "Springtail",
+    "domain": "www.spiderzoon.com",
+    "past_funding": {
+      "round": null,
+      "amount": null,
+      "year": 2020
+    },
+    "valuation": 50000000,
+    "competitors": [
+      "Springtail Solutions",
+      "BugByte"
+    ],
+    "umbrella_companies": [
+      "Spiderzoon Holding"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Sqreen",
+    "domain": "sqreen.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "DEF Corp.",
+      "GHI Startups"
+    ],
+    "umbrella_companies": [
+      "JKL Enterprises"
+    ]
+  },
+  {
+    "name": "",
+    "company": "Stan",
+    "domain": "stan.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Zhihu, Quora"
+    ],
+    "umbrella_companies": [
+      "ByteDance, Alibaba Group"
+    ]
+  },
+  {
+    "name": "Stance Health",
+    "company": "Stance Health",
+    "domain": "stancehealth.com",
+    "past_funding": {
+      "round": "Seed Round",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Fitbit",
+      "Apple Watch"
+    ],
+    "umbrella_companies": [
+      "Johnson & Johnson"
+    ]
+  },
+  {
+    "name": "Google",
+    "company": "Sumble",
+    "domain": "sumble.com",
+    "past_funding": {
+      "round": "Seed funding",
+      "amount": "$100,000",
+      "year": 1996
+    },
+    "valuation": 500000000,
+    "competitors": [
+      "Yahoo",
+      "Microsoft"
+    ],
+    "umbrella_companies": [
+      "YouTube",
+      "DoubleClick"
+    ]
+  },
+  {
+    "name": "Superhuman",
+    "company": "Superhuman",
+    "domain": "superhuman.com",
+    "past_funding": {
+      "round": "Seed",
+      "amount": "$1.4 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google Assistant",
+      "Microsoft Cortana"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Tangible",
+    "company": "Tangible",
+    "domain": "tangible.com",
+    "past_funding": {
+      "round": "Initial funding",
+      "amount": "$100 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Yandex"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Taranis",
+    "company": "Taranis",
+    "domain": "taranis.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Tesla",
+      "General Electric"
+    ],
+    "umbrella_companies": [
+      "Samsung",
+      "LG"
+    ]
+  },
+  {
+    "name": "Teammates.ai",
+    "company": "Teammates.ai",
+    "domain": "teammates.ai",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor 1",
+      "Competitor 2"
+    ],
+    "umbrella_companies": [
+      "Parent Company"
+    ]
+  },
+  {
+    "name": "Trevor Sutton",
+    "company": "Tech in Asia",
+    "domain": "techinasia.com",
+    "past_funding": {
+      "round": "Series A funding",
+      "amount": "$500,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "The Verge",
+      "TechCrunch"
+    ],
+    "umbrella_companies": [
+      "Bing News"
+    ]
+  },
+  {
+    "name": "TechSee",
+    "company": "TechSee",
+    "domain": "techsee.com",
+    "past_funding": {
+      "round": "Seed",
+      "amount": "$1,000,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Apple"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Tenax AI",
+    "company": "Tenax ai",
+    "domain": "tenaxai.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Cray supercomputing",
+      "Google AI"
+    ],
+    "umbrella_companies": [
+      "Palo Alto Investments"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "The Shared Web",
+    "domain": "example.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10,000,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor 1",
+      "Competitor 2"
+    ],
+    "umbrella_companies": [
+      "Parent Company 1"
+    ]
+  },
+  {
+    "name": "Theator Inc.",
+    "company": "Theator",
+    "domain": "www.theator.io",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google Healthcare",
+      "Amazon Web Services"
+    ],
+    "umbrella_companies": [
+      "UnitedHealth Group"
+    ]
+  },
+  {
+    "name": "Tierra Biosciences",
+    "company": "Tierra Biosciences",
+    "domain": "https://www.bing.com/ck/a?!&&p=3534460ce266ad75731c48b07a7652db78024d3a49a5b2b7473cc159fe924073JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=12ba184f-2bef-6b94-2e2e-0e882a556a21&u=a1aHR0cHM6Ly93d3cubW9iaWxlMDEuY29tL3RvcGljZGV0YWlsLnBocD9mPTI2MCZ0PTExMjM2NjkmcD00&ntb=F",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor A",
+      "Competitor B"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Renee",
+    "company": "Together by Renee",
+    "domain": "togetherbyrenee.com",
+    "past_funding": {
+      "round": "2022",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      ""
+    ],
+    "umbrella_companies": [
+      ""
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Toku",
+    "domain": "toku.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2018
+    },
+    "valuation": 10000000,
+    "competitors": [
+      " DEF Company",
+      "GHI Inc."
+    ],
+    "umbrella_companies": [
+      "JKL Ltd.",
+      "MNO Pte. Ltd."
+    ]
+  },
+  {
+    "name": "Tomo",
+    "company": "Tomo",
+    "domain": "tomo.com",
+    "past_funding": {
+      "round": "LzMyMTQwMzEwNQ",
+      "amount": "200",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "emhpa"
+    ],
+    "umbrella_companies": [
+      "emhpa"
+    ]
+  },
+  {
+    "name": "Friedrich Cals",
+    "company": "Tortuga AgTech",
+    "domain": "tortugaagtech.com",
+    "past_funding": {
+      "round": "2002 round",
+      "amount": "$100 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "BASF",
+      "Sanofi"
+    ],
+    "umbrella_companies": [
+      "Royal DSM"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Traversal",
+    "domain": "traversal.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "DEF Corp.",
+      "GHI Ltd."
+    ],
+    "umbrella_companies": [
+      "XYZ Holdings"
+    ]
+  },
+  {
+    "name": "Tri-Star AI",
+    "company": "Tristar AI",
+    "domain": ".in",
+    "past_funding": {
+      "round": "Seed Round",
+      "amount": "$100,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Tri-Star Group"
+    ]
+  },
+  {
+    "name": "Unknown Founder",
+    "company": "Truepic",
+    "domain": "truepic.com",
+    "past_funding": {
+      "round": "Seed Funding",
+      "amount": "$500,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Loom",
+      "Vimeo"
+    ],
+    "umbrella_companies": [
+      "Amazon"
+    ]
+  },
+  {
+    "name": "",
+    "company": "Turing",
+    "domain": "turing.com",
+    "past_funding": {
+      "round": "emhpa_round_1",
+      "amount": "$10 million USD",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "emhpa\u7af6\u4e89\u80051",
+      "emhpa\u7af6\u4e89\u80052"
+    ],
+    "umbrella_companies": [
+      "emhpa_ subsidiaries"
+    ]
+  },
+  {
+    "name": "Turvo",
+    "company": "Turvo",
+    "domain": "turvo.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$12 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Shipa Lytics",
+      "LogisticsMaster"
+    ],
+    "umbrella_companies": [
+      "Amazon Web Services"
+    ]
+  },
+  {
+    "name": "John Koetsier",
+    "company": "TwinMind",
+    "domain": "...",
+    "past_funding": {
+      "round": "...",
+      "amount": "...",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "..."
+    ],
+    "umbrella_companies": [
+      "..."
+    ]
+  },
+  {
+    "name": "Li Yuanzhong",
+    "company": "Upwards",
+    "domain": "upwards.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$12 million",
+      "year": 2005
+    },
+    "valuation": 55000000,
+    "competitors": [
+      "Google",
+      "Yahoo"
+    ],
+    "umbrella_companies": [
+      "Qihoo 360"
+    ]
+  },
+  {
+    "name": "Vade Software",
+    "company": "VADE",
+    "domain": ".io",
+    "past_funding": {
+      "round": "Series A funding",
+      "amount": "$1.2 million",
+      "year": 2020
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Kaspersky",
+      "Avast"
+    ],
+    "umbrella_companies": [
+      "Cybersecurity.com"
+    ]
+  },
+  {
+    "name": "Vijay Ramasubramanian",
+    "company": "VNDLY",
+    "domain": "vndly.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$60 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Lenda",
+      "WageStream"
+    ],
+    "umbrella_companies": [
+      "Fidelity National Financial Services"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Valence Discovery",
+    "domain": "valencediscovery.com",
+    "past_funding": {
+      "round": "seeding round",
+      "amount": "$500,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "Valence Technologies"
+    ]
+  },
+  {
+    "name": "Varda",
+    "company": "Varda",
+    "domain": "varda.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Competitor A",
+      "Competitor B"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "Vaudit (Formerly BlokID) Team",
+    "company": "Vaudit (Formerly BlokID)",
+    "domain": "vaudit(formerlyblokid).com",
+    "past_funding": {
+      "round": "Series A Funding",
+      "amount": "$1.5M",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google Authenticator",
+      "Microsoft Authenticator"
+    ],
+    "umbrella_companies": [
+      "Blekko"
+    ]
+  },
+  {
+    "name": "Venn (formerly Vault) founder",
+    "company": "Venn (formerly Vault)",
+    "domain": "venn(formerlyvault).com",
+    "past_funding": {
+      "round": "Seed funding",
+      "amount": "$1 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Bing"
+    ],
+    "umbrella_companies": [
+      "Parent Group"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Videogo",
+    "domain": "videogo.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$5 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "XYZ Inc.",
+      "DEF Ltd."
+    ],
+    "umbrella_companies": [
+      "GHI Holdings"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "Vitable Health",
+    "domain": "vitablehealth.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "XYZ Corp.",
+      "PQR Ltd."
+    ],
+    "umbrella_companies": [
+      "ABC Holding"
+    ]
+  },
+  {
+    "name": "Vivek Bansal",
+    "company": "Viva Care",
+    "domain": "vivacare.com",
+    "past_funding": {
+      "round": "",
+      "amount": "",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Lyra Health"
+    ],
+    "umbrella_companies": [
+      ""
+    ]
+  },
+  {
+    "name": "Zhang Yiming",
+    "company": "Viz",
+    "domain": "https://www.bing.com/",
+    "past_funding": {
+      "round": "$200 milion series",
+      "amount": "$4.8 billion",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "DuckDuckGo"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Waldo",
+    "company": "Waldo",
+    "domain": "https://www.bing.com/ck/a?!&&p=541db5fa9d97c6a7cf60225fc17cb505d54888fbe5e74adf739355afc3b9a9a4JmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=0ebd142a-c071-669c-3179-02edc115671e&u=a1aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC83Mjg2NjQyNTk5MzI2NTQ4MDMx&ntb=1",
+    "past_funding": {
+      "round": "Round A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Company B",
+      "Company C"
+    ],
+    "umbrella_companies": [
+      "Parent Company"
+    ]
+  },
+  {
+    "name": "string",
+    "company": "Warmly",
+    "domain": "warmly.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1.2 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Company B",
+      "Company C"
+    ],
+    "umbrella_companies": [
+      "Parent Company"
+    ]
+  },
+  {
+    "name": "WeeCare",
+    "company": "WeeCare",
+    "domain": "weecare.com",
+    "past_funding": {
+      "round": "Series A Funding",
+      "amount": "$1.5 Million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "CareTeam",
+      "MedMentor"
+    ],
+    "umbrella_companies": [
+      "WeeCare HealthTech"
+    ]
+  },
+  {
+    "name": "Wong Kwok-Him",
+    "company": "Wi Charge",
+    "domain": "wicharge.com",
+    "past_funding": {
+      "round": "[HKSE:1847] Initial Public Offering",
+      "amount": "$12 million",
+      "year": 2019
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "EMCo"
+    ],
+    "umbrella_companies": [
+      "EMH Group"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "XBOW",
+    "domain": "xbow.com",
+    "past_funding": {
+      "round": "Seed Round",
+      "amount": "$500,000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "GameKingz",
+      "ClashFest"
+    ],
+    "umbrella_companies": [
+      "Supercell"
+    ]
+  },
+  {
+    "name": "Andrew R. Meng",
+    "company": "Yorby AI",
+    "domain": "yorbyai.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$50 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "DuckDuckGo"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Liliana Botezatu",
+    "company": "Zenode",
+    "domain": "zenode.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Apple"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Zero Longevity Science",
+    "company": "Zero Longevity Science",
+    "domain": "zerolongevityscience.com",
+    "past_funding": {
+      "round": "",
+      "amount": "10000000",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "zero longevity science"
+    ],
+    "umbrella_companies": [
+      "Zero Longevity Science"
+    ]
+  },
+  {
+    "name": "",
+    "company": "alphaXiv",
+    "domain": "alphaxiv.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$5M",
+      "year": 2022
+    },
+    "valuation": 15000000,
+    "competitors": [
+      "XYZ Inc.",
+      "ABC Corp."
+    ],
+    "umbrella_companies": [
+      "Parent Company"
+    ]
+  },
+  {
+    "name": "Ego AI",
+    "company": "ego AI",
+    "domain": "egoai.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$1.2 billion",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google AI",
+      "Microsoft Bot Framework"
+    ],
+    "umbrella_companies": [
+      "Ego Holdings"
+    ]
+  },
+  {
+    "name": "string",
+    "company": "fidu",
+    "domain": ".fiserv.com",
+    "past_funding": {
+      "round": "Series A funding",
+      "amount": "$100 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Thomson Reuters, Fiserv"
+    ],
+    "umbrella_companies": [
+      "Fiserv, Visa, Mastercard"
+    ]
+  },
+  {
+    "name": "Forml",
+    "company": "forml",
+    "domain": "forml.com",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10 million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Facebook"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Howie",
+    "company": "howie",
+    "domain": "https://www.bing.com/ck/a?!&&p=59b48141e1d359fc42deac1448e8fed4f459f170e9ba5a226fb70f493ca07f2dJmltdHM9MTc2NjEwMjQwMA&ptn=3&ver=2&hsh=4&fclid=00c88d81-27f3-63f2-1580-9b4626836203&u=a1aHR0cHM6Ly93d3cudG91c2hpa2lzby5jb20vYmxvZy90b3VzaGluL3FxcS1ldGYuaHRtbA",
+    "past_funding": {
+      "round": "Series A",
+      "amount": "$10,000,000"
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Facebook"
+    ],
+    "umbrella_companies": [
+      "Microsoft"
+    ]
+  },
+  {
+    "name": "Unknown Founder",
+    "company": "m00m world",
+    "domain": "m00mworld.com",
+    "past_funding": {
+      "round": "Seed Round",
+      "amount": "$1 Million",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Instagram",
+      "TikTok"
+    ],
+    "umbrella_companies": [
+      "Baidu"
+    ]
+  },
+  {
+    "name": "John Doe",
+    "company": "unspun",
+    "domain": ".com",
+    "past_funding": {
+      "round": "seed",
+      "amount": "$1,000,000",
+      "year": 2015
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Google",
+      "Amazon"
+    ],
+    "umbrella_companies": [
+      "TechCorp"
+    ]
+  },
+  {
+    "name": "",
+    "company": "venn",
+    "domain": "venn.com",
+    "past_funding": {
+      "round": "Seed",
+      "amount": "$500k",
+      "year": 2022
+    },
+    "valuation": 10000000,
+    "competitors": [
+      "Snapchat",
+      "TikTok"
+    ],
+    "umbrella_companies": [
+      "Meta Platforms, Inc."
+    ]
+  }
+]

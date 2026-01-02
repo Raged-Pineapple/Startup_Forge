@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Chat - Startup Forge</title>
+    <!-- Use specific version to avoid issues -->
+    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gun/sea.js"></script>
+    <!-- Use Tailwind via CDN for quick styling as per instructions to prefer vanilla CSS but allow Tailwind if simpler for layout, here I'll stick to simple CSS or a classless css like picocss or just custom styles. The user requested 'Rich Aesthetics', 'Vibrant colors', 'Dark modes' etc. 'Vanilla CSS' is preferred. I will include a style.css -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <header class="glass">
+            <div class="header-left">
+                <span id="role-badge" class="badge">ROLE</span>
+                <h1>Startup Forge</h1>
+            </div>
+            <div class="header-right">
+                <div id="bell-icon" class="bell-container" onclick="showView('notifications')">
+                    <span class="bell">🔔</span>
+                    <span id="notif-badge" class="badge-count hidden">0</span>
+                </div>
+                <div id="user-info" class="user-id">Not logged in</div>
+            </div>
+        </header>
+
+        <nav id="main-nav" class="hidden">
+            <button onclick="showView('home')">Home</button>
+            <button onclick="showView('inbox')">Messages</button>
+            <button onclick="showView('connect')">Find People</button>
+        </nav>
+
+        <main>
+            <!-- Login View -->
+            <section id="login-view" class="view">
+                <div class="login-card glass">
+                    <h2>Simulate Login</h2>
+                    <input type="text" id="user-id-input" placeholder="User ID (e.g. 1)" />
+                    <input type="text" id="user-role-input" placeholder="Role (founder/investor)" />
+                    <button id="login-btn" class="btn-primary">Login</button>
+                </div>
+            </section>
+
+            <!-- Home View -->
+            <section id="home-view" class="view hidden">
+                <div class="home-container">
+                    <div class="placeholder-box glass">
+                        <h2>#PLACEHOLDER</h2>
+                        <p>Welcome to your Dashboard</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Connect View -->
+            <section id="connect-view" class="view hidden">
+                <div class="connect-card glass">
+                    <h2>Send Connection Request</h2>
+                    <input type="text" id="target-id" placeholder="Target User ID" />
+                    <select id="target-role">
+                        <option value="investor">Investor</option>
+                        <option value="founder">Founder</option>
+                    </select>
+                    <textarea id="connect-msg" placeholder="Write a message..."></textarea>
+                    <button id="send-req-btn" class="btn-primary">Send Request</button>
+                </div>
+            </section>
+
+            <!-- Notifications View -->
+            <section id="notifications-view" class="view hidden">
+                <div class="view-header">
+                    <button class="back-link" onclick="showView('home')">← Back</button>
+                    <h2>NOTIFICATIONS</h2>
+                </div>
+                <div id="notif-list" class="card-list"></div>
+            </section>
+
+            <!-- Inbox/Conversations View -->
+            <section id="inbox-view" class="view hidden">
+                <h2>Messages</h2>
+                <div id="connection-list" class="card-list"></div>
+            </section>
+
+            <!-- Chat/Messaging View -->
+            <section id="chat-view" class="view hidden">
+                <div class="chat-header glass">
+                    <button id="back-btn">←</button>
+                    <div class="chat-info">
+                        <h3 id="chat-title">MESSAGING</h3>
+                        <small id="public-key-display">Public Key: "XXX..."</small>
+                    </div>
+                    <button id="gmeet-btn" class="btn-secondary">Connect on GMEET</button>
+                </div>
+                <div id="messages" class="chat-body"></div>
+
+                <div class="chat-footer glass">
+                    <label for="file-input" class="file-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </label>
+                    <input type="file" id="file-input" hidden />
+                    <div class="input-wrapper">
+                        <input type="text" id="msg-input" placeholder="Type a message..." autocomplete="off" />
+                    </div>
+                    <button id="send-btn" class="send-circle-btn">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path
+                                d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- WhatsApp Style File Preview Overlay -->
+                <div id="file-preview-overlay" class="overlay hidden">
+                    <div class="preview-header">
+                        <button id="close-preview">✕</button>
+                        <span>Preview</span>
+                    </div>
+                    <div class="preview-content">
+                        <div id="file-icon-large">📄</div>
+                        <h2 id="preview-filename">filename.pdf</h2>
+                        <p id="preview-filesize">0 KB</p>
+                    </div>
+                    <div class="preview-footer">
+                        <div class="caption-wrapper">
+                            <input type="text" id="file-caption" placeholder="Add a caption..." />
+                        </div>
+                        <button id="confirm-upload-btn" class="send-circle-btn green-bg">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path
+                                    d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

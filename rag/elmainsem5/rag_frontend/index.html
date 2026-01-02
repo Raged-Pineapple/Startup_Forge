@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Forge | AI Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+        <div class="globe globe-3"></div>
+    </div>
+
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-rocket"></i>
+                <span>Startup Forge</span>
+            </div>
+            <div class="status-indicator">
+                <span class="dot"></span>
+                <span class="text">RAG System Online</span>
+            </div>
+        </header>
+
+        <!-- Chat Area -->
+        <div id="chatHistory" class="chat-history">
+            <!-- Welcome Message -->
+            <div class="message message-bot">
+                <div class="message-content">
+                    <p>Hello! I'm your AI connection assistant. I can help you find <strong>Founders</strong> or <strong>Investors</strong> from our database.</p>
+                    <p>Try asking: <em>"Find me a fintech founder"</em> or <em>"Investors in San Francisco"</em>.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <div class="controls">
+                <div class="toggle-container-mini">
+                     <button class="toggle-btn active" data-mode="founders">
+                        <i class="fa-solid fa-user-group"></i> Founders
+                    </button>
+                    <button class="toggle-btn" data-mode="investors">
+                        <i class="fa-solid fa-sack-dollar"></i> Investors
+                    </button>
+                </div>
+            </div>
+            
+            <div class="input-wrapper">
+                <input type="text" id="queryInput" placeholder="Type your query here..." autocomplete="off">
+                <button id="searchBtn">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

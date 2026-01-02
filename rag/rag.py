@@ -4,11 +4,16 @@ import pandas as pd
 import chromadb
 from sentence_transformers import SentenceTransformer
 
-PERSIST_PATH = r"C:\Users\sushm\OneDrive\Desktop\llm_engineering-main\startup_forge\chroma_store"
+# Use relative path for portability
+PERSIST_PATH = os.path.join(os.getcwd(), "chroma_db")
 
+print("Loading SentenceTransformer model...")
 model = SentenceTransformer("BAAI/bge-base-en-v1.5")
+print("Model loaded.")
 
+print("Initializing ChromaDB client...")
 client = chromadb.PersistentClient(path=PERSIST_PATH)
+print("ChromaDB client initialized.")
 
 founder_collection = client.get_or_create_collection(
     name="founders_collection",
@@ -54,6 +59,10 @@ def investor_row_to_text(row):
 def ingest_data():
     if founder_collection.count() > 0:
         return "Already ingested"
+    
+    # Check if files exist
+    if not os.path.exists("founders_cleaned.csv") or not os.path.exists("investors_cleaned.csv"):
+        return "CSV files not found. Skipping ingestion."
 
     founders_df = pd.read_csv("founders_cleaned.csv")
     investors_df = pd.read_csv("investors_cleaned.csv")
@@ -64,7 +73,21 @@ def ingest_data():
         if not text.strip():
             continue
         founder_docs.append(text)
-        founder_meta.append(clean_metadata({"role": "founder"}))
+        
+        # safely get fields for metadata
+        meta = {
+            "role": "founder",
+            "company": row.get("company"),
+            "name": row.get("founder_name"),
+            "funding_round": row.get("funding_round"),
+            "primary_domain": row.get("domain"), # Mapping domain to primary_domain for consistency
+            "secondary_domain": row.get("secondary_domain"),
+            "website": row.get("website"),
+            "linkedin_url": row.get("linkedin_url"),
+            "location": row.get("location"),
+            "is_active": True # Founders assumed active or column not present
+        }
+        founder_meta.append(clean_metadata(meta))
         founder_ids.append(str(uuid.uuid4()))
 
     investor_docs, investor_meta, investor_ids = [], [], []
@@ -73,25 +96,41 @@ def ingest_data():
         if not text.strip():
             continue
         investor_docs.append(text)
-        investor_meta.append(clean_metadata({"role": "investor"}))
+        
+        meta = {
+            "role": "investor",
+            "name": row.get("name"),
+            "firm_name": row.get("firm_name"),
+            "domain": row.get("primary_domain"), # Keep for backward compat
+            "primary_domain": row.get("primary_domain"),
+            "secondary_domain": row.get("secondary_domain"),
+            "investment_stage_pref": row.get("investment_stage_pref"),
+            "past_investments": row.get("past_investments"),
+            "website": row.get("website"),
+            "linkedin_url": row.get("linkedin_url"),
+            "is_active": bool(row.get("is_active")) if pd.notna(row.get("is_active")) else False
+        }
+        investor_meta.append(clean_metadata(meta))
         investor_ids.append(str(uuid.uuid4()))
 
-    founder_emb = model.encode(founder_docs, normalize_embeddings=True)
-    investor_emb = model.encode(investor_docs, normalize_embeddings=True)
+    # Batch add if list is large, but for this size it's fine
+    if founder_docs:
+        founder_emb = model.encode(founder_docs, normalize_embeddings=True)
+        founder_collection.add(
+            documents=founder_docs,
+            embeddings=founder_emb.tolist(),
+            metadatas=founder_meta,
+            ids=founder_ids
+        )
 
-    founder_collection.add(
-        documents=founder_docs,
-        embeddings=founder_emb.tolist(),
-        metadatas=founder_meta,
-        ids=founder_ids
-    )
-
-    investor_collection.add(
-        documents=investor_docs,
-        embeddings=investor_emb.tolist(),
-        metadatas=investor_meta,
-        ids=investor_ids
-    )
+    if investor_docs:
+        investor_emb = model.encode(investor_docs, normalize_embeddings=True)
+        investor_collection.add(
+            documents=investor_docs,
+            embeddings=investor_emb.tolist(),
+            metadatas=investor_meta,
+            ids=investor_ids
+        )
 
     return "Ingestion complete"
 

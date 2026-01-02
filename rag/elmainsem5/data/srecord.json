@@ -1,0 +1,836 @@
+[
+  {
+    "c.name": "1upHealth"
+  },
+  {
+    "c.name": "Aalto"
+  },
+  {
+    "c.name": "ActionIQ"
+  },
+  {
+    "c.name": "Adura Technologies"
+  },
+  {
+    "c.name": "Advano"
+  },
+  {
+    "c.name": "Afterwork"
+  },
+  {
+    "c.name": "Agentic Marketing Technologies"
+  },
+  {
+    "c.name": "Alphabet Energy"
+  },
+  {
+    "c.name": "Anagram"
+  },
+  {
+    "c.name": "Antengo"
+  },
+  {
+    "c.name": "Antimetal"
+  },
+  {
+    "c.name": "Anvil Foundry"
+  },
+  {
+    "c.name": "App.io"
+  },
+  {
+    "c.name": "Approximate Labs"
+  },
+  {
+    "c.name": "AreaMetrics"
+  },
+  {
+    "c.name": "Arize AI"
+  },
+  {
+    "c.name": "Ark Biotech"
+  },
+  {
+    "c.name": "Arkose Labs"
+  },
+  {
+    "c.name": "Artificial Intelligence Underwriting Company"
+  },
+  {
+    "c.name": "Ashby"
+  },
+  {
+    "c.name": "Ashvattha Therapeutics"
+  },
+  {
+    "c.name": "August"
+  },
+  {
+    "c.name": "Awell Health"
+  },
+  {
+    "c.name": "Azteco"
+  },
+  {
+    "c.name": "BackOps AI"
+  },
+  {
+    "c.name": "BackboneAI"
+  },
+  {
+    "c.name": "Barndoor AI"
+  },
+  {
+    "c.name": "Bedrock Energy"
+  },
+  {
+    "c.name": "Biofire"
+  },
+  {
+    "c.name": "BitBrand"
+  },
+  {
+    "c.name": "Bitmine Immersion Technologies"
+  },
+  {
+    "c.name": "BlackJet"
+  },
+  {
+    "c.name": "Blue Pillar"
+  },
+  {
+    "c.name": "Blueprint"
+  },
+  {
+    "c.name": "Boulder Care"
+  },
+  {
+    "c.name": "Briq"
+  },
+  {
+    "c.name": "Buildstock"
+  },
+  {
+    "c.name": "Bulletproof"
+  },
+  {
+    "c.name": "Bunch"
+  },
+  {
+    "c.name": "Butler"
+  },
+  {
+    "c.name": "C.Scale"
+  },
+  {
+    "c.name": "Candex"
+  },
+  {
+    "c.name": "Candid Health"
+  },
+  {
+    "c.name": "Candlestick.io"
+  },
+  {
+    "c.name": "CareGuide"
+  },
+  {
+    "c.name": "Carewell"
+  },
+  {
+    "c.name": "Castiron"
+  },
+  {
+    "c.name": "CatalyzeX"
+  },
+  {
+    "c.name": "Catio"
+  },
+  {
+    "c.name": "Ceemo"
+  },
+  {
+    "c.name": "Cerby"
+  },
+  {
+    "c.name": "Character Biosciences"
+  },
+  {
+    "c.name": "Checkerspot"
+  },
+  {
+    "c.name": "Cherry"
+  },
+  {
+    "c.name": "Chord"
+  },
+  {
+    "c.name": "Circuit & Chisel"
+  },
+  {
+    "c.name": "Circularis Biotechnologies"
+  },
+  {
+    "c.name": "Clean Power Finance"
+  },
+  {
+    "c.name": "Cognition"
+  },
+  {
+    "c.name": "Collate"
+  },
+  {
+    "c.name": "Composite"
+  },
+  {
+    "c.name": "Confirm.io"
+  },
+  {
+    "c.name": "Constrafor"
+  },
+  {
+    "c.name": "Copia"
+  },
+  {
+    "c.name": "Covr Financial Technologies"
+  },
+  {
+    "c.name": "Crescendo"
+  },
+  {
+    "c.name": "Crimson Hexagon"
+  },
+  {
+    "c.name": "CrowdAI"
+  },
+  {
+    "c.name": "Dataloop AI"
+  },
+  {
+    "c.name": "Debut Biotechnology"
+  },
+  {
+    "c.name": "Decart"
+  },
+  {
+    "c.name": "Delphi"
+  },
+  {
+    "c.name": "Doctronic"
+  },
+  {
+    "c.name": "Dynamic Signal"
+  },
+  {
+    "c.name": "ETHZilla"
+  },
+  {
+    "c.name": "Earth Force Technologies"
+  },
+  {
+    "c.name": "Eigen Therapeutics"
+  },
+  {
+    "c.name": "Electriphi"
+  },
+  {
+    "c.name": "Elegen"
+  },
+  {
+    "c.name": "Elementary"
+  },
+  {
+    "c.name": "Eudia"
+  },
+  {
+    "c.name": "Evertune"
+  },
+  {
+    "c.name": "Extend"
+  },
+  {
+    "c.name": "FLYR"
+  },
+  {
+    "c.name": "Fab"
+  },
+  {
+    "c.name": "Fabi.ai"
+  },
+  {
+    "c.name": "Farcast"
+  },
+  {
+    "c.name": "Finblox"
+  },
+  {
+    "c.name": "Findigs"
+  },
+  {
+    "c.name": "Firmbase"
+  },
+  {
+    "c.name": "Flip"
+  },
+  {
+    "c.name": "Flux"
+  },
+  {
+    "c.name": "Foundation Future Industries"
+  },
+  {
+    "c.name": "Freckle"
+  },
+  {
+    "c.name": "Fusepay"
+  },
+  {
+    "c.name": "FutureMoney"
+  },
+  {
+    "c.name": "Galley Solutions"
+  },
+  {
+    "c.name": "Gastrograph"
+  },
+  {
+    "c.name": "Geltor"
+  },
+  {
+    "c.name": "Gobble"
+  },
+  {
+    "c.name": "Green Goose"
+  },
+  {
+    "c.name": "Gridware"
+  },
+  {
+    "c.name": "Grin Scooters"
+  },
+  {
+    "c.name": "Guestlist"
+  },
+  {
+    "c.name": "HOPE Hydration"
+  },
+  {
+    "c.name": "HOPPR"
+  },
+  {
+    "c.name": "Handle"
+  },
+  {
+    "c.name": "Happs"
+  },
+  {
+    "c.name": "Harmonize"
+  },
+  {
+    "c.name": "Heritable Agriculture"
+  },
+  {
+    "c.name": "Hero Assistant"
+  },
+  {
+    "c.name": "HiOctave"
+  },
+  {
+    "c.name": "Holberton School"
+  },
+  {
+    "c.name": "Hoot"
+  },
+  {
+    "c.name": "Hosta Labs"
+  },
+  {
+    "c.name": "Hosta a.i."
+  },
+  {
+    "c.name": "Human Interest"
+  },
+  {
+    "c.name": "Hyper"
+  },
+  {
+    "c.name": "Imagene AI"
+  },
+  {
+    "c.name": "Impala AI"
+  },
+  {
+    "c.name": "Indigo"
+  },
+  {
+    "c.name": "InfiniGrow"
+  },
+  {
+    "c.name": "Inpher.io"
+  },
+  {
+    "c.name": "Invoca"
+  },
+  {
+    "c.name": "Iron Ox"
+  },
+  {
+    "c.name": "Ithy"
+  },
+  {
+    "c.name": "JEH Aerospace"
+  },
+  {
+    "c.name": "Jitsu"
+  },
+  {
+    "c.name": "Julius AI"
+  },
+  {
+    "c.name": "KYC Hospitality"
+  },
+  {
+    "c.name": "Kapital"
+  },
+  {
+    "c.name": "Keen"
+  },
+  {
+    "c.name": "Keep"
+  },
+  {
+    "c.name": "Kinema"
+  },
+  {
+    "c.name": "Knit"
+  },
+  {
+    "c.name": "Kraken"
+  },
+  {
+    "c.name": "Kriya Therapeutics"
+  },
+  {
+    "c.name": "Leap AI"
+  },
+  {
+    "c.name": "Lemni"
+  },
+  {
+    "c.name": "Limbic"
+  },
+  {
+    "c.name": "Ludus"
+  },
+  {
+    "c.name": "Mad Realities"
+  },
+  {
+    "c.name": "Magma"
+  },
+  {
+    "c.name": "Mainframe"
+  },
+  {
+    "c.name": "MarketMuse"
+  },
+  {
+    "c.name": "Matey"
+  },
+  {
+    "c.name": "Matternet"
+  },
+  {
+    "c.name": "Maven"
+  },
+  {
+    "c.name": "Medra AI"
+  },
+  {
+    "c.name": "MeetPoppins.com"
+  },
+  {
+    "c.name": "Mem0"
+  },
+  {
+    "c.name": "Merlin Labs"
+  },
+  {
+    "c.name": "Millet AI"
+  },
+  {
+    "c.name": "Modern Animal"
+  },
+  {
+    "c.name": "Mux"
+  },
+  {
+    "c.name": "MycoWorks"
+  },
+  {
+    "c.name": "Mycosoft"
+  },
+  {
+    "c.name": "Nearside"
+  },
+  {
+    "c.name": "Neurvona"
+  },
+  {
+    "c.name": "Nfinite Nanotech"
+  },
+  {
+    "c.name": "Niural"
+  },
+  {
+    "c.name": "Nuvocargo"
+  },
+  {
+    "c.name": "OLSET"
+  },
+  {
+    "c.name": "Obie"
+  },
+  {
+    "c.name": "Ohai.ai"
+  },
+  {
+    "c.name": "Okra"
+  },
+  {
+    "c.name": "Openmart"
+  },
+  {
+    "c.name": "Orange Health Labs"
+  },
+  {
+    "c.name": "Outgo Inc"
+  },
+  {
+    "c.name": "Overmoon"
+  },
+  {
+    "c.name": "POC Pharma"
+  },
+  {
+    "c.name": "Pantomath"
+  },
+  {
+    "c.name": "Paraform"
+  },
+  {
+    "c.name": "Parallel"
+  },
+  {
+    "c.name": "PathAI"
+  },
+  {
+    "c.name": "Paxton"
+  },
+  {
+    "c.name": "Phaseshift Technologies"
+  },
+  {
+    "c.name": "Phytoform Labs"
+  },
+  {
+    "c.name": "Plantible"
+  },
+  {
+    "c.name": "Plotdrive"
+  },
+  {
+    "c.name": "Pogoseat"
+  },
+  {
+    "c.name": "Poly"
+  },
+  {
+    "c.name": "Pomelo Care"
+  },
+  {
+    "c.name": "Poplar Homes"
+  },
+  {
+    "c.name": "Practice"
+  },
+  {
+    "c.name": "PreAct Technologies"
+  },
+  {
+    "c.name": "Precog Data"
+  },
+  {
+    "c.name": "Project Frog"
+  },
+  {
+    "c.name": "Pulley"
+  },
+  {
+    "c.name": "Queer Spaces"
+  },
+  {
+    "c.name": "QuriousBit"
+  },
+  {
+    "c.name": "Rad AI"
+  },
+  {
+    "c.name": "Radiant"
+  },
+  {
+    "c.name": "Radius Agent"
+  },
+  {
+    "c.name": "Ramp"
+  },
+  {
+    "c.name": "Rec Technologies"
+  },
+  {
+    "c.name": "Redactable"
+  },
+  {
+    "c.name": "Reken"
+  },
+  {
+    "c.name": "Remento"
+  },
+  {
+    "c.name": "Retrocausal"
+  },
+  {
+    "c.name": "Ridecell"
+  },
+  {
+    "c.name": "Rocksalt"
+  },
+  {
+    "c.name": "Roe AI"
+  },
+  {
+    "c.name": "SESO"
+  },
+  {
+    "c.name": "STARK"
+  },
+  {
+    "c.name": "Safe"
+  },
+  {
+    "c.name": "Safely You"
+  },
+  {
+    "c.name": "Sagetap"
+  },
+  {
+    "c.name": "Scatter"
+  },
+  {
+    "c.name": "Schematic"
+  },
+  {
+    "c.name": "Scorbit"
+  },
+  {
+    "c.name": "Secfense"
+  },
+  {
+    "c.name": "ShareWell"
+  },
+  {
+    "c.name": "Shop Circle"
+  },
+  {
+    "c.name": "SiLC Technologies"
+  },
+  {
+    "c.name": "Simbe Robotics"
+  },
+  {
+    "c.name": "Sincera"
+  },
+  {
+    "c.name": "Singulate"
+  },
+  {
+    "c.name": "Slingshot AI"
+  },
+  {
+    "c.name": "Smashing"
+  },
+  {
+    "c.name": "Solo Technologies"
+  },
+  {
+    "c.name": "Solugen"
+  },
+  {
+    "c.name": "Spaceport Technologies"
+  },
+  {
+    "c.name": "SpecCheck"
+  },
+  {
+    "c.name": "Spiketrap"
+  },
+  {
+    "c.name": "Spoiler Alert"
+  },
+  {
+    "c.name": "Springtail"
+  },
+  {
+    "c.name": "Sqreen"
+  },
+  {
+    "c.name": "Stan"
+  },
+  {
+    "c.name": "Stance Health"
+  },
+  {
+    "c.name": "Sumble"
+  },
+  {
+    "c.name": "Superhuman"
+  },
+  {
+    "c.name": "Tangible"
+  },
+  {
+    "c.name": "Taranis"
+  },
+  {
+    "c.name": "Teammates.ai"
+  },
+  {
+    "c.name": "Tech in Asia"
+  },
+  {
+    "c.name": "TechSee"
+  },
+  {
+    "c.name": "Tenax ai"
+  },
+  {
+    "c.name": "The Shared Web"
+  },
+  {
+    "c.name": "Theator"
+  },
+  {
+    "c.name": "Tierra Biosciences"
+  },
+  {
+    "c.name": "Together by Renee"
+  },
+  {
+    "c.name": "Toku"
+  },
+  {
+    "c.name": "Tomo"
+  },
+  {
+    "c.name": "Tortuga AgTech"
+  },
+  {
+    "c.name": "Traversal"
+  },
+  {
+    "c.name": "Tristar AI"
+  },
+  {
+    "c.name": "Truepic"
+  },
+  {
+    "c.name": "Turing"
+  },
+  {
+    "c.name": "Turvo"
+  },
+  {
+    "c.name": "TwinMind"
+  },
+  {
+    "c.name": "Upwards"
+  },
+  {
+    "c.name": "VADE"
+  },
+  {
+    "c.name": "VNDLY"
+  },
+  {
+    "c.name": "Valence Discovery"
+  },
+  {
+    "c.name": "Varda"
+  },
+  {
+    "c.name": "Vaudit (Formerly BlokID)"
+  },
+  {
+    "c.name": "Venn (formerly Vault)"
+  },
+  {
+    "c.name": "Videogo"
+  },
+  {
+    "c.name": "Vitable Health"
+  },
+  {
+    "c.name": "Viva Care"
+  },
+  {
+    "c.name": "Viz"
+  },
+  {
+    "c.name": "Waldo"
+  },
+  {
+    "c.name": "Warmly"
+  },
+  {
+    "c.name": "WeeCare"
+  },
+  {
+    "c.name": "Wi Charge"
+  },
+  {
+    "c.name": "XBOW"
+  },
+  {
+    "c.name": "Yorby AI"
+  },
+  {
+    "c.name": "Zenode"
+  },
+  {
+    "c.name": "Zero Longevity Science"
+  },
+  {
+    "c.name": "alphaXiv"
+  },
+  {
+    "c.name": "ego AI"
+  },
+  {
+    "c.name": "fidu"
+  },
+  {
+    "c.name": "forml"
+  },
+  {
+    "c.name": "howie"
+  },
+  {
+    "c.name": "m00m world"
+  },
+  {
+    "c.name": "unspun"
+  },
+  {
+    "c.name": "venn"
+  }
+]

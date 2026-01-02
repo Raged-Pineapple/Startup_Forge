@@ -12,6 +12,8 @@ import { NetworkPage } from './components/NetworkPage';
 import { NotificationsPage } from './components/NotificationsPage';
 import { JobsPage } from './components/JobsPage';
 import { CreatePostModal } from './components/CreatePostModal';
+import ConflictReportPage from './components/ConflictReportPage';
+import { Toaster } from './components/ui/sonner';
 
 // --- Types ---
 export type User = {
@@ -24,7 +26,15 @@ export type User = {
   about: string;
   experience: string;
   education: string;
-  role?: string; // Added role
+  role?: string;
+  // Enhanced Profile Data
+  pastInvestments?: string;
+  investmentStage?: string;
+  primaryDomain?: string;
+  secondaryDomain?: string;
+  website?: string;
+  linkedin?: string;
+  isActive?: boolean;
 };
 
 export type Comment = {
@@ -85,22 +95,43 @@ export type ConnectionRequest = {
 };
 
 // --- Login Component ---
-const LoginScreen = ({ onLogin }: { onLogin: (id: string, role: string) => void }) => {
-  const [id, setId] = useState('');
-  const [role, setRole] = useState('founder');
+const LoginScreen = ({ onLogin }: { onLogin: (id: string, role: string, name: string) => void }) => {
+  const [name, setName] = useState('');
+  const [role, setRole] = useState('investor'); // Default to investor as per user request context
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleLogin = () => {
-    if (!id) return alert("Enter ID");
+  const handleLogin = async () => {
+    if (!name) {
+      setError("Please enter your name");
+      return;
+    }
     setLoading(true);
+    setError('');
 
-    // Gun Auth Logic (Simulated for this specific React port matching previous logic)
-    const alias = `forge_secure_${id}`;
-    const pass = `pass_${id}_for_startup_forge_2025`;
+    try {
+      // Call Backend Login API to resolve Name -> ID
+      const res = await fetch('http://127.0.0.1:3000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, role })
+      });
 
-    // In a real app we'd pass the gun instance down, but for now we rely on the parent or global gun
-    // Note: Since we are inside the component, we'll callback to parent to handle actual gun auth or do it global
-    onLogin(id, role);
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        // Success: Log in with the resolved ID and Name
+        onLogin(data.userId.toString(), role, data.name);
+      } else {
+        setError(data.error || "Login failed. Please check your spelling.");
+      }
+    } catch (err) {
+      console.error("Login Check Failed", err);
+      // Fallback for demo if backend is offline, but try to enforce real login
+      setError("Server connection failed. Ensure Backend is running.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -113,14 +144,14 @@ const LoginScreen = ({ onLogin }: { onLogin: (id: string, role: string) => void 
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm mb-1 text-gray-300">User ID</label>
+            <label className="block text-sm mb-1 text-gray-300">Name</label>
             <input
               type="text"
-              value={id}
-              onChange={e => setId(e.target.value)}
+              value={name}
+              onChange={e => setName(e.target.value)}
               className="w-full rounded p-2 text-white outline-none focus:border-[#00a884] border border-slate-600"
               style={{ backgroundColor: '#0f172a' }}
-              placeholder="e.g. 1"
+              placeholder="e.g. Mark Suster"
             />
           </div>
 
@@ -132,18 +163,24 @@ const LoginScreen = ({ onLogin }: { onLogin: (id: string, role: string) => void 
               className="w-full rounded p-2 text-white outline-none focus:border-[#00a884] border border-slate-600"
               style={{ backgroundColor: '#0f172a' }}
             >
-              <option value="founder">Founder</option>
               <option value="investor">Investor</option>
+              <option value="founder">Founder</option>
             </select>
           </div>
+
+          {error && <p className="text-red-400 text-sm">{error}</p>}
 
           <button
             onClick={handleLogin}
             disabled={loading}
-            className="w-full bg-[#00a884] hover:bg-[#008f6f] text-[#0f172a] font-bold py-2 rounded mt-4 transition-colors"
+            className="w-full bg-[#00a884] hover:bg-[#008f6f] text-[#0f172a] font-bold py-2 rounded mt-4 transition-colors disabled:opacity-50"
           >
             {loading ? 'Authenticating...' : 'Login'}
           </button>
+
+          <div className="mt-4 text-xs text-gray-500 text-center">
+            <p>Try: "Mark Suster" (Investor) or "1upHealth" (Founder)</p>
+          </div>
         </div>
       </div>
     </div>
@@ -160,12 +197,13 @@ function App() {
   // UI State
   const [targetChatUserId, setTargetChatUserId] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentPage, setCurrentPage] = useState<'home' | 'profile' | 'messages' | 'network' | 'notifications' | 'jobs'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'profile' | 'messages' | 'network' | 'notifications' | 'jobs' | 'conflict-report'>('home');
   const [viewingUserId, setViewingUserId] = useState<string>('current-user');
   const [history, setHistory] = useState<string[]>(['home']);
   const [historyIndex, setHistoryIndex] = useState(0);
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [extraSearchResults, setExtraSearchResults] = useState<User[]>([]);
 
   // Domain State
   const [connectedUsers, setConnectedUsers] = useState<Set<string>>(new Set());
@@ -319,7 +357,7 @@ function App() {
 
 
 
-  const navigateTo = (page: 'home' | 'profile' | 'messages' | 'network' | 'notifications' | 'jobs', userId?: string) => {
+  const navigateTo = (page: 'home' | 'profile' | 'messages' | 'network' | 'notifications' | 'jobs' | 'conflict-report', userId?: string) => {
     const newHistory = history.slice(0, historyIndex + 1);
     newHistory.push(page === 'profile' && userId ? `profile-${userId}` : page);
     setHistory(newHistory);
@@ -518,20 +556,109 @@ function App() {
     }));
   };
 
-  const handleSearch = (query: string) => {
+  // --- RAG SEARCH INTEGRATION ---
+  const handleSearch = async (query: string) => {
     setSearchQuery(query);
+    if (query.length < 2) {
+      setExtraSearchResults([]);
+      return;
+    }
+
+    // Debounce basic implementation by not running immediately? 
+    // In React state updates are batched, but for API calls we might need a useEffect or a timeout.
+    // For simplicity, we call directly but catch errors silently.
+
+    try {
+      // Parallel fetch
+      const [foundersRes, investorsRes] = await Promise.all([
+        fetch('http://127.0.0.1:8000/search/founders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query, top_k: 3 })
+        }),
+        fetch('http://127.0.0.1:8000/search/investors', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query, top_k: 3 })
+        })
+      ]);
+
+      const foundersData = await foundersRes.json();
+      const investorsData = await investorsRes.json();
+
+      const newResults: User[] = [];
+
+      // Process founders
+      if (foundersData.results) {
+        foundersData.results.forEach((r: any) => {
+          const meta = r.metadata || {};
+          newResults.push({
+            id: r.id || `rag-${Math.random()}`,
+            name: meta.name || "Unknown Founder",
+            headline: meta.company ? `Founder at ${meta.company}` : "Founder",
+            avatar: 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png',
+            coverImage: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=1200',
+            connections: 0,
+            about: meta.funding_round ? `Funding Round: ${meta.funding_round}` : r.text,
+            experience: meta.company || '-',
+            role: 'founder',
+            education: '-',
+            primaryDomain: meta.primary_domain,
+            secondaryDomain: meta.secondary_domain,
+            website: meta.website,
+            linkedin: meta.linkedin_url,
+            isActive: true
+          });
+        });
+      }
+
+      // Process investors
+      if (investorsData.results) {
+        investorsData.results.forEach((r: any) => {
+          const meta = r.metadata || {};
+          newResults.push({
+            id: r.id || `rag-${Math.random()}`,
+            name: meta.name || "Unknown Investor",
+            headline: meta.firm_name ? `Investor at ${meta.firm_name}` : "Investor",
+            avatar: meta.is_active ? '/active_investor_dp.png' : '/inactive_investor_dp.png',
+            coverImage: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=1200',
+            connections: 0,
+            about: meta.domain ? `Interested in: ${meta.domain}` : r.text,
+            experience: meta.firm_name || '-',
+            role: 'investor',
+            education: '-',
+            pastInvestments: meta.past_investments,
+            investmentStage: meta.investment_stage_pref,
+            primaryDomain: meta.primary_domain,
+            secondaryDomain: meta.secondary_domain,
+            website: meta.website,
+            linkedin: meta.linkedin_url,
+            isActive: meta.is_active
+          });
+        });
+      }
+
+      setExtraSearchResults(newResults);
+
+    } catch (err) {
+      console.error("RAG Search failed", err);
+      // Optional: don't break the UI, just don't show RAG results
+    }
   };
 
   const filteredUsers = searchQuery
-    ? users.filter(user =>
-      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.headline.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+    ? [
+      ...users.filter(user =>
+        user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.headline.toLowerCase().includes(searchQuery.toLowerCase())
+      ),
+      ...extraSearchResults
+    ]
     : [];
 
   const viewingUser = viewingUserId === 'current-user'
     ? currentUser
-    : users.find(u => u.id === viewingUserId) || currentUser;
+    : (users.find(u => u.id === viewingUserId) || extraSearchResults.find(u => u.id === viewingUserId) || currentUser);
 
   const isOwnProfile = viewingUserId === 'current-user';
 
@@ -541,12 +668,13 @@ function App() {
     // For this flow, let's init in login handler to keep it simple.
   }, []);
 
-  const handleAppLogin = (id: string, role: string) => {
+  const handleAppLogin = (id: string, role: string, name: string) => {
     // 1. Init Gun
     const gunInstance = Gun(['http://localhost:8765/gun']);
     setGun(gunInstance);
 
     const user = gunInstance.user();
+    // For auth alias, we stick to the stable ID to ensure continuity even if name display changes
     const alias = `forge_secure_${id}`;
     const pass = `pass_${id}_for_startup_forge_2025`;
 
@@ -558,23 +686,30 @@ function App() {
             // Handle existing user overlap or error
             if (reg.err.includes("already exists")) {
               // Retry auth just in case
-              user.auth(alias, pass, () => finishLogin(id, role, user));
+              user.auth(alias, pass, () => finishLogin(id, role, name, user));
             } else {
               alert(reg.err);
             }
           } else {
-            user.auth(alias, pass, () => finishLogin(id, role, user));
+            user.auth(alias, pass, () => finishLogin(id, role, name, user));
           }
         });
       } else {
-        finishLogin(id, role, user);
+        finishLogin(id, role, name, user);
       }
     });
 
-    function finishLogin(id: string, role: string, user: any) {
+    function finishLogin(id: string, role: string, name: string, user: any) {
       setGunUser(user);
       setIsLoggedIn(true);
-      setCurrentUser(prev => ({ ...prev, id, name: `User ${id}`, headline: `${role.toUpperCase()} at Startup Forge`, role }));
+      // Use the Real Name from DB
+      setCurrentUser(prev => ({
+        ...prev,
+        id,
+        name: name,
+        headline: `${role === 'investor' ? 'Investor' : 'Founder'} at Startup Forge`,
+        role
+      }));
 
       // Load Inbox logic here potentially
       // loadInbox(id, role);
@@ -587,6 +722,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Toaster />
       <NavigationBar
         canGoBack={historyIndex > 0}
         canGoForward={historyIndex < history.length - 1}
@@ -635,6 +771,15 @@ function App() {
           onUpdateProfile={handleUpdateProfile}
           onFollowUser={() => handleSendConnectionRequest(viewingUserId)}
           userPosts={posts.filter(p => p.userId === viewingUserId)}
+          onViewConflictReport={() => navigateTo('conflict-report')}
+        />
+      )}
+
+      {currentPage === 'conflict-report' && (
+        <ConflictReportPage
+          onBack={goBack}
+          investorId={currentUser.id}
+          investorName={currentUser.name}
         />
       )}
 

@@ -1,0 +1,179 @@
+:root {
+    --primary: #00a884;
+    --bg-dark: #111b21;
+    /* WhatsApp Main BG */
+    --bg-card: #222e35;
+    /* WhatsApp Header/Footer BG */
+    --text-main: #e9edef;
+    --text-muted: #8696a0;
+    --border: #2a3942;
+    --incoming-msg: #202c33;
+    --outgoing-msg: #005c4b;
+    --system-msg: #182229;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #0c1317;
+    /* Deepest background */
+    color: var(--text-main);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+#app {
+    width: 100%;
+    max-width: 1600px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--bg-dark);
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.glass {
+    background: var(--bg-card);
+    border: none;
+}
+
+header {
+    padding: 10px 16px;
+    background: var(--bg-card);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 1px solid var(--border);
+    height: 59px;
+    box-sizing: border-box;
+}
+
+main {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+}
+
+/* Chat View */
+#chat-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+    background-repeat: repeat;
+    background-size: 400px;
+    background-color: #0b141a;
+    /* Dark tint over image */
+    background-blend-mode: overlay;
+}
+
+.chat-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.message {
+    max-width: 65%;
+    padding: 6px 7px 8px 9px;
+    border-radius: 7.5px;
+    position: relative;
+    font-size: 14.2px;
+    line-height: 19px;
+    box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+    color: #e9edef;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+}
+
+.sent {
+    align-self: flex-end;
+    background: var(--outgoing-msg);
+    border-top-right-radius: 0;
+}
+
+.received {
+    align-self: flex-start;
+    background: var(--incoming-msg);
+    border-top-left-radius: 0;
+}
+
+/* Message Meta (Time & Ticks) */
+.msg-meta {
+    float: right;
+    margin-left: 10px;
+    padding-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.tick {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.tick-single {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 15" width="16" height="15"><path fill="%238696a0" d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L4.566 11.45l-2.856-3.09a.365.365 0 0 0-.488-.027l-.43.388a.373.373 0 0 0-.032.489l3.418 4.673a.365.365 0 0 0 .509.02L15.074 3.826a.373.373 0 0 0-.064-.51z"></path></svg>');
+}
+
+/* Input Area */
+.chat-footer {
+    padding: 10px 16px;
+    background: var(--bg-card);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    min-height: 62px;
+}
+
+.input-wrapper {
+    flex: 1;
+    background: #2a3942;
+    border-radius: 8px;
+    padding: 9px 12px;
+    display: flex;
+    align-items: center;
+}
+
+#msg-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #e9edef;
+    font-size: 15px;
+    outline: none;
+    padding: 0;
+    margin: 0;
+}
+
+.send-circle-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: transparent;
+    /* Initially transparent for voice mic icon usually, but user wants send btn */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #8696a0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.send-circle-btn.has-text {
+    background: var(--primary);
+    color: white;
+}

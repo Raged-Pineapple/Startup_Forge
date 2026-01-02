@@ -13,7 +13,8 @@ export default defineConfig({
     proxy: {
       '/connections': 'http://localhost:3000',
       '/inbox': 'http://localhost:3000',
-      '/chat': 'http://localhost:3000'
+      '/chat': 'http://localhost:3000',
+      '/api': 'http://localhost:3000'
     }
   }
 });
