@@ -14,12 +14,12 @@ import { Toaster, toast } from "sonner";
 
 interface ConflictReportPageProps {
     currentUser: User;
-    onNavigate: (page: string) => void;
+    onNavigate: (page: string, userId?: string) => void;
     onSearch: (query: string) => void;
     onQueryChange?: (query: string) => void;
     ragResults?: {
-        founders: string[];
-        investors: string[];
+        founders: any[];
+        investors: any[];
     };
     isSearching?: boolean;
     onBack: () => void;
@@ -183,6 +183,7 @@ const ConflictReportPage = ({
                                     results={ragResults}
                                     isVisible={true}
                                     isLoading={isSearching || false}
+                                    onSelectResult={(id) => onNavigate('profile', id)}
                                 />
                             </div>
                         )}

@@ -37,6 +37,7 @@ export type User = {
   website?: string;
   linkedin?: string;
   isActive?: boolean;
+  company?: string;
 };
 
 export type Comment = {
@@ -212,6 +213,9 @@ function App() {
   const [isSearching, setIsSearching] = useState(false);
   const [ragResults, setRagResults] = useState<{ founders: { text: string; id: string }[], investors: { text: string; id: string }[] }>({ founders: [], investors: [] });
   const timeoutId = useRef<NodeJS.Timeout | null>(null);
+
+  // COI State
+  const [coiTarget, setCoiTarget] = useState<{ investor: string; company: string } | null>(null);
 
   // Domain State
   const [connectedUsers, setConnectedUsers] = useState<Set<string>>(new Set());
@@ -407,6 +411,8 @@ function App() {
         setCurrentPage('home');
       } else if (target === 'messages') {
         setCurrentPage('messages');
+      } else if (target === 'conflict-report') {
+        setCurrentPage('conflict-report');
       } else if (target === 'network') {
         setCurrentPage('network');
       } else if (target === 'notifications') {
@@ -772,6 +778,10 @@ function App() {
           onQueryChange={handleQueryChange}
           ragResults={ragResults}
           isSearching={isSearching}
+          onCheckConflict={(investor, company) => {
+            setCoiTarget({ investor, company });
+            navigateTo('conflict-report');
+          }}
         />
       )}
 
@@ -804,8 +814,8 @@ function App() {
           ragResults={ragResults}
           isSearching={isSearching}
           onBack={goBack}
-          currentInvestorName={currentUser.name}
-          targetCompanyName={viewingUser.company || viewingUser.name}
+          currentInvestorName={coiTarget?.investor || currentUser.name}
+          targetCompanyName={coiTarget?.company || viewingUser.company || viewingUser.name}
         />
       )}
 

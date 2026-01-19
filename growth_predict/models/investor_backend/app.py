@@ -12,6 +12,16 @@ from sentence_transformers import SentenceTransformer
 
 app = FastAPI()
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # --- Global Variables ---
 investors_df = None
 match_model = None
@@ -115,10 +125,19 @@ async def load_resources():
     try:
         match_model = joblib.load(MATCH_MODEL_PATH)
         safety_model = joblib.load(SAFETY_MODEL_PATH)
-        embedder = joblib.load(EMBEDDER_PATH)
+        try:
+            embedder = joblib.load(EMBEDDER_PATH)
+            print("Embedder loaded from pickle.")
+        except Exception as e:
+            print(f"Failed to load embedder pickle: {e}. Initializing new SentenceTransformer...")
+            from sentence_transformers import SentenceTransformer
+            embedder = SentenceTransformer('all-MiniLM-L6-v2')
+            
         print("Models loaded successfully.")
     except Exception as e:
         print(f"Error loading models: {e}")
+        # We can't proceed without match/safety models, but maybe we can survive?
+        # For now, let's log and likely validation will fail later if these are None.
         return
 
     # Preprocessing

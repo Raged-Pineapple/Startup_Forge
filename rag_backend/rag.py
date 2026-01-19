@@ -8,14 +8,12 @@ from openai import OpenAI
 
 load_dotenv()
 
-# OpenAI / Ollama Init - REPLACED WITH GEMINI
-# LLM_CLIENT = OpenAI(...)
-
-import requests
-import json
-
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
+# ---------- OpenAI / Ollama Init ----------
+# Use local Ollama instance acting as OpenAI API
+LLM_CLIENT = OpenAI(
+    base_url=os.getenv("OPENAI_BASE_URL", "http://localhost:11434/v1"),
+    api_key=os.getenv("OPENAI_API_KEY", "ollama")
+)
 
 PERSIST_PATH = os.path.join(os.getcwd(), "chroma_store")
 
@@ -155,39 +153,24 @@ def chat_with_rag(query: str):
     # 2. Build Prompt
     system_prompt = (
         "You are an AI Investment Assistant for Startup Forge. "
-        "Use the provided context to answer the user's question about founders, startups, and investors. "
-        "Format your response using Markdown for clarity:\n"
-        "- Use **Bold** for Company Names, Investors, and Key Terms.\n"
-        "- Use bullet points for lists of facts.\n"
-        "- Keep answers concise, professional, and structured."
+        "Your responses must be strictly professional, composed, and concise. "
+        "Do NOT use casual greetings (e.g., 'Hi', 'Hello') or introduction paragraphs. "
+        "Go straight to the point. Use bullet points for facts. "
+        "Answer the user's question about founders, startups, and investors using the provided context."
     )
     
-    full_prompt = f"{system_prompt}\n\nContext:\n{context_str}\n\nQuestion: {query}"
+    user_prompt = f"Context:\n{context_str}\n\nQuestion: {query}"
 
-    # 3. Call GEMINI 2.0 Flash
-    payload = {
-        "contents": [{
-            "parts": [{"text": full_prompt}]
-        }]
-    }
-
+    # 3. Call Llama 3.2 via Ollama (OpenAI compatible)
     try:
-        response = requests.post(
-            GEMINI_URL, 
-            json=payload, 
-            headers={'Content-Type': 'application/json'}
+        response = LLM_CLIENT.chat.completions.create(
+            model="llama3.2",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            temperature=0.3
         )
-        
-        if response.status_code == 200:
-            data = response.json()
-            # Extract text from Gemini response structure
-            # candidates[0] -> content -> parts[0] -> text
-            if "candidates" in data and len(data["candidates"]) > 0:
-                return data["candidates"][0]["content"]["parts"][0]["text"]
-            else:
-                return "AI did not return a candidate response."
-        else:
-            return f"Error contacting AI Assistant: Status {response.status_code} - {response.text}"
-            
+        return response.choices[0].message.content
     except Exception as e:
         return f"Error contacting AI Assistant: {str(e)}"
