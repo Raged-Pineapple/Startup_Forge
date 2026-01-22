@@ -28,6 +28,11 @@ app.get('/health', async (req, res) => {
       db: 'connected',
       timestamp: new Date().toISOString()
     });
+
+    // DEBUG: Check for investment_reports table
+    const tableCheck = await pool.query("SELECT to_regclass('public.investment_reports')");
+    console.log("DEBUG: investment_reports table check:", tableCheck.rows[0]);
+
   } catch (err) {
     console.error('DB health check failed:', err.message);
     res.status(500).json({

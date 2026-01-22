@@ -38,7 +38,7 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
 
   // Fetch match data prerequisites
   useEffect(() => {
-    if (currentUser.id) {
+    if (currentUser.id && currentUser.role === 'founder') {
       fetch(`http://localhost:3000/api/founders/growth/${currentUser.id}`)
         .then(res => res.json())
         .then(data => {

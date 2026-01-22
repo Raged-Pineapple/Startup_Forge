@@ -1,16 +1,86 @@
 version: '3.8'
+
 services:
+  # 1. Database
   db:
     image: postgres:15-alpine
-    container_name: secure_chat_db
+    container_name: startupforge-postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_DB: connection_db
+      POSTGRES_PASSWORD: StrongPassword123
+      POSTGRES_DB: startupforge_db
       POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  # 2. Backend (Node.js)
+  backend:
+    build: ./backend
+    container_name: startupforge-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_USER=postgres
+      - DB_HOST=db
+      - DB_NAME=startupforge_db
+      - DB_PASSWORD=StrongPassword123
+      - DB_PORT=5432
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  # 3. Gun Relay (Chat)
+  gun_server:
+    build: ./gun_server
+    container_name: startupforge-gun
+    ports:
+      - "8765:8765"
+    networks:
+      - app-network
+
+  # 4. RAG Backend (AI)
+  rag_backend:
+    build: ./rag_backend
+    container_name: startupforge-rag
+    ports:
+      - "8000:8000"
+    environment:
+      # Pass the API key from host environment or .env file
+      - MISTRAL_API_KEY=${MISTRAL_API_KEY}
+    networks:
+      - app-network
+
+  # 5. Prediction Backend
+  prediction_backend:
+    build: ./growth_predict/models/investor_backend
+    container_name: startupforge-prediction
+    ports:
+      - "8002:8002"
+    networks:
+      - app-network
+
+  # 6. Frontend
+  frontend:
+    build: ./frontend
+    container_name: startupforge-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    depends_on:
+      - backend
+      - gun_server
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   postgres_data:

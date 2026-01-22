@@ -1,0 +1,72 @@
+services:
+  # 1. Main Node.js Backend
+  - type: web
+    name: startupforge-backend
+    env: docker
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    plan: free
+    numInstances: 1
+    healthCheckPath: /
+    envVars:
+      - key: DB_HOST
+        fromService:
+          type: psql
+          name: startupforge-db
+          property: host
+      - key: DB_PORT
+        fromService:
+          type: psql
+          name: startupforge-db
+          property: port
+      - key: DB_NAME
+        fromService:
+          type: psql
+          name: startupforge-db
+          property: database
+      - key: DB_USER
+        fromService:
+          type: psql
+          name: startupforge-db
+          property: user
+      - key: DB_PASSWORD
+        fromService:
+          type: psql
+          name: startupforge-db
+          property: password
+
+  # 2. RAG AI Backend (Python)
+  - type: web
+    name: startupforge-rag
+    env: docker
+    dockerContext: ./rag_backend
+    dockerfilePath: ./rag_backend/Dockerfile
+    plan: free
+    numInstances: 1
+    envVars:
+      - key: MISTRAL_API_KEY
+        sync: false # User will be prompted to enter this in dashboard
+
+  # 3. Prediction Backend (Python)
+  - type: web
+    name: startupforge-prediction
+    env: docker
+    dockerContext: ./growth_predict/models/investor_backend
+    dockerfilePath: ./growth_predict/models/investor_backend/Dockerfile
+    plan: free
+    numInstances: 1
+
+  # 4. Gun.js Relay
+  - type: web
+    name: startupforge-gun
+    env: docker
+    dockerContext: ./gun_server
+    dockerfilePath: ./gun_server/Dockerfile
+    plan: free
+    numInstances: 1
+
+databases:
+  - name: startupforge-db
+    databaseName: startupforge_db
+    user: postgres
+    plan: free

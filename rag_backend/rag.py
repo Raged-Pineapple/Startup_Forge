@@ -3,17 +3,20 @@ import uuid
 import pandas as pd
 import chromadb
 from sentence_transformers import SentenceTransformer
+from mistralai import Mistral
 from dotenv import load_dotenv
-from openai import OpenAI
 
 load_dotenv()
 
-# ---------- OpenAI / Ollama Init ----------
-# Use local Ollama instance acting as OpenAI API
-LLM_CLIENT = OpenAI(
-    base_url=os.getenv("OPENAI_BASE_URL", "http://localhost:11434/v1"),
-    api_key=os.getenv("OPENAI_API_KEY", "ollama")
-)
+# ---------- Mistral Init ----------
+MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
+if not MISTRAL_API_KEY:
+    print("❌ Error: MISTRAL_API_KEY is not set in environment variables.")
+else:
+    print(f"✅ MISTRAL_API_KEY loaded (len={len(MISTRAL_API_KEY)}). Starts with: {MISTRAL_API_KEY[:4]}...")
+
+MISTRAL_CLIENT = Mistral(api_key=MISTRAL_API_KEY)
+MISTRAL_MODEL = "mistral-small-latest"
 
 PERSIST_PATH = os.path.join(os.getcwd(), "chroma_store")
 
@@ -161,10 +164,10 @@ def chat_with_rag(query: str):
     
     user_prompt = f"Context:\n{context_str}\n\nQuestion: {query}"
 
-    # 3. Call Llama 3.2 via Ollama (OpenAI compatible)
+    # 3. Call Mistral
     try:
-        response = LLM_CLIENT.chat.completions.create(
-            model="llama3.2",
+        response = MISTRAL_CLIENT.chat.complete(
+            model=MISTRAL_MODEL,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
@@ -216,15 +219,15 @@ def generate_chat_reply(history: list, user_context: str):
         "Draft a reply for me (Me):"
     )
 
-    # 3. Call LLM
+    # 3. Call Mistral
     try:
-        response = LLM_CLIENT.chat.completions.create(
-            model="llama3.2",
+        response = MISTRAL_CLIENT.chat.complete(
+            model=MISTRAL_MODEL,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
             ],
-            temperature=0.2 # Lower temp for more factual/consistent output
+            temperature=0.2
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
