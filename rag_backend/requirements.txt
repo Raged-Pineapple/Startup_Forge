@@ -1,9 +1,11 @@
 fastapi
 uvicorn
-pandas
-chromadb
-sentence-transformers
 python-dotenv
+chromadb
+mistralai
+pandas
+httpx
+pydantic
 mistralai
 httpx
 pydantic

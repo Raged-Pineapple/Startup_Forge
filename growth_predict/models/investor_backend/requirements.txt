@@ -1,9 +1,4 @@
 fastapi
 uvicorn
-pandas
-numpy
-scikit-learn
-xgboost
-sentence-transformers
-joblib
+pydantic
 pydantic

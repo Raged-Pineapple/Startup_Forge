@@ -2,7 +2,7 @@ import os
 import uuid
 import pandas as pd
 import chromadb
-from sentence_transformers import SentenceTransformer
+# from sentence_transformers import SentenceTransformer (Removed for memory savings)
 from mistralai import Mistral
 from dotenv import load_dotenv
 
@@ -21,8 +21,22 @@ MISTRAL_MODEL = "mistral-small-latest"
 PERSIST_PATH = os.path.join(os.getcwd(), "chroma_store")
 
 # Initialize Embedding Model
-# Switched to MiniLM to save memory (Render Free Tier < 512MB)
-model = SentenceTransformer("all-MiniLM-L6-v2")
+# Cloud-based embeddings (Mistral API) to save memory
+def get_embedding(text):
+    if not text or not text.strip():
+        return []
+    try:
+        resp = MISTRAL_CLIENT.embeddings.create(
+            model="mistral-embed",
+            inputs=[text]
+        )
+        return resp.data[0].embedding
+    except Exception as e:
+        print(f"Embedding error: {e}")
+        return []
+
+# Placeholder for compatibility: no local model
+model = None 
 
 # Initialize ChromaDB
 client = chromadb.PersistentClient(path=PERSIST_PATH)
@@ -96,8 +110,9 @@ def ingest_data():
             investor_meta.append(clean_metadata({"role": "investor", "id": str(row["id"])}))
             investor_ids.append(str(uuid.uuid4()))
 
-        founder_emb = model.encode(founder_docs, normalize_embeddings=True)
-        investor_emb = model.encode(investor_docs, normalize_embeddings=True)
+        print("Generating embeddings via Mistral API...")
+        founder_emb = [get_embedding(doc) for doc in founder_docs]
+        investor_emb = [get_embedding(doc) for doc in investor_docs]
 
         founder_collection.add(
             documents=founder_docs,
@@ -121,17 +136,17 @@ def ingest_data():
 
 # ---------- Query ----------
 def query_founders(query: str, k: int = 5):
-    q_emb = model.encode([query], normalize_embeddings=True)
+    q_emb = get_embedding(query)
     return founder_collection.query(
-        query_embeddings=q_emb.tolist(),
+        query_embeddings=[q_emb],
         n_results=k
     )
 
 
 def query_investors(query: str, k: int = 5):
-    q_emb = model.encode([query], normalize_embeddings=True)
+    q_emb = get_embedding(query)
     return investor_collection.query(
-        query_embeddings=q_emb.tolist(),
+        query_embeddings=[q_emb],
         n_results=k
     )
 
