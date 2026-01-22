@@ -5,8 +5,9 @@ require('gun/sea');
 const app = express();
 app.use(require('cors')());
 
-const server = app.listen(8765, () => {
-  console.log('Gun server running on port 8765');
+const port = process.env.PORT || 8765;
+const server = app.listen(port, () => {
+  console.log(`Gun server running on port ${port}`);
 });
 
 process.on('uncaughtException', (err) => {
