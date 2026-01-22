@@ -1,4 +1,5 @@
 # ☁️ Cloud Deployment Guide (Public Link)
+<!-- Trigger Deployment -->
 
 To get a link that anyone can open, you need to host your application on the cloud. We will use **Render** for the backends/database and **Vercel** for the frontend.
 
