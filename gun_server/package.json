@@ -1,0 +1,14 @@
+{
+    "name": "startupforge-gun",
+    "version": "1.0.0",
+    "description": "Gun.js relay server for Startup Forge",
+    "main": "gun.js",
+    "scripts": {
+        "start": "node gun.js"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "gun": "^0.2020.1241"
+    }
+}
