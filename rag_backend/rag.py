@@ -21,7 +21,8 @@ MISTRAL_MODEL = "mistral-small-latest"
 PERSIST_PATH = os.path.join(os.getcwd(), "chroma_store")
 
 # Initialize Embedding Model
-model = SentenceTransformer("BAAI/bge-base-en-v1.5")
+# Switched to MiniLM to save memory (Render Free Tier < 512MB)
+model = SentenceTransformer("all-MiniLM-L6-v2")
 
 # Initialize ChromaDB
 client = chromadb.PersistentClient(path=PERSIST_PATH)
