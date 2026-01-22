@@ -137,6 +137,10 @@ class PredictResponse(BaseModel):
     valuation_projection: Dict[str, float]
     acquisition_probability: float
 
+@app.get("/")
+def health_check():
+    return {"status": "ok"}
+
 @app.post("/predict", response_model=PredictResponse)
 async def predict_growth(data: PredictInput):
     # --- 1. Calculate Growth Rate ---

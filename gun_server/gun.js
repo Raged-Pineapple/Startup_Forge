@@ -4,6 +4,7 @@ require('gun/sea');
 
 const app = express();
 app.use(require('cors')());
+app.get('/', (req, res) => res.send('OK'));
 
 const port = process.env.PORT || 8765;
 const server = app.listen(port, () => {
