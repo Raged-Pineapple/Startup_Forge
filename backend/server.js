@@ -16,6 +16,12 @@ app.use(express.json());
 
 app.get('/', (req, res) => res.send('StartupForge Backend Running'));
 
+// DB Setup Route
+const setupDatabase = require('./db_setup');
+app.get('/setup-db', (req, res) => {
+  setupDatabase(res);
+});
+
 /* ---------------- HEALTH CHECK ---------------- */
 /**
  * Use this to verify:
