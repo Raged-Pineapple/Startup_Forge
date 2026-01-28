@@ -62,7 +62,8 @@ const ConflictReportPage = ({
         setSelectedTarget(target);
 
         try {
-            const res = await fetch('/api/coi/check', {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+            const res = await fetch(`${apiUrl}/api/coi/check`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

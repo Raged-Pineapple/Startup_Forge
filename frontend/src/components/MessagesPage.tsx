@@ -113,7 +113,8 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
 
   const fetchConnections = async () => {
     try {
-      const res = await fetch('/inbox', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      const res = await fetch(`${apiUrl}/inbox`, {
         headers: { 'x-user-id': currentUser.id }
       });
       const data = await res.json();
@@ -150,7 +151,8 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
       console.log("initChat starting", { targetUserId, currentUser: currentUser.id });
       try {
         // Get Room Key from Backend
-        const res = await fetch('/chat', {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+        const res = await fetch(`${apiUrl}/chat`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -194,7 +196,8 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
 
     const checkStatus = async () => {
       try {
-        const res = await fetch(`/api/investments/status/${currentConnectionId}`, {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+        const res = await fetch(`${apiUrl}/api/investments/status/${currentConnectionId}`, {
           headers: { 'x-user-id': currentUser.id }
         });
         const data = await res.json();
@@ -219,7 +222,8 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
   const handleReportInvestment = async () => {
     if (!currentConnectionId) return;
     try {
-      await fetch('/api/investments/report', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      await fetch(`${apiUrl}/api/investments/report`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -234,7 +238,8 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
   const submitInvestment = async () => {
     if (!currentConnectionId) return;
     try {
-      const res = await fetch('/api/investments/confirm', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      const res = await fetch(`${apiUrl}/api/investments/confirm`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
