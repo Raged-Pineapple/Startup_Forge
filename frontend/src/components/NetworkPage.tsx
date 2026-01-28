@@ -59,7 +59,9 @@ export function NetworkPage({
   const fetchRequests = async () => {
     try {
       if (!currentUser.id) return;
-      const res = await fetch('/connections/requests/incoming', {
+      // Fetch Connection Requests
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      const res = await fetch(`${apiUrl}/connections/requests/incoming`, {
         headers: { 'x-user-id': currentUser.id }
       });
       const data = await res.json();
@@ -84,9 +86,10 @@ export function NetworkPage({
     if (!currentUser.id) return;
     try {
       console.log("Fetching network for user:", currentUser.id);
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
       const [fRes, iRes] = await Promise.all([
-        fetch('/api/users/founders', { headers: { 'x-user-id': currentUser.id } }),
-        fetch('/api/users/investors', { headers: { 'x-user-id': currentUser.id } })
+        fetch(`${apiUrl}/api/users/founders`, { headers: { 'x-user-id': currentUser.id } }),
+        fetch(`${apiUrl}/api/users/investors`, { headers: { 'x-user-id': currentUser.id } })
       ]);
 
       if (fRes.ok) {
@@ -118,7 +121,8 @@ export function NetworkPage({
 
   const handleAcceptInternal = async (reqId: string) => {
     try {
-      await fetch(`/connections/accept/${reqId}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      await fetch(`${apiUrl}/connections/accept/${reqId}`, {
         method: 'POST',
         headers: { 'x-user-id': currentUser.id }
       });

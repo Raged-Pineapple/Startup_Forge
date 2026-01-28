@@ -494,13 +494,17 @@ function App() {
 
     try {
       // Parallel fetch
+      // Parallel fetch - ASSUMING RAG IS ON SEPARATE PORT 8000 LOCALLY BUT SHOULD BE MAPPED IN PROD
+      // If RAG is a separate service, we need VITE_RAG_API_URL or similar.
+      // For now, let's keep localhost:8000 if not defined, but ideally this should be env var.
+      const ragUrl = import.meta.env.VITE_RAG_API_URL || 'http://127.0.0.1:8000';
       const [foundersRes, investorsRes] = await Promise.all([
-        fetch('http://127.0.0.1:8000/search/founders', {
+        fetch(`${ragUrl}/search/founders`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ query, top_k: 5 })
         }).catch(err => { console.error("Founders Fetch Err:", err); return null; }),
-        fetch('http://127.0.0.1:8000/search/investors', {
+        fetch(`${ragUrl}/search/investors`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ query, top_k: 5 })
@@ -599,7 +603,12 @@ function App() {
 
   const handleAppLogin = (id: string, role: string, name: string) => {
     // 1. Init Gun
-    const gunInstance = Gun(['http://localhost:8765/gun']);
+    // 1. Init Gun with backend URL
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    // Use the same host/port for Gun if possible, or assume /gun endpoint on backend
+    // Remove protocol for easy mapping (http -> ws, https -> wss)
+    const gunUrl = apiUrl + '/gun';
+    const gunInstance = Gun([gunUrl]);
     setGun(gunInstance);
 
     const user = gunInstance.user();
