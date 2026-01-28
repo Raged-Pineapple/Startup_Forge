@@ -14,6 +14,8 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => res.send('StartupForge Backend Running'));
+
 /* ---------------- HEALTH CHECK ---------------- */
 /**
  * Use this to verify:
