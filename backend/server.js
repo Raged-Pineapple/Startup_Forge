@@ -130,67 +130,51 @@ app.post('/api/login', async (req, res) => {
 });
 
 // GET DYNAMIC FOUNDERS BY DOMAIN
+// GET DYNAMIC FOUNDERS BY DOMAIN (Neo4j Source)
 app.post('/api/founders/rising', async (req, res) => {
   const { userId, role } = req.body;
-  console.log(`Fetching rising founders for user: ${userId} (${role}) (Source: Postgres)`);
 
+  const session = driver.session();
   try {
-    // Query Postgres for top founders (e.g., highest valuation)
-    // We can also filter by domain if we fetch the current user's domain first, but simple top list is a good start.
     const query = `
-      SELECT id, name, company, valuation, past_funding, domain 
-      FROM founders 
-      WHERE name IS NOT NULL AND company IS NOT NULL
-      ORDER BY valuation DESC NULLS LAST
+      MATCH (c:Company)
+      WHERE c.valuation IS NOT NULL AND c.founder IS NOT NULL
+      RETURN c.id as id, c.founder as name, c.name as company, c.valuation as valuation, 
+             c.round as round, c.year as year, c.domain as domain
+      ORDER BY c.valuation DESC
       LIMIT 10
     `;
 
-    const result = await pool.query(query);
+    const result = await session.run(query);
 
-    if (result.rows.length === 0) {
-      throw new Error("No founders found in Postgres");
+    if (result.records.length === 0) {
+      // Fallback mock if graph empty
+      throw new Error("No founders in graph");
     }
 
-    const founders = result.rows.map(row => {
-      // Extract latest funding info
-      let round = 'Seed';
-      let year = '2024';
-
-      if (Array.isArray(row.past_funding) && row.past_funding.length > 0) {
-        // Sort by year descending
-        const sorted = row.past_funding.sort((a, b) => (b.year || 0) - (a.year || 0));
-        const latest = sorted[0];
-        if (latest.round) round = latest.round;
-        if (latest.year) year = String(latest.year);
-      }
-
-      return {
-        id: String(row.id),
-        name: row.name,
-        company: row.company,
-        round: round,
-        year: year,
-        valuation: parseFloat(row.valuation || 0),
-        umbrella: row.domain || 'Tech'
-      };
-    });
+    const founders = result.records.map(r => ({
+      id: r.get('id'),
+      name: r.get('name'),
+      company: r.get('company'),
+      round: r.get('round') || 'Seed',
+      year: r.get('year') ? String(r.get('year')) : '2024',
+      valuation: parseFloat(r.get('valuation') || 0),
+      umbrella: r.get('domain') || 'Tech'
+    }));
 
     res.json({ success: true, founders });
 
   } catch (err) {
-    console.error("Error fetching founders from Postgres:", err.message);
-
+    console.error("Error fetching founders from Neo4j:", err.message);
     // Fallback Mock Data
     const mockFounders = [
       { id: 'm1', company: "Nebula AI", name: "Alex Rivera", round: "Series A", year: "2024", valuation: 45000000, umbrella: "AI & ML" },
       { id: 'm2', company: "Zephyr Energy", name: "Sarah Chen", round: "Seed", year: "2023", valuation: 12000000, umbrella: "CleanTech" },
-      { id: 'm3', company: "Flux Systems", name: "James Wilson", round: "Series B", year: "2022", valuation: 150000000, umbrella: "Robotics" },
-      { id: 'm4', company: "Apex Bio", name: "Dr. Emily Zhang", round: "Series A", year: "2024", valuation: 60000000, umbrella: "Biotech" },
-      { id: 'm5', company: "Quantum Leap", name: "David Kim", round: "Seed", year: "2024", valuation: 8000000, umbrella: "Quantum" },
-      { id: 'm6', company: "Horizon Space", name: "Michael Chang", round: "Series C", year: "2021", valuation: 500000000, umbrella: "Aerospace" }
+      { id: 'm3', company: "Flux Systems", name: "James Wilson", round: "Series B", year: "2022", valuation: 150000000, umbrella: "Robotics" }
     ];
-
     res.json({ success: true, founders: mockFounders });
+  } finally {
+    session.close();
   }
 });
 

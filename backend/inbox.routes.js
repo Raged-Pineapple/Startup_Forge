@@ -1,5 +1,15 @@
 const express = require('express');
-const pool = require('./db');
+const express = require('express');
+const neo4j = require('neo4j-driver');
+require('dotenv').config();
+
+// Initialize Driver (Same as server.js)
+const uri = process.env.NEO4J_URI || 'bolt://localhost:7687';
+const driver = neo4j.driver(
+  uri,
+  neo4j.auth.basic(process.env.NEO4J_USER || 'neo4j', process.env.NEO4J_PASSWORD || 'StrongPassword123'),
+  uri.startsWith('bolt') ? { encrypted: false } : {}
+);
 
 const router = express.Router();
 
@@ -8,52 +18,58 @@ const router = express.Router();
  * Returns all connections where status = 'ACCEPTED' and user is a participant.
  * Headers: x-user-id, x-user-role (for simulation)
  */
+// GET Inbox (Accepted Connections from Neo4j)
 router.get('/', async (req, res) => {
   const userId = req.headers['x-user-id'];
-  if (!userId) {
-    return res.status(400).json({ error: 'Missing x-user-id header' });
-  }
+  if (!userId) return res.status(400).json({ error: 'Missing x-user-id header' });
 
+  const session = driver.session();
   try {
-    const uid = parseInt(userId);
-    if (isNaN(uid)) {
-      return res.status(400).json({ error: 'Invalid User ID' });
-    }
+    // Find all users connected to me
+    // (me)-[:CONNECTED_TO]-(other)
+    const query = `
+      MATCH (me {id: $userId})-[:CONNECTED_TO]-(other)
+      RETURN 
+        other.id as other_id, 
+        other.name as other_name,
+        other.founder as other_founder_name,
+        other.firm_name as other_firm,
+        other.company as other_company,
+        labels(other) as labels
+    `;
 
-    const result = await pool.query(`
-      WITH user_connections AS (
-        SELECT 
-          c.id as connection_id,
-          CASE 
-            WHEN c.user_a_id = $1 THEN c.user_b_id
-            ELSE c.user_a_id
-          END as other_user_id,
-          CASE 
-            WHEN c.user_a_id = $1 THEN c.user_b_role
-            ELSE c.user_a_role
-          END as other_user_role
-        FROM connections c
-        JOIN connection_requests cr ON c.connection_request_id = cr.id
-        WHERE cr.status = 'ACCEPTED'
-        AND (c.user_a_id = $1 OR c.user_b_id = $1)
-      )
-      SELECT 
-        uc.*,
-        COALESCE(f.name, i.name, 'Unknown User') as other_user_name,
-        COALESCE(f.company, i.firm_name, NULL) as other_user_headline,
-        CASE 
-             WHEN f.id IS NOT NULL THEN 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
-             ELSE 'https://cdn-icons-png.flaticon.com/512/147/147144.png'
-        END as other_user_avatar
-      FROM user_connections uc
-      LEFT JOIN founders f ON uc.other_user_role = 'FOUNDER' AND f.id = uc.other_user_id
-      LEFT JOIN investors i ON uc.other_user_role = 'INVESTOR' AND i.id = uc.other_user_id
-    `, [uid]);
+    const result = await session.run(query, { userId: String(userId) });
 
-    res.json({ connections: result.rows });
+    // Map to the format expected by MessagesPage
+    const connections = result.records.map(r => {
+      const labels = r.get('labels');
+      const isInvestor = labels.includes('Investor');
+      const role = isInvestor ? 'INVESTOR' : 'FOUNDER';
+
+      // Name logic similar to connections.routes.js
+      // Investor: name=name, headline=firm_name
+      // Company: founder=name, headline=name(company)
+      const name = isInvestor ? r.get('other_name') : r.get('other_founder_name');
+      const headline = isInvestor ? r.get('other_firm') : r.get('other_company');
+
+      return {
+        connection_id: `conn_${r.get('other_id')}`, // Synthetic ID
+        other_user_id: r.get('other_id'),
+        other_user_role: role,
+        other_user_name: name,
+        other_user_headline: headline,
+        other_user_avatar: isInvestor
+          ? 'https://cdn-icons-png.flaticon.com/512/147/147144.png'
+          : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+      };
+    });
+
+    res.json({ connections });
   } catch (err) {
-    console.error('Error fetching inbox:', err);
+    console.error('Error fetching inbox from Neo4j:', err);
     res.status(500).json({ error: 'Internal server error' });
+  } finally {
+    session.close();
   }
 });
 
