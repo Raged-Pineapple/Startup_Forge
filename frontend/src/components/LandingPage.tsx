@@ -29,7 +29,8 @@ export const LandingPage = ({ onLogin }: LandingPageProps) => {
         setError('');
 
         try {
-            const res = await fetch('http://127.0.0.1:3000/api/login', {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:3000';
+            const res = await fetch(`${apiUrl}/api/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, role })

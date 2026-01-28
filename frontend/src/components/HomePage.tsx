@@ -39,7 +39,8 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
   // Fetch match data prerequisites
   useEffect(() => {
     if (currentUser.id && currentUser.role === 'founder') {
-      fetch(`http://localhost:3000/api/founders/growth/${currentUser.id}`)
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      fetch(`${apiUrl}/api/founders/growth/${currentUser.id}`)
         .then(res => res.json())
         .then(data => {
           if (data.success && data.growth_rate) {
@@ -105,7 +106,8 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
     // Fetch Dynamic Founder Data based on User Domain
     const fetchFounders = async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/founders/rising', {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+        const res = await fetch(`${apiUrl}/api/founders/rising`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ userId: currentUser.id, role: currentUser.role })
@@ -122,7 +124,8 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
     // Fetch Investments
     const fetchInvestments = async () => {
       try {
-        const res = await fetch('/api/investments/updates', {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+        const res = await fetch(`${apiUrl}/api/investments/updates`, {
           headers: { 'x-user-id': currentUser.id }
         });
         const data = await res.json();

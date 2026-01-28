@@ -358,7 +358,8 @@ function App() {
   // --- Connection Request Logic ---
   const handleSendConnectionRequest = async (targetUserId: string) => {
     try {
-      const res = await fetch('/connections/request', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      const res = await fetch(`${apiUrl}/connections/request`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -570,7 +571,8 @@ function App() {
     if (!localUser) {
       // Fetch from API
       console.log(`Fetching profile for: ${viewingUserId}`);
-      fetch(`http://localhost:3000/api/users/${viewingUserId}`)
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      fetch(`${apiUrl}/api/users/${viewingUserId}`)
         .then(res => res.json())
         .then(data => {
           if (data.success) {
