@@ -22,6 +22,12 @@ app.get('/setup-db', (req, res) => {
   setupDatabase(res);
 });
 
+// Full CSV Seed Route
+const seedFullDatabase = require('./seed_full');
+app.get('/seed-full', (req, res) => {
+  seedFullDatabase(res);
+});
+
 /* ---------------- HEALTH CHECK ---------------- */
 /**
  * Use this to verify:
