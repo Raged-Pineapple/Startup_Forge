@@ -1,8 +1,7 @@
 import os
+import csv
 import uuid
-import pandas as pd
-import chromadb
-# from sentence_transformers import SentenceTransformer (Removed for memory savings)
+import math
 from mistralai import Mistral
 from dotenv import load_dotenv
 
@@ -10,21 +9,18 @@ load_dotenv()
 
 # ---------- Mistral Init ----------
 MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
-if not MISTRAL_API_KEY:
-    print("❌ Error: MISTRAL_API_KEY is not set in environment variables.")
-else:
-    print(f"✅ MISTRAL_API_KEY loaded (len={len(MISTRAL_API_KEY)}). Starts with: {MISTRAL_API_KEY[:4]}...")
-
 MISTRAL_CLIENT = Mistral(api_key=MISTRAL_API_KEY)
 MISTRAL_MODEL = "mistral-small-latest"
 
-PERSIST_PATH = os.path.join(os.getcwd(), "chroma_store")
+# ---------- In-Memory Store ----------
+# Structure: [ { "id": str, "text": str, "embedding": List[float], "metadata": dict } ]
+FOUNDER_STORE = []
+INVESTOR_STORE = []
 
-# Initialize Embedding Model
-# Cloud-based embeddings (Mistral API) to save memory
+# ---------- Helpers ----------
 def get_embedding(text):
     if not text or not text.strip():
-        return []
+        return None
     try:
         resp = MISTRAL_CLIENT.embeddings.create(
             model="mistral-embed",
@@ -33,154 +29,120 @@ def get_embedding(text):
         return resp.data[0].embedding
     except Exception as e:
         print(f"Embedding error: {e}")
-        return []
+        return None
 
-# Placeholder for compatibility: no local model
-model = None 
+def cosine_similarity(v1, v2):
+    if not v1 or not v2: return 0.0
+    dot_product = sum(a * b for a, b in zip(v1, v2))
+    magnitude1 = math.sqrt(sum(a * a for a in v1))
+    magnitude2 = math.sqrt(sum(b * b for b in v2))
+    if magnitude1 == 0 or magnitude2 == 0: return 0.0
+    return dot_product / (magnitude1 * magnitude2)
 
-# Initialize ChromaDB
-client = chromadb.PersistentClient(path=PERSIST_PATH)
-
-founder_collection = client.get_or_create_collection(
-    name="founders_collection",
-    metadata={"hnsw:space": "cosine"}
-)
-
-investor_collection = client.get_or_create_collection(
-    name="investors_collection",
-    metadata={"hnsw:space": "cosine"}
-)
-
-# ---------- Helpers ----------
-def clean_metadata(d):
-    return {k: v for k, v in d.items() if v is not None and v == v}
-
-
-def founder_row_to_text(row):
+def row_to_text(row, role):
     parts = []
-    if pd.notna(row.get("company")):
-        parts.append(f"Company: {row['company']}.")
-    if pd.notna(row.get("name")):
-        parts.append(f"Founder: {row['name']}.")
-    if pd.notna(row.get("funding_round")):
-        parts.append(f"Funding round: {row['funding_round']}.")
+    if role == "founder":
+        if row.get("company"): parts.append(f"Company: {row['company']}.")
+        if row.get("name"): parts.append(f"Founder: {row['name']}.")
+        if row.get("funding_round"): parts.append(f"Funding round: {row['funding_round']}.")
+    else:
+        if row.get("name"): parts.append(f"Investor name: {row['name']}.")
+        if row.get("firm_name"): parts.append(f"Firm: {row['firm_name']}.")
+        if row.get("investment_stage_pref"): parts.append(f"Preferred stage: {row['investment_stage_pref']}.")
+        if row.get("primary_domain"): parts.append(f"Domain: {row['primary_domain']}.")
     return " ".join(parts)
 
-
-def investor_row_to_text(row):
-    parts = []
-    if pd.notna(row.get("name")):
-        parts.append(f"Investor name: {row['name']}.")
-    if pd.notna(row.get("firm_name")):
-        parts.append(f"Firm: {row['firm_name']}.")
-    if pd.notna(row.get("investment_stage_pref")):
-        parts.append(f"Preferred stage: {row['investment_stage_pref']}.")
-    if pd.notna(row.get("primary_domain")):
-        parts.append(f"Domain: {row['primary_domain']}.")
-    return " ".join(parts)
-
-
-# ---------- Ingest (run once) ----------
+# ---------- Ingest ----------
 def ingest_data():
-    print(f"Checking ingestion for store at: {PERSIST_PATH}")
-    if founder_collection.count() > 0:
-        print(f"Already ingested. Founder Collection Count: {founder_collection.count()}")
+    global FOUNDER_STORE, INVESTOR_STORE
+    
+    if len(FOUNDER_STORE) > 0:
         return "Already ingested"
 
-    print("Starting Ingestion...")
+    print("Starting Ultra-Lite Ingestion...")
     try:
-        founders_df = pd.read_csv("founders_cleaned.csv")
-        investors_df = pd.read_csv("investors_cleaned.csv")
+        # Load Founders
+        with open("founders_cleaned.csv", "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                text = row_to_text(row, "founder")
+                if not text.strip(): continue
+                emb = get_embedding(text)
+                if emb:
+                    FOUNDER_STORE.append({
+                        "id": str(uuid.uuid4()),
+                        "text": text,
+                        "embedding": emb,
+                        "metadata": row
+                    })
 
-        founder_docs, founder_meta, founder_ids = [], [], []
-        for _, row in founders_df.iterrows():
-            text = founder_row_to_text(row)
-            if not text.strip():
-                continue
-            founder_docs.append(text)
-            founder_meta.append(clean_metadata({"role": "founder", "id": str(row["id"])}))
-            founder_ids.append(str(uuid.uuid4()))
-
-        investor_docs, investor_meta, investor_ids = [], [], []
-        for _, row in investors_df.iterrows():
-            text = investor_row_to_text(row)
-            if not text.strip():
-                continue
-            investor_docs.append(text)
-            investor_meta.append(clean_metadata({"role": "investor", "id": str(row["id"])}))
-            investor_ids.append(str(uuid.uuid4()))
-
-        print("Generating embeddings via Mistral API...")
-        founder_emb = [get_embedding(doc) for doc in founder_docs]
-        investor_emb = [get_embedding(doc) for doc in investor_docs]
-
-        founder_collection.add(
-            documents=founder_docs,
-            embeddings=founder_emb.tolist(),
-            metadatas=founder_meta,
-            ids=founder_ids
-        )
-
-        investor_collection.add(
-            documents=investor_docs,
-            embeddings=investor_emb.tolist(),
-            metadatas=investor_meta,
-            ids=investor_ids
-        )
-
+        # Load Investors
+        with open("investors_cleaned.csv", "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                text = row_to_text(row, "investor")
+                if not text.strip(): continue
+                emb = get_embedding(text)
+                if emb:
+                    INVESTOR_STORE.append({
+                        "id": str(uuid.uuid4()),
+                        "text": text,
+                        "embedding": emb,
+                        "metadata": row
+                    })
+        
+        print(f"Ingested {len(FOUNDER_STORE)} founders and {len(INVESTOR_STORE)} investors.")
         return "Ingestion complete"
     except Exception as e:
         print(f"Ingestion failed: {e}")
         return f"Ingestion failed: {e}"
 
-
 # ---------- Query ----------
-def query_founders(query: str, k: int = 5):
+def search_store(query, store, k=5):
     q_emb = get_embedding(query)
-    return founder_collection.query(
-        query_embeddings=[q_emb],
-        n_results=k
-    )
+    if not q_emb: return {"documents": [], "metadatas": []}
+    
+    # Calculate scores
+    scored = []
+    for item in store:
+        score = cosine_similarity(q_emb, item["embedding"])
+        scored.append((score, item))
+    
+    # Sort and slice
+    scored.sort(key=lambda x: x[0], reverse=True)
+    top_k = scored[:k]
+    
+    # Format like ChromaDB result
+    return {
+        "documents": [[item["text"] for _, item in top_k]],
+        "metadatas": [[item["metadata"] for _, item in top_k]]
+    }
 
+def query_founders(query: str, k: int = 5):
+    return search_store(query, FOUNDER_STORE, k)
 
 def query_investors(query: str, k: int = 5):
-    q_emb = get_embedding(query)
-    return investor_collection.query(
-        query_embeddings=[q_emb],
-        n_results=k
-    )
+    return search_store(query, INVESTOR_STORE, k)
 
 def chat_with_rag(query: str):
-    # 1. Retrieve Context
     f_res = query_founders(query, k=3)
     i_res = query_investors(query, k=3)
-
+    
     context_lines = []
-    
     if f_res["documents"] and f_res["documents"][0]:
-        context_lines.append("--- FOUNDERS / STARTUPS ---")
-        for doc in f_res["documents"][0]:
-            context_lines.append(doc)
-            
+        context_lines.append("--- FOUNDERS ---")
+        context_lines.extend(f_res["documents"][0])
     if i_res["documents"] and i_res["documents"][0]:
-        context_lines.append("\n--- INVESTORS ---")
-        for doc in i_res["documents"][0]:
-            context_lines.append(doc)
-            
+        context_lines.append("--- INVESTORS ---")
+        context_lines.extend(i_res["documents"][0])
+        
     context_str = "\n".join(context_lines)
-
-    # 2. Build Prompt
-    system_prompt = (
-        "You are an AI Investment Assistant for Startup Forge. "
-        "Your responses must be strictly professional, composed, and concise. "
-        "Do NOT use casual greetings (e.g., 'Hi', 'Hello') or introduction paragraphs. "
-        "Go straight to the point. Use bullet points for facts. "
-        "Answer the user's question about founders, startups, and investors using the provided context."
-    )
     
+    system_prompt = (
+        "You are an AI Investment Assistant. Professional, concise, data-driven."
+    )
     user_prompt = f"Context:\n{context_str}\n\nQuestion: {query}"
-
-    # 3. Call Mistral
+    
     try:
         response = MISTRAL_CLIENT.chat.complete(
             model=MISTRAL_MODEL,
@@ -192,59 +154,29 @@ def chat_with_rag(query: str):
         )
         return response.choices[0].message.content
     except Exception as e:
-        return f"Error contacting AI Assistant: {str(e)}"
-
+        return f"Error: {e}"
 
 def generate_chat_reply(history: list, user_context: str):
-    """
-    history: List of {"sender": "Me"|"Them", "content": "..."}
-    user_context: String describing the current user (e.g. "Role: Founder. Name: Alex Rivera")
-    """
+    # Retrieve My Data
+    my_data_res = query_founders(f"Details about {user_context}", k=1)
+    my_facts = my_data_res["documents"][0][0] if my_data_res["documents"][0] else "No data."
     
-    # 1. Retrieve MY details (The User's Data) via RAG
-    # We search for the user's own context to get their company info, valuation, etc.
-    my_data_query = f"Details about {user_context}"
-    my_data_res = query_founders(my_data_query, k=1) # Get top 1 match for myself
-    
-    my_facts = "No specific data found."
-    if my_data_res["documents"] and my_data_res["documents"][0]:
-        my_facts = my_data_res["documents"][0][0] # Primary match string
-
-    # 1. Format History
     conversation_text = ""
-    for msg in history[-10:]: # Look at last 10 messages
+    for msg in history[-10:]:
         sender = "Me" if msg.get("isMe") else "Them"
         conversation_text += f"{sender}: {msg.get('content')}\n"
-
-    # 2. Build Prompt
+        
     system_prompt = (
-        "You are an intelligent executive assistant for a Startup Founder. "
-        "Your goal is to draft a clean, crisp, and high-impact reply based on the conversation. "
-        "STRICT RULES:\n"
-        "1. USE DATA: You have access to the user's company details below ('My Company Data'). Use these EXACT numbers (Valuation, Revenue, Growth). "
-        "   NEVER use placeholders like '[Insert Value]' or '[X]'. If the data is missing, omit that specific point rather than guessing.\n"
-        "2. BE CRISP: Use short sentences. Use bullet points for stats/lists. No fluff. No generic intros.\n"
-        "3. POINT-WISE: If specific questions were asked (e.g. 'What's your valuation?'), answer them directly with the number.\n"
-        "4. TONE: Confident, professional, Silicon Valley style."
+        "Draft a professional executive reply. Use the provided company data for facts."
     )
-
-    user_prompt = (
-        f"My Company Data (Use this for facts): {my_facts}\n"
-        f"Context: {user_context}\n\n"
-        f"Conversation History:\n{conversation_text}\n\n"
-        "Draft a reply for me (Me):"
-    )
-
-    # 3. Call Mistral
+    user_prompt = f"My Data: {my_facts}\nContext: {user_context}\nHistory:\n{conversation_text}\nDraft reply:"
+    
     try:
         response = MISTRAL_CLIENT.chat.complete(
             model=MISTRAL_MODEL,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt}
-            ],
+            messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
             temperature=0.2
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
-        return f"Error generating reply: {str(e)}"
+        return f"Error: {e}"
