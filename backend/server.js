@@ -388,9 +388,14 @@ app.get('/api/users/:id', async (req, res) => {
 
 
 /* ---------------- SERVER START ---------------- */
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`✅ Backend API running on http://localhost:${PORT}`);
 });
+
+// Initialize Gun (Websocket Relay)
+const Gun = require('gun');
+Gun({ web: server });
+console.log('✅ Gun.js Relay Node running on /gun');
 
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
