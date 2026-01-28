@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { Pool } = require('pg');
 const neo4j = require('neo4j-driver');
 
@@ -11,10 +12,14 @@ const pool = new Pool({
 });
 
 // Neo4j setup
+const uri = process.env.NEO4J_URI || 'bolt://localhost:7687';
 const driver = neo4j.driver(
-    process.env.NEO4J_URI || 'bolt://localhost:7687',
-    neo4j.auth.basic('neo4j', 'StrongPassword123'),
-    { encrypted: false }
+    uri,
+    neo4j.auth.basic(process.env.NEO4J_USER || 'neo4j', process.env.NEO4J_PASSWORD || 'StrongPassword123'),
+    // For Aura (neo4j+s), encryption is implied by the scheme. passing it in config causes error.
+    // Only disable it explicitly for local bolt if needed, but usually defaults work.
+    // Safest is to pass empty config for Aura.
+    uri.startsWith('bolt') ? { encrypted: false } : {}
 );
 
 const syncData = async () => {

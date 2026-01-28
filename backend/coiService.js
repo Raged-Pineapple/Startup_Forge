@@ -3,9 +3,11 @@ const neo4j = require('neo4j-driver');
 
 const router = express.Router();
 
+const uri = process.env.NEO4J_URI || "bolt://localhost:7687";
 const driver = neo4j.driver(
-    process.env.NEO4J_URI || "bolt://localhost:7687",
-    neo4j.auth.basic("neo4j", "StrongPassword123")
+    uri,
+    neo4j.auth.basic(process.env.NEO4J_USER || "neo4j", process.env.NEO4J_PASSWORD || "StrongPassword123"),
+    uri.startsWith('bolt') ? { encrypted: false } : {}
 );
 
 router.post("/check", async (req, res) => {
@@ -26,9 +28,9 @@ router.post("/check", async (req, res) => {
             "backops ai": 75,
             "bitmine immersion technologies": 85
         };
-        
+
         const targetKey = targetCompany.toLowerCase();
-        
+
         if (HARDCODED_TARGETS[targetKey]) {
             return res.json({
                 hasConflict: true,

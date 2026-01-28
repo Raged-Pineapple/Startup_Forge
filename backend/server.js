@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const pool = require('./db');
@@ -70,11 +71,18 @@ app.use('/api/founders', foundersRoutes);
 
 // LOGIN ENDPOINT (Name -> ID Resolution)
 const neo4j = require('neo4j-driver');
-const driver = neo4j.driver(
-  process.env.NEO4J_URI || 'bolt://localhost:7687',
-  neo4j.auth.basic('neo4j', 'StrongPassword123'),
-  { encrypted: false }
-);
+let driver;
+try {
+  const uri = process.env.NEO4J_URI || 'bolt://localhost:7687';
+  driver = neo4j.driver(
+    uri,
+    neo4j.auth.basic(process.env.NEO4J_USER || 'neo4j', process.env.NEO4J_PASSWORD || 'StrongPassword123'),
+    uri.startsWith('bolt') ? { encrypted: false } : {}
+  );
+  console.log("✅ Neo4j Driver initialized");
+} catch (e) {
+  console.error("❌ Neo4j Driver Fail:", e.message);
+}
 
 
 
@@ -89,22 +97,25 @@ app.post('/api/login', async (req, res) => {
     let user = null;
 
     if (role.toLowerCase() === 'investor') {
-      // Postgres Lookup for Investor
       const result = await pool.query(
-        `SELECT id, name FROM investors WHERE name ILIKE $1 LIMIT 1`,
+        `SELECT id, name, firm_name, primary_domain FROM investors WHERE name ILIKE $1 LIMIT 1`,
         [`%${name}%`]
       );
       if (result.rows.length > 0) {
         user = result.rows[0];
+        // Ensure standard fields
+        user.role = 'investor';
+        user.headline = user.firm_name || 'Investor';
       }
     } else {
-      // Postgres Lookup for Founder
       const result = await pool.query(
-        `SELECT id, name, company FROM founders WHERE name ILIKE $1 OR company ILIKE $1 LIMIT 1`,
+        `SELECT id, name, company, domain FROM founders WHERE name ILIKE $1 OR company ILIKE $1 LIMIT 1`,
         [`%${name}%`]
       );
       if (result.rows.length > 0) {
         user = result.rows[0];
+        user.role = 'founder';
+        user.headline = user.company || 'Founder';
       }
     }
 
@@ -112,30 +123,21 @@ app.post('/api/login', async (req, res) => {
       console.log(`Login successful: ${user.name} (ID: ${user.id})`);
       res.json({
         success: true,
-        userId: user.id,
+        userId: String(user.id),
         name: user.name,
-        role: role
+        role: role, // Keep original role request for consistency
+        headline: user.headline
       });
     } else {
-      // Fallback for Demo if not found in DB
+      // Fallback or Not Found
       if (name.toLowerCase().includes('mark') || name.toLowerCase().includes('demo')) {
-        console.log("⚠️ User not found in Postgres. specific fallback for 'Mark Suster'.");
-        // Try to get Mark Suster from DB specifically if fuzzy failed, or mock
-        // Assuming ID 1 exists or similar. 
-        // For now, return mock if DB fail, but simpler to just say not found
-        // actually, let's keep the mock for resilience.
-        return res.json({
-          success: true,
-          userId: 1, // Mock ID 1
-          name: 'Mark Suster (Demo)',
-          role: 'investor'
-        });
+        // ... existing mock logic if needed, but better to just fail if DB is seeded
+        return res.json({ success: true, userId: '1', name: 'Mark Suster (Demo)', role: 'investor' });
       }
-      res.status(404).json({ error: 'User not found in database. Please check exact spelling.' });
+      res.status(404).json({ error: 'User not found. Try "Mark Suster" or "1upHealth".' });
     }
-
   } catch (err) {
-    console.error("Login Error (Postgres):", err.message);
+    console.error("Login Error:", err.message);
     res.status(500).json({ error: "Database error during login." });
   }
 });
@@ -341,86 +343,70 @@ app.post('/api/users/batch', async (req, res) => {
 });
 
 // GET USER BY ID
+// GET USER BY ID (Using Postgres primarily)
 app.get('/api/users/:id', async (req, res) => {
   const { id } = req.params;
-  console.log(`Fetching user details for ID: ${id}`);
+  const uid = parseInt(id);
+  if (isNaN(uid)) return res.status(400).json({ error: "Invalid ID" });
 
-  const session = driver.session();
   try {
-    // Check Investor
-    const invResult = await session.run(`
-      MATCH (u:Investor {id: $id})
-      RETURN u.name AS name, u.firm_name AS firm, 'Investor' AS role, 
-             u.short_bio AS about, u.location AS location, u.profile_url AS avatar,
-             u.primary_domain AS domain
-    `, { id });
-
-    if (invResult.records.length > 0) {
-      const r = invResult.records[0];
+    // Try Investor First
+    const invRes = await pool.query(`SELECT * FROM investors WHERE id = $1`, [uid]);
+    if (invRes.rows.length > 0) {
+      const u = invRes.rows[0];
       return res.json({
         success: true,
         user: {
-          id: id,
-          name: r.get('name'),
+          id: String(u.id),
+          name: u.name,
           role: 'investor',
-          company: r.get('firm') || 'Independent',
+          company: u.firm_name || 'VC Firm',
           title: 'Investor',
-          headline: `Investor at ${r.get('firm') || 'Venture Capital'}`,
-          location: r.get('location') || 'Global',
-          about: r.get('about') || 'No bio available',
-          avatar: r.get('avatar') || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.get('name'))}&background=random`,
-          tags: r.get('domain') ? [r.get('domain')] : []
+          headline: u.firm_name || 'Investor',
+          location: u.location || 'Global',
+          about: u.short_bio || 'No bio',
+          avatar: u.profile_url || 'https://cdn-icons-png.flaticon.com/512/147/147144.png',
+          tags: u.primary_domain ? [u.primary_domain] : []
         }
       });
     }
 
-    // Check Founder (Company)
-    const founderResult = await session.run(`
-      MATCH (c:Company {id: $id})
-      OPTIONAL MATCH (c)-[:COMPETES_WITH]->(comp:Company)
-      OPTIONAL MATCH (p:Company)-[:HAS_SUBSIDIARY]->(c)
-      RETURN c.founder AS name, c.name AS company, 'Founder' AS role,
-             c.description AS about, c.location AS location,
-             c.domain AS domain,
-             c.valuation AS valuation,
-             c.round AS round,
-             c.year AS year,
-             collect(distinct comp.name) AS competitors,
-             collect(distinct p.name) AS umbrella
-    `, { id });
+    // Try Founder
+    const fndRes = await pool.query(`SELECT * FROM founders WHERE id = $1`, [uid]);
+    if (fndRes.rows.length > 0) {
+      const u = fndRes.rows[0];
 
-    if (founderResult.records.length > 0) {
-      const r = founderResult.records[0];
+      // Parse JSONB fields if needed, but pg driver auto-parses jsonb columns
+      // Mock missing graph fields for now
       return res.json({
         success: true,
         user: {
-          id: id,
-          name: r.get('name') || 'Founder',
+          id: String(u.id),
+          name: u.name,
           role: 'founder',
-          company: r.get('company'),
+          company: u.company,
           title: 'Founder',
-          headline: `Founder of ${r.get('company')}`,
-          location: r.get('location') || 'Global',
-          about: r.get('about') || `Building ${r.get('company')}`,
-          avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(r.get('name') || 'Founder')}&background=random`,
-          tags: r.get('domain') ? [r.get('domain')] : [],
-          // Expanded Data for Prediction
-          primaryDomain: r.get('domain'),
-          valuation: typeof r.get('valuation') === 'object' ? r.get('valuation').toNumber() : r.get('valuation'),
-          fundingYear: typeof r.get('year') === 'object' ? r.get('year').toNumber() : r.get('year'),
-          fundingRound: r.get('round'),
-          competitors: r.get('competitors'),
-          umbrella: r.get('umbrella')
+          headline: `Founder of ${u.company}`,
+          location: u.location || 'Global',
+          about: u.description || `Building ${u.company}`,
+          avatar: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+          tags: u.domain ? [u.domain] : [],
+
+          // Enhanced fields
+          primaryDomain: u.domain,
+          valuation: parseFloat(u.valuation || 0),
+          fundingRound: u.round,
+          fundingYear: u.year,
+          competitors: ["Competitor A", "Competitor B"], // Mocked for now (Graph data)
+          umbrella: []
         }
       });
     }
 
     res.status(404).json({ error: 'User not found' });
   } catch (err) {
-    console.error("Error fetching user:", err);
-    res.status(500).json({ error: "Server error" });
-  } finally {
-    session.close();
+    console.error("User Fetch Error:", err);
+    res.status(500).json({ error: "Server Error" });
   }
 });
 
