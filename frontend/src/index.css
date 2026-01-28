@@ -186,6 +186,8 @@
 
   body {
     line-height: inherit;
+    /* Responsive Fix: Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
   }
 
   hr {

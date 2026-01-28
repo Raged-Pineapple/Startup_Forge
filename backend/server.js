@@ -87,58 +87,45 @@ try {
 
 
 
+// LOGIN ENDPOINT (Neo4j Source)
 app.post('/api/login', async (req, res) => {
   const { name, role } = req.body;
-  console.log(`Login attempt: ${name} (${role})`);
-
   if (!name || !role) return res.status(400).json({ error: 'Name and Role required' });
 
+  const session = driver.session();
   try {
-    let user = null;
-
+    let result;
     if (role.toLowerCase() === 'investor') {
-      const result = await pool.query(
-        `SELECT id, name, firm_name, primary_domain FROM investors WHERE name ILIKE $1 LIMIT 1`,
-        [`%${name}%`]
+      result = await session.run(
+        `MATCH (u:Investor) WHERE toLower(u.name) CONTAINS toLower($name) 
+         RETURN u.id AS id, u.name AS name, u.firm_name AS headline, 'investor' AS role LIMIT 1`,
+        { name }
       );
-      if (result.rows.length > 0) {
-        user = result.rows[0];
-        // Ensure standard fields
-        user.role = 'investor';
-        user.headline = user.firm_name || 'Investor';
-      }
     } else {
-      const result = await pool.query(
-        `SELECT id, name, company, domain FROM founders WHERE name ILIKE $1 OR company ILIKE $1 LIMIT 1`,
-        [`%${name}%`]
+      result = await session.run(
+        `MATCH (u:Company) WHERE toLower(u.founder) CONTAINS toLower($name) OR toLower(u.name) CONTAINS toLower($name)
+         RETURN u.id AS id, u.founder AS name, u.name AS headline, 'founder' AS role LIMIT 1`,
+        { name }
       );
-      if (result.rows.length > 0) {
-        user = result.rows[0];
-        user.role = 'founder';
-        user.headline = user.company || 'Founder';
-      }
     }
 
-    if (user) {
-      console.log(`Login successful: ${user.name} (ID: ${user.id})`);
+    if (result.records.length > 0) {
+      const r = result.records[0];
       res.json({
         success: true,
-        userId: String(user.id),
-        name: user.name,
-        role: role, // Keep original role request for consistency
-        headline: user.headline
+        userId: r.get('id'),
+        name: r.get('name'),
+        role: r.get('role'),
+        headline: r.get('headline')
       });
     } else {
-      // Fallback or Not Found
-      if (name.toLowerCase().includes('mark') || name.toLowerCase().includes('demo')) {
-        // ... existing mock logic if needed, but better to just fail if DB is seeded
-        return res.json({ success: true, userId: '1', name: 'Mark Suster (Demo)', role: 'investor' });
-      }
-      res.status(404).json({ error: 'User not found. Try "Mark Suster" or "1upHealth".' });
+      res.status(404).json({ error: 'User not found' });
     }
-  } catch (err) {
-    console.error("Login Error:", err.message);
-    res.status(500).json({ error: "Database error during login." });
+  } catch (e) {
+    console.error("Login Error (Neo4j):", e);
+    res.status(500).json({ error: "Server error" });
+  } finally {
+    session.close();
   }
 });
 
@@ -215,42 +202,28 @@ app.post('/api/founders/rising', async (req, res) => {
  * Includes connection status relative to the requester
  */
 app.get('/api/users/founders', async (req, res) => {
-  const userId = req.headers['x-user-id'];
+  const session = driver.session();
   try {
-    const query = `
-            SELECT 
-                f.id, 
-                f.name, 
-                f.company AS headline, 
-                'founder' as role,
-                'https://cdn-icons-png.flaticon.com/512/149/149071.png' as avatar,
-                (SELECT COUNT(*) FROM connections WHERE user_a_id = f.id OR user_b_id = f.id) as connections,
-                CASE 
-                    WHEN $1::int IS NOT NULL THEN (
-                        SELECT 1 FROM connections 
-                        WHERE (user_a_id = $1::int AND user_b_id = f.id) 
-                           OR (user_a_id = f.id AND user_b_id = $1::int)
-                    )
-                    ELSE NULL
-                END as is_connected
-            FROM founders f
-            ORDER BY f.id DESC
-            LIMIT 100
-        `;
-    // ensure userId is int or null
-    const uid = userId ? parseInt(userId) : null;
-    const result = await pool.query(query, [uid]);
-
-    const mapped = result.rows.map(r => ({
-      ...r,
-      id: String(r.id),
-      isConnected: !!r.is_connected
+    const result = await session.run(`
+      MATCH (f:Company)
+      RETURN f.id as id, f.founder as name, f.name as headline, 'https://cdn-icons-png.flaticon.com/512/149/149071.png' as avatar
+      LIMIT 50
+    `);
+    const mapped = result.records.map(r => ({
+      id: r.get('id'),
+      name: r.get('name'),
+      headline: r.get('headline'),
+      role: 'founder',
+      avatar: r.get('avatar'),
+      connections: 0,
+      isConnected: false
     }));
-
     res.json(mapped);
   } catch (e) {
     console.error("Founders Fetch Error:", e);
-    res.status(500).json({ error: "Failed to fetch founders", details: e.toString() });
+    res.status(500).json({ error: "Failed to fetch founders" });
+  } finally {
+    session.close();
   }
 });
 
@@ -259,41 +232,28 @@ app.get('/api/users/founders', async (req, res) => {
  * Includes connection status relative to the requester
  */
 app.get('/api/users/investors', async (req, res) => {
-  const userId = req.headers['x-user-id'];
+  const session = driver.session();
   try {
-    const query = `
-            SELECT 
-                i.id, 
-                i.name, 
-                i.firm_name AS headline, 
-                'investor' as role,
-                'https://cdn-icons-png.flaticon.com/512/147/147144.png' as avatar,
-                (SELECT COUNT(*) FROM connections WHERE user_a_id = i.id OR user_b_id = i.id) as connections,
-                CASE 
-                    WHEN $1::int IS NOT NULL THEN (
-                        SELECT 1 FROM connections 
-                        WHERE (user_a_id = $1::int AND user_b_id = i.id) 
-                           OR (user_a_id = i.id AND user_b_id = $1::int)
-                    )
-                    ELSE NULL
-                END as is_connected
-            FROM investors i
-            ORDER BY i.id DESC
-            LIMIT 100
-        `;
-    const uid = userId ? parseInt(userId) : null;
-    const result = await pool.query(query, [uid]);
-
-    const mapped = result.rows.map(r => ({
-      ...r,
-      id: String(r.id),
-      isConnected: !!r.is_connected
+    const result = await session.run(`
+      MATCH (i:Investor)
+      RETURN i.id as id, i.name as name, i.firm_name as headline, 'https://cdn-icons-png.flaticon.com/512/147/147144.png' as avatar
+      LIMIT 50
+    `);
+    const mapped = result.records.map(r => ({
+      id: r.get('id'),
+      name: r.get('name'),
+      headline: r.get('headline'),
+      role: 'investor',
+      avatar: r.get('avatar'),
+      connections: 0,
+      isConnected: false
     }));
-
     res.json(mapped);
   } catch (e) {
     console.error("Investors Fetch Error:", e);
-    res.status(500).json({ error: "Failed to fetch investors", details: e.toString() });
+    res.status(500).json({ error: "Failed to fetch investors" });
+  } finally {
+    session.close();
   }
 });
 
@@ -344,69 +304,83 @@ app.post('/api/users/batch', async (req, res) => {
 
 // GET USER BY ID
 // GET USER BY ID (Using Postgres primarily)
+// GET USER BY ID (Neo4j Source)
 app.get('/api/users/:id', async (req, res) => {
   const { id } = req.params;
-  const uid = parseInt(id);
-  if (isNaN(uid)) return res.status(400).json({ error: "Invalid ID" });
-
+  const session = driver.session();
   try {
-    // Try Investor First
-    const invRes = await pool.query(`SELECT * FROM investors WHERE id = $1`, [uid]);
-    if (invRes.rows.length > 0) {
-      const u = invRes.rows[0];
+    // Check Investor
+    const invResult = await session.run(`
+      MATCH (u:Investor {id: $id})
+      RETURN u.name AS name, u.firm_name AS firm, 'Investor' AS role, 
+             u.short_bio AS about, u.location AS location, u.profile_url AS avatar,
+             u.domain AS domain
+    `, { id });
+
+    if (invResult.records.length > 0) {
+      const r = invResult.records[0];
       return res.json({
         success: true,
         user: {
-          id: String(u.id),
-          name: u.name,
+          id: id,
+          name: r.get('name'),
           role: 'investor',
-          company: u.firm_name || 'VC Firm',
+          company: r.get('firm') || 'Independent',
           title: 'Investor',
-          headline: u.firm_name || 'Investor',
-          location: u.location || 'Global',
-          about: u.short_bio || 'No bio',
-          avatar: u.profile_url || 'https://cdn-icons-png.flaticon.com/512/147/147144.png',
-          tags: u.primary_domain ? [u.primary_domain] : []
+          headline: `Investor at ${r.get('firm') || 'Venture Capital'}`,
+          location: r.get('location') || 'Global',
+          about: r.get('about') || 'No bio available',
+          avatar: r.get('avatar') || 'https://cdn-icons-png.flaticon.com/512/147/147144.png',
+          tags: r.get('domain') ? [r.get('domain')] : []
         }
       });
     }
 
-    // Try Founder
-    const fndRes = await pool.query(`SELECT * FROM founders WHERE id = $1`, [uid]);
-    if (fndRes.rows.length > 0) {
-      const u = fndRes.rows[0];
+    // Check Founder
+    const founderResult = await session.run(`
+      MATCH (c:Company {id: $id})
+      OPTIONAL MATCH (c)-[:COMPETES_WITH]->(comp:Company)
+      OPTIONAL MATCH (p:Company)-[:HAS_SUBSIDIARY]->(c)
+      RETURN c.founder AS name, c.name AS company, 'Founder' AS role,
+             c.description AS about, c.location AS location,
+             c.domain AS domain,
+             c.valuation AS valuation,
+             c.round AS round,
+             c.year AS year,
+             collect(distinct comp.name) AS competitors,
+             collect(distinct p.name) AS umbrella
+    `, { id });
 
-      // Parse JSONB fields if needed, but pg driver auto-parses jsonb columns
-      // Mock missing graph fields for now
+    if (founderResult.records.length > 0) {
+      const r = founderResult.records[0];
       return res.json({
         success: true,
         user: {
-          id: String(u.id),
-          name: u.name,
+          id: id,
+          name: r.get('name') || 'Founder',
           role: 'founder',
-          company: u.company,
+          company: r.get('company'),
           title: 'Founder',
-          headline: `Founder of ${u.company}`,
-          location: u.location || 'Global',
-          about: u.description || `Building ${u.company}`,
+          headline: `Founder of ${r.get('company')}`,
+          location: r.get('location') || 'Global',
+          about: r.get('about') || `Building ${r.get('company')}`,
           avatar: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-          tags: u.domain ? [u.domain] : [],
-
-          // Enhanced fields
-          primaryDomain: u.domain,
-          valuation: parseFloat(u.valuation || 0),
-          fundingRound: u.round,
-          fundingYear: u.year,
-          competitors: ["Competitor A", "Competitor B"], // Mocked for now (Graph data)
-          umbrella: []
+          tags: r.get('domain') ? [r.get('domain')] : [],
+          valuation: r.get('valuation'),
+          fundingRound: r.get('round'),
+          fundingYear: r.get('year'),
+          competitors: r.get('competitors'),
+          umbrella: r.get('umbrella')
         }
       });
     }
 
     res.status(404).json({ error: 'User not found' });
-  } catch (err) {
-    console.error("User Fetch Error:", err);
+  } catch (e) {
+    console.error("User Fetch Error (Neo4j):", e);
     res.status(500).json({ error: "Server Error" });
+  } finally {
+    session.close();
   }
 });
 
