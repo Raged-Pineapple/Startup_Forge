@@ -96,7 +96,8 @@ export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, on
     const fetchNotifications = async () => {
       try {
         if (!currentUser?.id) return;
-        const res = await fetch('/connections/notifications', {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+        const res = await fetch(`${apiUrl}/connections/notifications`, {
           headers: { 'x-user-id': currentUser.id }
         });
         const data = await res.json();
@@ -114,7 +115,8 @@ export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, on
         setNotifications(prev => [...realNotifs, ...prev]);
 
         // Fetch Company Updates
-        const resUpdates = await fetch('/api/investments/updates', {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+        const resUpdates = await fetch(`${apiUrl}/api/investments/updates`, {
           headers: { 'x-user-id': currentUser.id }
         });
         const updateData = await resUpdates.json();

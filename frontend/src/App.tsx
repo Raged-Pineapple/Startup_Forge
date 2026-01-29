@@ -604,10 +604,9 @@ function App() {
   const handleAppLogin = (id: string, role: string, name: string) => {
     // 1. Init Gun
     // 1. Init Gun with backend URL
+    // 1. Init Gun with backend URL
     const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-    // Use the same host/port for Gun if possible, or assume /gun endpoint on backend
-    // Remove protocol for easy mapping (http -> ws, https -> wss)
-    const gunUrl = apiUrl + '/gun';
+    const gunUrl = import.meta.env.VITE_GUN_URL || (apiUrl + '/gun');
     const gunInstance = Gun([gunUrl]);
     setGun(gunInstance);
 

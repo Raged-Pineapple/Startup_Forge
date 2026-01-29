@@ -62,7 +62,8 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
         growth_rate: userGrowthRate
       };
 
-      const res = await fetch('http://127.0.0.1:8002/match', {
+      const predictionUrl = import.meta.env.VITE_PREDICTION_URL || 'http://localhost:8002';
+      const res = await fetch(`${predictionUrl}/match`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -87,7 +88,8 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
         return;
       }
       try {
-        const res = await fetch('http://127.0.0.1:8000/search/founders', {
+        const ragUrl = import.meta.env.VITE_RAG_API_URL || 'http://localhost:8000';
+        const res = await fetch(`${ragUrl}/search/founders`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ query: coiCompanyName, top_k: 3 })
@@ -154,7 +156,8 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
     setIsChatLoading(true);
 
     try {
-      const res = await fetch('http://127.0.0.1:8000/chat', {
+      const ragUrl = import.meta.env.VITE_RAG_API_URL || 'http://localhost:8000';
+      const res = await fetch(`${ragUrl}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: userMsg, top_k: 5 })

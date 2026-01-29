@@ -36,7 +36,8 @@ export const GrowthPredictionSection = ({ user }: { user: User }) => {
                     umbrella_companies: user.umbrella || []
                 };
 
-                const res = await fetch('http://localhost:8002/predict', {
+                const predictionUrl = import.meta.env.VITE_PREDICTION_URL || 'http://localhost:8002';
+                const res = await fetch(`${predictionUrl}/predict`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
