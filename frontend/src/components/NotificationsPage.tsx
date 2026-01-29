@@ -115,7 +115,6 @@ export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, on
         setNotifications(prev => [...realNotifs, ...prev]);
 
         // Fetch Company Updates
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
         const resUpdates = await fetch(`${apiUrl}/api/investments/updates`, {
           headers: { 'x-user-id': currentUser.id }
         });
