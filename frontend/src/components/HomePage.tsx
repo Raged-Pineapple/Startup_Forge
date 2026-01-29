@@ -575,7 +575,7 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
             </div>
 
             {/* Find Investors (Flex 3.5 -> ~35%) */}
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col relative overflow-hidden group z-10">
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col relative overflow-hidden group z-10 flex-shrink-0">
               <div className="absolute top-0 right-0 w-32 h-32 bg-slate-100 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none group-hover:bg-slate-200 transition-colors"></div>
 
               <div className="relative flex flex-col h-full">
@@ -611,7 +611,7 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
 
             {/* Invested Companies (Flex 3.5 -> ~35%) */}
             {/* Invested Companies (Flex 3.5 -> ~35%) */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 flex flex-col relative z-50">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 flex flex-col relative z-50 flex-shrink-0">
               <div className="flex items-center gap-2 mb-3">
                 <PieChart className="w-4 h-4 text-slate-800" />
                 <h3 className="font-bold text-gray-800 text-base"><b>My Invested Company Stats</b></h3>
