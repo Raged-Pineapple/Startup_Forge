@@ -170,7 +170,7 @@ router.get('/updates', async (req, res) => {
             MATCH (r1:InvestmentReport {submittedBy: f.id, role: 'founder'})
             MATCH (r2:InvestmentReport {connectionId: r1.connectionId, role: 'investor'})
             WHERE r1.amount = r2.amount AND r1.year = r2.year AND r1.round = r2.round
-            RETURN 
+            RETURN DISTINCT 
                 f.id as founder_id,
                 f.name as company,
                 f.valuation as valuation,

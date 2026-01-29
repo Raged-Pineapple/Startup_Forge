@@ -85,12 +85,6 @@ export const LandingPage = ({ onLogin }: LandingPageProps) => {
                         Connect with world-class investors, perform instant due diligence, and secure your next round with the most advanced matching engine in the industry.
                     </p>
 
-                    <div className="flex items-center gap-8 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                        {/* Fake Logos for Social Proof */}
-                        <span className="font-bold text-xl">Klarna.</span>
-                        <span className="font-bold text-xl">coinbase</span>
-                        <span className="font-bold text-xl">instacart</span>
-                    </div>
                 </div>
 
                 {/* Right: Interactive Login Card (Floating Visual) */}
@@ -177,73 +171,6 @@ export const LandingPage = ({ onLogin }: LandingPageProps) => {
                     </div>
                 </div>
             </header>
-
-            {/* --- Features Section --- */}
-            <section className="bg-white py-24 relative overflow-hidden">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="mb-20 max-w-2xl">
-                        <span className="text-indigo-600 font-bold tracking-wider text-sm uppercase">Future Proof</span>
-                        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mt-3 mb-6">Experience that grows<br /> with your scale.</h2>
-                        <p className="text-lg text-slate-500">Design a friendship-based ecosystem that works for your business and streamlines cash flow management.</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                        <Feature
-                            icon={<Zap className="w-6 h-6 text-indigo-600" />}
-                            title="Instant Transfers"
-                            desc="Create efficient experiences and optimize rapid productivity scheduling requirements."
-                        />
-                        <Feature
-                            icon={<Layout className="w-6 h-6 text-indigo-600" />}
-                            title="Multiple Accounts"
-                            desc="Run your operations with cash from new revenue and premier yielded validations in your account."
-                        />
-                        <Feature
-                            icon={<ShieldCheck className="w-6 h-6 text-indigo-600" />}
-                            title="Unmatched Security"
-                            desc="Securely manage new finances with organization-wide MFA, user locking, and account level controls."
-                        />
-                    </div>
-                </div>
-            </section>
-
-            {/* --- Dark CTA Section --- */}
-            <section className="py-24 px-6">
-                <div className="max-w-7xl mx-auto bg-slate-900 rounded-[3rem] p-12 md:p-20 relative overflow-hidden text-white">
-                    {/* Abstract decorative circles */}
-                    <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3"></div>
-
-                    <div className="relative z-10 max-w-2xl">
-                        <span className="text-indigo-400 font-bold tracking-wider text-sm uppercase mb-4 block">Ready to start?</span>
-                        <h2 className="text-4xl md:text-5xl font-bold mb-8">
-                            Maximize your returns with a Forge account that generates.
-                        </h2>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12 border-t border-white/10 pt-8">
-                            <div>
-                                <div className="text-3xl font-bold text-indigo-400 mb-1">24%</div>
-                                <div className="text-sm text-slate-400">Revenue Business</div>
-                            </div>
-                            <div>
-                                <div className="text-3xl font-bold text-indigo-400 mb-1">180K</div>
-                                <div className="text-sm text-slate-400">In annual revenue</div>
-                            </div>
-                            <div>
-                                <div className="text-3xl font-bold text-indigo-400 mb-1">10+</div>
-                                <div className="text-sm text-slate-400">Months of runway</div>
-                            </div>
-                        </div>
-
-                        <button
-                            onClick={() => document.documentElement.scrollTop = 0}
-                            className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-2xl transition-all flex items-center gap-3 group"
-                        >
-                            Get Started Now
-                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </button>
-                    </div>
-                </div>
-            </section>
 
             {/* --- Footer --- */}
             <footer className="bg-slate-50 py-16 border-t border-slate-200">

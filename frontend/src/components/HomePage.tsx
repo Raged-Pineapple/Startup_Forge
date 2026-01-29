@@ -519,9 +519,9 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
           </div>
 
           {/* COLUMN 3: Stats (Ratio: 20) */}
-          <div style={{ flex: 20 }} className="flex flex-col gap-6 flex-shrink-0 min-w-0 h-full">
+          <div style={{ flex: 20 }} className="flex flex-col gap-6 flex-shrink-0 min-w-0 h-full overflow-y-auto custom-scrollbar pr-1">
             {/* Conflict (Flex 3 -> ~30%) to fit inputs */}
-            <div style={{ flex: 3.5 }} className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex-shrink-0 flex flex-col min-h-0 relative z-40">
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex-shrink-0 flex flex-col relative z-40">
               <div className="flex items-center gap-2 mb-3">
                 <ShieldCheck className="w-4 h-4 text-green-600" />
                 <h3 className="font-bold text-gray-800 text-base"><b>Conflict of Interest</b></h3>
@@ -575,7 +575,7 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
             </div>
 
             {/* Find Investors (Flex 3.5 -> ~35%) */}
-            <div style={{ flex: 3.5 }} className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col min-h-0 relative overflow-hidden group z-10">
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col relative overflow-hidden group z-10">
               <div className="absolute top-0 right-0 w-32 h-32 bg-slate-100 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none group-hover:bg-slate-200 transition-colors"></div>
 
               <div className="relative flex flex-col h-full">
@@ -611,7 +611,7 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
 
             {/* Invested Companies (Flex 3.5 -> ~35%) */}
             {/* Invested Companies (Flex 3.5 -> ~35%) */}
-            <div style={{ flex: 3.5 }} className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 flex flex-col min-h-0 relative z-50">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 flex flex-col relative z-50">
               <div className="flex items-center gap-2 mb-3">
                 <PieChart className="w-4 h-4 text-slate-800" />
                 <h3 className="font-bold text-gray-800 text-base"><b>My Invested Company Stats</b></h3>
@@ -647,7 +647,10 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
                     growth: Math.floor(Math.random() * 40) + 10 // Mock growth if not in API
                   }));
 
-                  let displayList = [...uiInvestments];
+                  // Deduplicate by ID
+                  const uniqueInvestments = Array.from(new Map(uiInvestments.map(item => [item.id, item])).values());
+
+                  let displayList = [...uniqueInvestments];
 
                   // Fill the rest with defaults if we have space, just to keep the UI looking good for the demo
                   if (displayList.length < 8) {
@@ -658,26 +661,16 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
                   }
 
                   const renderItem = (company: any, i: number) => {
-                    // Tooltip positioning logic
-                    // Row is 4 items. Index in row: i % 4
-                    const posInRow = i % 4;
-                    let tooltipClass = "left-1/2 -translate-x-1/2"; // Default Center
-                    let arrowClass = "left-1/2 -translate-x-1/2";
-
-                    if (posInRow === 0) {
-                      tooltipClass = "left-[-10px]"; // Align Left
-                      arrowClass = "left-4";
-                    } else if (posInRow === 3) {
-                      tooltipClass = "right-[-10px]"; // Align Right
-                      arrowClass = "right-4";
-                    }
-
                     const uniqueId = company.id || `default-${i}`;
+                    // Simple alignment: first 2 items align left, last 2 align right
+                    const isRightSide = (i % 4) >= 2;
+                    const tooltipClass = isRightSide ? "right-0 translate-x-4" : "left-0 -translate-x-4";
+                    const arrowClass = isRightSide ? "right-8" : "left-8";
 
                     return (
                       <div
                         key={i}
-                        className="relative group"
+                        className="relative group flex justify-center"
                         onMouseEnter={() => setHoveredCompanyId(uniqueId)}
                         onMouseLeave={() => setHoveredCompanyId(null)}
                       >
@@ -711,7 +704,6 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
                                 <span className="font-semibold text-white">${company.stock || (Math.random() * 200 + 10).toFixed(2)}</span>
                               </div>
                             </div>
-
                             {/* Arrow */}
                             <div
                               className={`absolute -bottom-1.5 w-3 h-3 rotate-45 border-r border-b border-white/20 ${arrowClass}`}
@@ -720,28 +712,21 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
                           </div>
                         )}
 
-                        {/* Founder Icon */}
-                        <div className="relative">
+                        <div className="relative transform transition-transform duration-300 hover:scale-110">
                           <img
                             src={`https://i.pravatar.cc/150?u=${company.id || company.img || i}`}
-                            className="w-11 h-11 rounded-full object-cover border-2 border-white shadow-sm hover:scale-110 hover:border-indigo-500 hover:shadow-md transition-all cursor-pointer bg-white"
+                            className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm cursor-pointer bg-white"
                             alt={company.company}
                           />
-                          {/* Small company logo indicator could go here if needed */}
                         </div>
                       </div>
                     );
                   };
 
                   return (
-                    <>
-                      <div className="flex items-center justify-between">
-                        {displayList.slice(0, 4).map((c, i) => renderItem(c, i))}
-                      </div>
-                      <div className="flex items-center justify-between">
-                        {displayList.slice(4, 8).map((c, i) => renderItem(c, i + 4))}
-                      </div>
-                    </>
+                    <div className="grid grid-cols-4 gap-y-4 gap-x-2">
+                      {displayList.map((c, i) => renderItem(c, i))}
+                    </div>
                   );
                 })()}
               </div>
