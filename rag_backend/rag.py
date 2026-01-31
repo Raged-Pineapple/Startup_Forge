@@ -76,7 +76,7 @@ def ingest_data():
                         "embedding": emb,
                         "metadata": row
                     })
-                time.sleep(0.5) # Rate limit protection
+                time.sleep(1.0) 
 
         # Load Investors
         with open("investors_cleaned.csv", "r", encoding="utf-8") as f:
@@ -92,7 +92,7 @@ def ingest_data():
                         "embedding": emb,
                         "metadata": row
                     })
-                time.sleep(0.5) # Rate limit protection
+                time.sleep(1.0)
         
         print(f"Ingested {len(FOUNDER_STORE)} founders and {len(INVESTOR_STORE)} investors.")
         return "Ingestion complete"

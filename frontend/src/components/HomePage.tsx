@@ -289,6 +289,7 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
           {/* Desktop Nav Icons */}
           <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
             <ActionItem icon={<Home />} label="Home" onClick={() => onNavigate('home')} active={true} />
+            <ActionItem icon={<Users />} label="Network" onClick={() => onNavigate('network')} />
             <ActionItem icon={<Bell />} label="Alerts" badge={true} onClick={() => onNavigate('notifications')} />
             <ActionItem icon={<MessageSquare />} label="Inbox" onClick={() => onNavigate('messages')} />
             <ActionItem icon={<BrainCircuit />} label="Deep Analysis" onClick={() => onNavigate('conflict-report')} />

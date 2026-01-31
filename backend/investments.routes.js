@@ -178,7 +178,7 @@ router.get('/updates', async (req, res) => {
                 r1.amount as amount,
                 r1.year as year,
                 toString(r1.created_at) as time
-            ORDER BY r1.created_at DESC
+            ORDER BY time DESC
             LIMIT 10
         `;
 
