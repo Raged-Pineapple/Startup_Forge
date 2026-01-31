@@ -15,6 +15,8 @@ import {
     DollarSign,
     Home
 } from 'lucide-react';
+import { MobileChatOverlay } from './common/MobileChatOverlay';
+import { SearchResultsDropdown } from './SearchResultsDropdown';
 
 type NotificationsPageProps = {
     currentUser: any;
@@ -22,32 +24,48 @@ type NotificationsPageProps = {
     onNavigateToChat: (userId: string) => void;
     onNavigate: (page: string) => void;
     onSearch: (query: string) => void;
+    onQueryChange?: (query: string) => void;
+    ragResults?: any;
+    isSearching?: boolean;
 };
 
-// --- Sub-components for Header (Copied for consistency as per user request) ---
+// --- Sub-components for Header ---
 const ActionItem = ({ icon, label, onClick, badge, active }: { icon: any, label: string, onClick: () => void, badge?: boolean, active?: boolean }) => (
     <button
         onClick={onClick}
-        className={`flex flex-col items-center justify-center gap-1.5 p-2 rounded-2xl transition-all duration-300 group min-w-20 relative ${active ? 'bg-indigo-50/80' : 'hover:bg-slate-50'}`}
+        className={`flex flex-col items-center justify-center gap-1.5 p-1.5 md:p-2 rounded-2xl transition-all duration-300 group min-w-16 md:min-w-20 relative ${active ? 'bg-indigo-50/80' : 'hover:bg-slate-50'}`}
     >
         <div className={`relative transform transition-transform duration-300 ${active ? 'scale-105' : 'group-hover:scale-110'}`}>
             <div className={`p-1.5 rounded-xl transition-colors duration-300 ${active ? 'bg-indigo-100 text-indigo-600' : 'text-slate-400 group-hover:text-slate-700 bg-transparent'}`}>
                 {React.cloneElement(icon, {
                     strokeWidth: active ? 2.5 : 2,
-                    className: "w-6 h-6"
+                    className: "w-5 h-5 md:w-6 md:h-6"
                 })}
             </div>
             {badge && <span className="absolute -top-1 -right-1 w-3 h-3 bg-rose-500 rounded-full border-2 border-white shadow-sm animate-pulse"></span>}
         </div>
-        <span className={`text-[11px] font-bold tracking-tight transition-colors duration-300 ${active ? 'text-indigo-700' : 'text-slate-400 group-hover:text-slate-600'}`}>{label}</span>
+        <span className={`text-[9px] md:text-[11px] font-bold tracking-tight transition-colors duration-300 ${active ? 'text-indigo-700' : 'text-slate-400 group-hover:text-slate-600'}`}>{label}</span>
     </button>
 );
 
-export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, onNavigate, onSearch }: NotificationsPageProps) {
+export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, onNavigate, onSearch, onQueryChange, ragResults, isSearching }: NotificationsPageProps) {
     const [searchQuery, setSearchQuery] = useState('');
     const [notifications, setNotifications] = useState<any[]>([]);
-
     const [companyUpdates, setCompanyUpdates] = useState<any[]>([]);
+    const [isSearchExpanded, setIsSearchExpanded] = useState(false); // Mobile search
+    const [activeTab, setActiveTab] = useState<'notifications' | 'updates'>('notifications');
+
+    // Close search when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            const target = e.target as HTMLElement;
+            if (isSearchExpanded && !target.closest('.search-container')) {
+                setIsSearchExpanded(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isSearchExpanded]);
 
     useEffect(() => {
         const fetchNotifications = async () => {
@@ -95,6 +113,7 @@ export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, on
     const handleSearchSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (onSearch) onSearch(searchQuery);
+        setIsSearchExpanded(false);
     };
 
     const getIcon = (type: string) => {
@@ -109,14 +128,14 @@ export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, on
 
     return (
         <div className="h-screen bg-slate-50 flex flex-col font-sans overflow-hidden">
-            {/* --- Fixed Header (Copied from HomePage) --- */}
-            <div className="bg-white px-8 py-6 shadow-sm border-b border-slate-100 z-50 flex-shrink-0">
-                <div className="flex items-center justify-between gap-6 w-full h-24">
+            {/* --- Responsive Header (Copied from HomePage) --- */}
+            <div className="bg-white px-4 md:px-8 py-3 md:py-6 shadow-sm border-b border-slate-100 z-50 flex-shrink-0 relative">
+                <div className="flex items-center justify-between gap-4 w-full h-14 md:h-24">
 
-                    {/* Profile */}
+                    {/* Desktop Profile */}
                     <button
                         onClick={() => onNavigate('profile')}
-                        className="flex items-center gap-4 hover:bg-slate-50 p-2 rounded-xl transition-all group flex-shrink-0 min-w-52"
+                        className="hidden md:flex items-center gap-4 hover:bg-slate-50 p-2 rounded-xl transition-all group flex-shrink-0 min-w-52"
                     >
                         <div className="relative">
                             <img
@@ -132,34 +151,77 @@ export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, on
                         </div>
                     </button>
 
+                    <button
+                        onClick={() => onNavigate('profile')}
+                        className="md:hidden flex-shrink-0"
+                    >
+                        <img src={currentUser.avatar} className="w-8 h-8 rounded-full border border-gray-200" />
+                    </button>
+
                     {/* Search */}
-                    <div className="flex-1 flex justify-center max-w-3xl px-8">
-                        <form onSubmit={handleSearchSubmit} className="relative w-full group">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
-                                <div className="bg-slate-800 p-2 rounded-xl">
-                                    <Sparkles className="h-5 w-5 text-white animate-pulse" />
-                                </div>
+                    <div className="flex-1 flex justify-center max-w-3xl px-0 md:px-8 relative">
+                        <form onSubmit={handleSearchSubmit} className="relative w-full group search-container">
+                            {/* Mobile Search Icon Trigger */}
+                            <div className={`md:hidden ${isSearchExpanded ? 'hidden' : 'flex'} justify-end w-full`} >
+                                <button type="button" onClick={() => setIsSearchExpanded(true)} className="p-2.5 bg-slate-100 rounded-full text-slate-600">
+                                    <Sparkles className="w-5 h-5" />
+                                </button>
                             </div>
-                            <input
-                                type="text"
-                                className="w-full pl-20 pr-20 py-4 bg-slate-900 border border-slate-700 focus:border-slate-500 focus:ring-4 focus:ring-slate-800 rounded-2xl text-base transition-all placeholder-white font-medium outline-none shadow-sm text-white hover:shadow-md hover:border-slate-600"
-                                placeholder="Ask anything..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                            <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none">
-                                <div className="flex items-center gap-2">
-                                    <span className="text-gray-300 text-xs">|</span>
-                                    <kbd className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1.5 bg-slate-800 border border-slate-600 border-b-2 rounded-lg text-[10px] font-bold text-slate-300 tracking-wider">
-                                        ⌘ K
-                                    </kbd>
+
+                            {/* Input field */}
+                            <div className={`${isSearchExpanded ? 'flex' : 'hidden md:block'} relative w-full`}>
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+                                    <div className="bg-slate-800 p-1.5 md:p-2 rounded-xl">
+                                        <Sparkles className="h-3 w-3 md:h-5 md:w-5 text-white animate-pulse" />
+                                    </div>
+                                </div>
+                                <input
+                                    type="text"
+                                    className="w-full pl-10 pr-4 md:pl-20 md:pr-20 py-2.5 md:py-4 bg-slate-900 border border-slate-700 focus:border-slate-500 focus:ring-4 focus:ring-slate-800 rounded-xl md:rounded-2xl text-xs md:text-base transition-all placeholder-white font-medium outline-none shadow-sm text-white hover:shadow-md hover:border-slate-600 relative z-50"
+                                    placeholder="Ask anything..."
+                                    value={searchQuery}
+                                    onChange={(e) => {
+                                        setSearchQuery(e.target.value);
+                                        if (onQueryChange) onQueryChange(e.target.value);
+                                    }}
+                                    autoFocus={isSearchExpanded}
+                                />
+                                {/* Close Button Mobile */}
+                                {isSearchExpanded && (
+                                    <button
+                                        type="button"
+                                        onClick={(e) => { e.stopPropagation(); setIsSearchExpanded(false); }}
+                                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1 bg-slate-700 rounded-full text-white md:hidden z-50"
+                                    >
+                                        <span className="text-xs">✕</span>
+                                    </button>
+                                )}
+
+                                <div className="hidden md:flex absolute inset-y-0 right-4 items-center pointer-events-none z-50">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-gray-300 text-xs">|</span>
+                                        <kbd className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-slate-800 border border-slate-600 border-b-2 rounded-lg text-[10px] font-bold text-slate-300 tracking-wider">
+                                            ⌘ K
+                                        </kbd>
+                                    </div>
                                 </div>
                             </div>
                         </form>
+                        {/* RAG Search Results Dropdown */}
+                        {searchQuery.length >= 2 && ragResults && (
+                            <div className="absolute top-full left-0 right-0 mt-2 z-[100] shadow-2xl rounded-2xl border border-slate-100 overflow-hidden bg-white">
+                                <SearchResultsDropdown
+                                    results={ragResults}
+                                    isVisible={true}
+                                    isLoading={isSearching || false}
+                                    onSelectResult={(id) => onNavigate('profile')}
+                                />
+                            </div>
+                        )}
                     </div>
 
-                    {/* Icons */}
-                    <div className="flex items-center gap-2 flex-shrink-0">
+                    {/* Desktop Nav Icons */}
+                    <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
                         <ActionItem icon={<Home />} label="Home" onClick={() => onNavigate('home')} />
                         <ActionItem icon={<Users />} label="Network" onClick={() => onNavigate('network')} />
                         <ActionItem icon={<Bell />} label="Alerts" badge={false} onClick={() => onNavigate('notifications')} active={true} />
@@ -170,14 +232,30 @@ export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, on
             </div>
 
             {/* --- Main Content --- */}
-            <div className="flex-1 overflow-auto bg-slate-50">
-                <div className="max-w-[1600px] mx-auto p-6 flex flex-row gap-6">
+            <div className="flex-1 overflow-auto bg-slate-50 pb-20 md:pb-0">
+                <div className="max-w-[1600px] mx-auto p-4 md:p-6 flex flex-col lg:flex-row gap-6">
 
-                    {/* LEFT: Main Notification Details (notifications list) */}
-                    <div className="flex-1 flex flex-col gap-6 min-w-0">
-                        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 min-h-[500px]">
+                    {/* Mobile Tab Selector */}
+                    <div className="lg:hidden flex bg-white p-1 rounded-xl shadow-sm border border-slate-200 mb-2">
+                        <button
+                            onClick={() => setActiveTab('notifications')}
+                            className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === 'notifications' ? 'bg-slate-100 text-slate-900 shadow-sm' : 'text-slate-500'}`}
+                        >
+                            Activity
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('updates')}
+                            className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === 'updates' ? 'bg-slate-100 text-slate-900 shadow-sm' : 'text-slate-500'}`}
+                        >
+                            Market Updates
+                        </button>
+                    </div>
+
+                    {/* LEFT: Main Notification Details (notifications list) - Hidden on mobile if tab is Updates */}
+                    <div className={`flex-1 flex flex-col gap-6 min-w-0 ${activeTab === 'updates' ? 'hidden lg:flex' : 'flex'}`}>
+                        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 md:p-6 min-h-[500px]">
                             <div className="flex items-center justify-between mb-8 border-b border-slate-100 pb-4">
-                                <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Notifications</h2>
+                                <h2 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">Notifications</h2>
                                 <button className="text-sm font-semibold text-slate-500 hover:text-slate-900">Mark all as read</button>
                             </div>
 
@@ -197,13 +275,13 @@ export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, on
                                                         onViewJob(notification.id);
                                                     }
                                                 }}
-                                                className={`group p-4 rounded-xl border border-transparent hover:border-slate-200 hover:bg-slate-50 transition-all cursor-pointer flex items-start gap-4 ${notification.unread ? 'bg-indigo-50/50' : ''}`}
+                                                className={`group p-3 md:p-4 rounded-xl border border-transparent hover:border-slate-200 hover:bg-slate-50 transition-all cursor-pointer flex items-start gap-4 ${notification.unread ? 'bg-indigo-50/50' : ''}`}
                                             >
                                                 <div className="relative">
                                                     <img
                                                         src={notification.avatar}
                                                         alt="Avatar"
-                                                        className="w-12 h-12 rounded-full object-cover border border-slate-100"
+                                                        className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border border-slate-100"
                                                     />
                                                     <div className="absolute -bottom-1 -right-1 bg-white p-1 rounded-full shadow-sm">
                                                         {getIcon(notification.type)}
@@ -211,7 +289,7 @@ export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, on
                                                 </div>
 
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="text-slate-900 font-medium text-[15px]">{notification.message}</p>
+                                                    <p className="text-slate-900 font-medium text-sm md:text-[15px]">{notification.message}</p>
                                                     <p className="text-slate-500 text-xs mt-1">{notification.timestamp}</p>
                                                 </div>
 
@@ -230,13 +308,13 @@ export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, on
                                         {companyUpdates.slice(0, 4).map((update, i) => (
                                             <div
                                                 key={`inv-${i}`}
-                                                className="group p-4 rounded-xl border border-transparent hover:border-slate-200 hover:bg-slate-50 transition-all cursor-pointer flex items-start gap-4 bg-emerald-50/30"
+                                                className="group p-3 md:p-4 rounded-xl border border-transparent hover:border-slate-200 hover:bg-slate-50 transition-all cursor-pointer flex items-start gap-4 bg-emerald-50/30"
                                             >
                                                 <div className="relative">
                                                     <img
                                                         src={`https://i.pravatar.cc/150?u=${update.founder_id || (i + 10)}`}
                                                         alt="Company"
-                                                        className="w-12 h-12 rounded-full object-cover border border-slate-100"
+                                                        className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border border-slate-100"
                                                     />
                                                     <div className="absolute -bottom-1 -right-1 bg-white p-1 rounded-full shadow-sm">
                                                         <TrendingUp className="w-5 h-5 text-emerald-600" />
@@ -244,7 +322,7 @@ export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, on
                                                 </div>
 
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="text-slate-900 font-medium text-[15px]">Investment successful in {update.company}</p>
+                                                    <p className="text-slate-900 font-medium text-sm md:text-[15px]">Investment successful in {update.company}</p>
                                                     <p className="text-slate-500 text-xs mt-1">{new Date(update.time || Date.now()).toLocaleDateString()} • {update.round}</p>
                                                 </div>
 
@@ -257,8 +335,8 @@ export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, on
                         </div>
                     </div>
 
-                    {/* RIGHT: Sidebar Widgets */}
-                    <div className="w-96 flex-shrink-0 flex flex-col gap-6 min-w-0">
+                    {/* RIGHT: Sidebar Widgets - Hidden on mobile if tab is Notifications */}
+                    <div className={`w-full lg:w-96 flex-shrink-0 flex flex-col gap-6 min-w-0 ${activeTab === 'notifications' ? 'hidden lg:flex' : 'flex'}`}>
 
                         {/* Widget 1: Investment Only Updates */}
                         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
@@ -335,6 +413,17 @@ export function NotificationsPage({ currentUser, onViewJob, onNavigateToChat, on
                     </div>
                 </div>
             </div>
+
+            {/* --- Mobile Bottom Nav --- */}
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-6 py-3 z-[80] flex justify-between items-center shadow-[0_-4px_10px_rgba(0,0,0,0.02)] safe-area-pb">
+                <ActionItem icon={<Home />} label="Home" onClick={() => onNavigate('home')} />
+                <ActionItem icon={<Users className="w-6 h-6" />} label="Network" onClick={() => onNavigate('network')} />
+                <ActionItem icon={<BrainCircuit className="w-6 h-6" />} label="Analyze" onClick={() => onNavigate('conflict-report')} />
+                <ActionItem icon={<Bell className="w-6 h-6" />} label="Alerts" badge={true} onClick={() => onNavigate('notifications')} active={true} />
+                <ActionItem icon={<MessageSquare className="w-6 h-6" />} label="Inbox" onClick={() => onNavigate('messages')} />
+            </div>
+
+            <MobileChatOverlay currentUser={currentUser} />
         </div>
     );
 }

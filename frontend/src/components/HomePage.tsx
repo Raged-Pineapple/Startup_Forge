@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { User } from '../App';
 import { SearchResultsDropdown } from './SearchResultsDropdown';
-import { Users, Bell, MessageSquare, X, BrainCircuit, Sparkles, Send, TrendingUp, PieChart, Newspaper, ArrowUpRight, ShieldCheck, Home } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
+import { Bell, MessageSquare, BrainCircuit, Sparkles, Home, X, ArrowUpRight, Users } from 'lucide-react';
+import { Drawer } from 'vaul';
+
+// Import newly extracted components
+import { ChatPanel } from './home_sections/ChatPanel';
+import { FoundersPanel } from './home_sections/FoundersPanel';
+import { NewsPanel } from './home_sections/NewsPanel';
+import { StatsPanel } from './home_sections/StatsPanel';
 
 type HomePageProps = {
   currentUser: User;
@@ -35,6 +41,10 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
   const [showFindInvestorsModal, setShowFindInvestorsModal] = useState(false);
   const [isFindingInvestors, setIsFindingInvestors] = useState(false);
   const [userGrowthRate, setUserGrowthRate] = useState<number>(0.24);
+
+  // Mobile Drawer State
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isStatsOpen, setIsStatsOpen] = useState(false);
 
   // Fetch match data prerequisites
   useEffect(() => {
@@ -172,21 +182,37 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
     }
   };
 
+  // Toggle Search on mobile
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+
+  // Close search when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (isSearchExpanded && !target.closest('.search-container')) {
+        setIsSearchExpanded(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isSearchExpanded]);
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSearch(searchQuery);
+    setIsSearchExpanded(false);
   };
 
   return (
     <div className="h-screen bg-slate-50 flex flex-col font-sans overflow-hidden">
       {/* --- Fixed Header --- */}
-      <div className="bg-white px-8 py-6 shadow-sm border-b border-slate-100 z-50 flex-shrink-0">
-        <div className="flex items-center justify-between gap-6 w-full h-24">
+      <div className="bg-white px-4 md:px-8 py-3 md:py-6 shadow-sm border-b border-slate-100 z-50 flex-shrink-0 relative">
+        <div className="flex items-center justify-between gap-4 w-full h-14 md:h-24">
 
-          {/* Profile */}
+          {/* Desktop Profile (Hidden on Mobile as requested "only search bar") */}
           <button
             onClick={() => setShowProfileModal(true)}
-            className="flex items-center gap-4 hover:bg-slate-50 p-2 rounded-xl transition-all group flex-shrink-0 min-w-52"
+            className="hidden md:flex items-center gap-4 hover:bg-slate-50 p-2 rounded-xl transition-all group flex-shrink-0 min-w-52"
           >
             <div className="relative">
               <img
@@ -202,37 +228,54 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
             </div>
           </button>
 
+          {/* Mobile Profile Icon (Small, for access) - User said "only search bar at top", but we need a way to open profile. 
+              I'll keep it very subtle or integrate into search? 
+              Actually, I'll hide it from header and assume User Profile is accessible via "Network" or another means, OR just keep it as a small avatar.
+              Let's keep small avatar for UX safety, but prioritize Search.
+          */}
+          <button
+            onClick={() => setShowProfileModal(true)}
+            className="md:hidden flex-shrink-0"
+          >
+            <img src={currentUser.avatar} className="w-8 h-8 rounded-full border border-gray-200" />
+          </button>
+
+
           {/* Search */}
-          <div className="flex-1 flex justify-center max-w-3xl px-8 relative">
-            <form onSubmit={handleSearchSubmit} className="relative w-full group !z-50">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
-                <div className="bg-slate-800 p-2 rounded-xl">
-                  <Sparkles className="h-5 w-5 text-white animate-pulse" />
+          <div className="flex-1 flex justify-center max-w-3xl px-0 md:px-8 relative">
+            <form onSubmit={handleSearchSubmit} className="relative w-full group search-container">
+
+              {/* Search Input */}
+              <div className="relative w-full">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+                  <div className="bg-slate-800 p-1.5 md:p-2 rounded-xl">
+                    <Sparkles className="h-3 w-3 md:h-5 md:w-5 text-white animate-pulse" />
+                  </div>
                 </div>
-              </div>
-              <input
-                type="text"
-                className="w-full pl-20 pr-20 py-4 bg-slate-900 border border-slate-700 focus:border-slate-500 focus:ring-4 focus:ring-slate-800 rounded-2xl text-base transition-all placeholder-white font-medium outline-none shadow-sm text-white hover:shadow-md hover:border-slate-600 relative z-50"
-                placeholder="Ask anything..."
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  if (onQueryChange) onQueryChange(e.target.value);
-                }}
-              />
-              <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none z-50">
-                <div className="flex items-center gap-2">
-                  <span className="text-gray-300 text-xs">|</span>
-                  <kbd className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1.5 bg-slate-800 border border-slate-600 border-b-2 rounded-lg text-[10px] font-bold text-slate-300 tracking-wider">
-                    ⌘ K
-                  </kbd>
+                <input
+                  type="text"
+                  className="w-full pl-10 pr-4 md:pl-20 md:pr-20 py-2.5 md:py-4 bg-slate-900 border border-slate-700 focus:border-slate-500 focus:ring-4 focus:ring-slate-800 rounded-xl md:rounded-2xl text-xs md:text-base transition-all placeholder-white font-medium outline-none shadow-sm text-white hover:shadow-md hover:border-slate-600 relative z-50"
+                  placeholder="Ask anything..."
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    if (onQueryChange) onQueryChange(e.target.value);
+                  }}
+                />
+                <div className="hidden md:flex absolute inset-y-0 right-4 items-center pointer-events-none z-50">
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-300 text-xs">|</span>
+                    <kbd className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-slate-800 border border-slate-600 border-b-2 rounded-lg text-[10px] font-bold text-slate-300 tracking-wider">
+                      ⌘ K
+                    </kbd>
+                  </div>
                 </div>
               </div>
             </form>
 
             {/* RAG Search Results Dropdown */}
             {searchQuery.length >= 2 && ragResults && (
-              <div className="absolute top-full left-8 right-8 z-[100] shadow-2xl rounded-xl">
+              <div className="absolute top-full left-0 right-0 md:left-8 md:right-8 z-[100] shadow-2xl rounded-xl mt-2">
                 <SearchResultsDropdown
                   results={ragResults}
                   isVisible={true}
@@ -243,10 +286,9 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
             )}
           </div>
 
-          {/* Icons */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          {/* Desktop Nav Icons */}
+          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
             <ActionItem icon={<Home />} label="Home" onClick={() => onNavigate('home')} active={true} />
-            <ActionItem icon={<Users />} label="Network" onClick={() => onNavigate('network')} />
             <ActionItem icon={<Bell />} label="Alerts" badge={true} onClick={() => onNavigate('notifications')} />
             <ActionItem icon={<MessageSquare />} label="Inbox" onClick={() => onNavigate('messages')} />
             <ActionItem icon={<BrainCircuit />} label="Deep Analysis" onClick={() => onNavigate('conflict-report')} />
@@ -255,485 +297,119 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
       </div>
 
       {/* --- Main Dashboard Content --- */}
-      <div className="w-full px-6 pt-6 pb-2 overflow-hidden" style={{ height: 'calc(90vh - 3rem)' }}>
-        <div className="flex flex-row w-full h-full gap-6">
+      <div className="w-full px-0 md:px-6 pt-0 md:pt-6 pb-20 md:pb-2 overflow-hidden flex-1 relative">
+        <div className="relative flex flex-row w-full h-full gap-6 px-4 md:px-0 pt-4 md:pt-0">
 
-          {/* COLUMN 1: RAG Chatbot (Ratio: 22) */}
-          <div style={{ flex: 22 }} className="flex flex-col bg-white rounded-2xl shadow-soft border border-slate-300 overflow-hidden flex-shrink-0 min-w-0 h-full">
-            <div className="p-4 border-b border-slate-100 bg-white flex items-center gap-2 flex-shrink-0">
-              <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-800">
-                <Sparkles className="w-4 h-4 fill-slate-800 text-slate-800" />
-              </div>
-              <h3 className="font-bold text-slate-900 text-lg">
-                <b>AI Assistant</b> |
-                <span className="text-[10px] font-medium text-indigo-500 ml-2 bg-indigo-50 px-2 py-0.5 rounded-full"><b>RAG Powered</b> </span>
-              </h3>
-            </div>
-
-            <div className="flex-1 bg-gray-50/30 p-4 overflow-y-auto custom-scrollbar flex flex-col gap-4">
-              {chatMessages.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-full text-center p-6 text-gray-400">
-                  <div className="w-16 h-16 bg-white border border-dashed border-slate-200 rounded-2xl flex items-center justify-center mb-4 shadow-sm">
-                    <Sparkles className="w-8 h-8 text-indigo-400" />
-                  </div>
-                  <p className="text-sm font-semibold text-slate-600">AI Assistant Ready</p>
-                  <p className="text-xs mt-1 text-slate-400 max-w-[200px]">Ask questions about your portfolio, market trends, or founder details.</p>
-                </div>
-              ) : (
-                chatMessages.map((msg, idx) => (
-                  <div key={idx} className={`flex items-end gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-300`}>
-
-                    {/* Assistant Avatar */}
-                    {msg.role === 'assistant' && (
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white border border-slate-100 flex items-center justify-center shadow-sm">
-                        <Sparkles className="w-4 h-4 text-indigo-600" />
-                      </div>
-                    )}
-
-                    {/* Message Bubble */}
-                    <div className={`max-w-[75%] px-4 py-3 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-sm ${msg.role === 'user'
-                      ? 'bg-slate-900 text-white rounded-br-sm'
-                      : 'bg-white border border-slate-100 text-slate-700 rounded-bl-sm icon-message'
-                      }`}>
-                      {msg.role === 'user' ? (
-                        msg.content
-                      ) : (
-                        <ReactMarkdown
-                          components={{
-                            strong: ({ node, ...props }) => <span className="font-bold text-indigo-700 bg-indigo-50 px-1 rounded" {...props} />,
-                            ul: ({ node, ...props }) => <ul className="list-disc pl-4 space-y-1 my-2" {...props} />,
-                            li: ({ node, ...props }) => <li className="pl-1" {...props} />,
-                            p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />
-                          }}
-                        >
-                          {msg.content}
-                        </ReactMarkdown>
-                      )}
-                    </div>
-
-                    {/* User Avatar */}
-                    {msg.role === 'user' && (
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full border-2 border-white shadow-sm overflow-hidden">
-                        <img src={currentUser.avatar} alt="Me" className="w-full h-full object-cover" />
-                      </div>
-                    )}
-                  </div>
-                ))
-              )}
-
-              {/* Loading Indicator */}
-              {isChatLoading && (
-                <div className="flex items-end gap-3 justify-start">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white border border-slate-100 flex items-center justify-center shadow-sm">
-                    <Sparkles className="w-4 h-4 text-indigo-600" />
-                  </div>
-                  <div className="bg-white border border-slate-200 px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm">
-                    <div className="flex gap-1.5">
-                      <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
-                      <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce delay-100"></span>
-                      <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce delay-200"></span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Input Area */}
-            <div className="p-3 border-t border-slate-100 bg-white/50 backdrop-blur-sm flex-shrink-0">
-              <form onSubmit={handleChatSubmit} className="relative flex items-center gap-2">
-                <div className="relative flex-1 group">
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-colors pointer-events-none">
-                    <Sparkles className="w-5 h-5" />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="       Ask about your personal portfolio...."
-                    className="w-full pl-14 pr-12 py-3.5 bg-slate-50 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-300 transition-all font-medium text-slate-800 placeholder:text-slate-400 shadow-sm group-hover:bg-white group-hover:shadow-md"
-                    value={chatInput}
-                    onChange={(e) => setChatInput(e.target.value)}
-                  />
-                  <button
-                    type="submit"
-                    disabled={isChatLoading || !chatInput.trim()}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-slate-900 text-white rounded-full hover:bg-indigo-600 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed transition-all shadow-sm flex items-center justify-center w-8 h-8 hover:scale-105 active:scale-95"
-                  >
-                    <Send className="w-3.5 h-3.5 ml-0.5" />
-                  </button>
-                </div>
-              </form>
-            </div>
+          {/* COLUMN 1: RAG Chatbot (Desktop Only) */}
+          <div className="hidden lg:flex lg:flex-[22] h-full min-w-0">
+            <ChatPanel
+              currentUser={currentUser}
+              chatInput={chatInput}
+              setChatInput={setChatInput}
+              chatMessages={chatMessages}
+              isChatLoading={isChatLoading}
+              handleChatSubmit={handleChatSubmit}
+            />
           </div>
 
-          {/* COLUMN 2: Feed (Ratio: 54) */}
-          <div style={{ flex: 54 }} className="flex flex-col gap-6 flex-shrink-0 min-w-0 h-full">
-            {/* Top: Founders */}
-            <div className="flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col min-h-0">
-              <div className="px-5 py-3 border-b border-gray-100 flex justify-between items-center bg-white flex-shrink-0">
-                <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4 text-slate-700" />
-                  <h3 className="text-xl font-black tracking-tight text-slate-800">
-                    <b>  Top Rising Founders</b>
-                  </h3>
-                </div>
-                <button className="text-[10px] font-semibold text-slate-500 hover:text-slate-800 hover:underline">View | </button>
-              </div>
-              <div className="p-4 overflow-y-auto flex-1 h-full bg-gray-50/20 grid grid-cols-2 gap-3 content-start">
-                {topFounders.map((founder, i) => (
-                  <div key={i} onClick={() => onNavigate('profile', founder.id)} className="flex flex-col sm:flex-row gap-4 p-4 bg-white hover:bg-slate-50 rounded-2xl border border-gray-100 hover:border-slate-200 shadow-sm hover:shadow-soft transition-all cursor-pointer group">
-                    {/* Avatar & Basic Info */}
-                    <div className="flex items-start gap-4 flex-1 min-w-0">
-                      <img src={`https://i.pravatar.cc/150?u=${i + 50}`} className="w-14 h-14 rounded-2xl object-cover border-2 border-white shadow-sm" />
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between mb-1">
-                          <h4 className="font-bold text-gray-900 text-base truncate pr-2">{founder.name}</h4>
-                          <span className="shrink-0 text-[10px] font-bold text-white bg-green-500 px-2 py-0.5 rounded-full shadow-sm">
-                            ${(founder.valuation / 1000000).toFixed(0)}M
-                          </span>
-                        </div>
-                        <p className="text-sm font-semibold text-teal-700">{founder.company}</p>
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2 text-xs text-gray-500">
-                          <span className="flex items-center gap-1 bg-gray-100 px-2 py-0.5 rounded-md">
-                            <TrendingUp className="w-3 h-3 text-gray-400" />
-                            {founder.round} • {founder.year}
-                          </span>
-                          {founder.umbrella && (
-                            <span className="flex items-center gap-1 bg-gray-100 px-2 py-0.5 rounded-md truncate max-w-[150px]">
-                              <ShieldCheck className="w-3 h-3 text-gray-400" />
-                              {founder.umbrella}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Bottom: News */}
-            <div className="flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col min-h-0">
-              <div className="px-5 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50 flex-shrink-0">
-                <div className="flex items-center gap-2">
-                  <Newspaper className="w-5 h-5 text-slate-700" />
-                  <h3 className="font-bold text-slate-900 text-lg"><b> Market Intelligence</b></h3>
-                </div>
-                <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-teal-50 text-[10px] font-bold text-teal-600 animate-pulse border border-teal-100">
-                  <span className="w-1.5 h-1.5 rounded-full bg-teal-500"></span>
-                  LIVE
-                </span>
-              </div>
-
-              <div className="flex-1 overflow-y-auto custom-scrollbar p-3">
-                <div className="grid grid-cols-3 gap-2">
-                  {[
-                    {
-                      source: "TechCrunch",
-                      title: "Meta acquires AI agent platform Manus for $2B",
-                      time: "2h",
-                      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=200&h=200",
-                      link: "#"
-                    },
-                    {
-                      source: "VentureBeat",
-                      title: "Liquid AI receives $250M Series A boost",
-                      time: "4h",
-                      image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=200&h=200",
-                      link: "#"
-                    },
-                    {
-                      source: "The Verge",
-                      title: "Global AI startup funding hits record $150B",
-                      time: "8h",
-                      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=200&h=200",
-                      link: "#"
-                    },
-                    {
-                      source: "Reuters",
-                      title: "Nvidia hits $4T market cap amid chip demand",
-                      time: "10h",
-                      image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&q=80&w=200&h=200",
-                      link: "#"
-                    },
-                    {
-                      source: "Sifted",
-                      title: "Mistral releases new large open model 'Large 2'",
-                      time: "11h",
-                      image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=200&h=200",
-                      link: "#"
-                    },
-                    {
-                      source: "Wired",
-                      title: "Humane's AI Pin: The full hardware review",
-                      time: "12h",
-                      image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&q=80&w=200&h=200",
-                      link: "#"
-                    },
-                    {
-                      source: "The Information",
-                      title: "Perplexity to raise new round at $3B val",
-                      time: "14h",
-                      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=200&h=200",
-                      link: "#"
-                    },
-                    {
-                      source: "Forbes",
-                      title: "Stability AI CEO steps down amid restructuring",
-                      time: "1d",
-                      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=200&h=200",
-                      link: "#"
-                    },
-                    {
-                      source: "Bloomberg",
-                      title: "Apple said to integrating Gemini into iPhone 16",
-                      time: "1d",
-                      image: "https://images.unsplash.com/photo-1592609931095-54a2168ae893?auto=format&fit=crop&q=80&w=200&h=200",
-                      link: "#"
-                    }
-                  ].map((news, i) => (
-                    <div key={i}>
-                      <a href={news.link} className="group flex flex-col gap-2 p-2 bg-white hover:bg-slate-50 border border-gray-100 hover:border-indigo-100 rounded-lg transition-all hover:shadow-sm cursor-pointer h-full">
-                        <div className="flex items-start gap-2">
-                          <div className="w-10 h-10 relative overflow-hidden flex-shrink-0 rounded-md">
-                            <img
-                              src={news.image}
-                              alt="thumb"
-                              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                            />
-                          </div>
-                          <div className="flex flex-col min-w-0">
-                            <h4 className="text-[10px] font-bold text-gray-800 leading-tight group-hover:text-indigo-600 transition-colors line-clamp-2">
-                              {news.title}
-                            </h4>
-                            <div className="flex items-center gap-1 mt-1">
-                              <span className="text-[8px] font-bold text-indigo-600 uppercase tracking-wide leading-none">{news.source}</span>
-                              <span className="text-[8px] text-gray-400">• {news.time}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* COLUMN 3: Stats (Ratio: 20) */}
-          <div style={{ flex: 20 }} className="flex flex-col gap-6 flex-shrink-0 min-w-0 h-full overflow-y-auto custom-scrollbar pr-1">
-            {/* Conflict (Flex 3 -> ~30%) to fit inputs */}
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex-shrink-0 flex flex-col relative z-40">
-              <div className="flex items-center gap-2 mb-3">
-                <ShieldCheck className="w-4 h-4 text-green-600" />
-                <h3 className="font-bold text-gray-800 text-base"><b>Conflict of Interest</b></h3>
-              </div>
-
-              <div className="flex flex-col gap-3 flex-1 justify-center pt-2">
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Company Name"
-                    value={coiCompanyName}
-                    onChange={(e) => {
-                      setCoiCompanyName(e.target.value);
-                      setShowCoiSuggestions(true);
-                    }}
-                    onFocus={() => setShowCoiSuggestions(true)}
-                    className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:ring-1 focus:ring-slate-400 outline-none transition-all placeholder:text-gray-400"
+          {/* Mobile Chat Drawer (Triggered by Floating Button) */}
+          <Drawer.Root open={isChatOpen} onOpenChange={setIsChatOpen}>
+            <Drawer.Portal>
+              <Drawer.Overlay className="fixed inset-0 bg-black/40 z-[99]" onClick={() => setIsChatOpen(false)} />
+              <Drawer.Content className="bg-white flex flex-col rounded-t-[20px] h-[85vh] fixed bottom-0 left-0 right-0 z-[100] outline-none">
+                <div className="p-4 bg-white rounded-t-[20px] flex-1 flex flex-col h-full overflow-hidden">
+                  <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mb-4 flex-shrink-0" />
+                  <ChatPanel
+                    currentUser={currentUser}
+                    chatInput={chatInput}
+                    setChatInput={setChatInput}
+                    chatMessages={chatMessages}
+                    isChatLoading={isChatLoading}
+                    handleChatSubmit={handleChatSubmit}
                   />
-                  {showCoiSuggestions && coiSuggestions.length > 0 && (
-                    <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-100 rounded-xl shadow-lg z-[60] overflow-hidden">
-                      {coiSuggestions.map((s, idx) => (
-                        <div
-                          key={idx}
-                          className="px-4 py-2 hover:bg-slate-50 cursor-pointer text-sm text-slate-700 truncate"
-                          onClick={() => {
-                            setCoiCompanyName(s.name.replace('...', '')); // Remove truncation dots if any
-                            setCoiDomain(s.domain || "tech.com");
-                            setShowCoiSuggestions(false);
-                          }}
-                        >
-                          {s.name}
-                        </div>
-                      ))}
-                    </div>
-                  )}
                 </div>
-                <input
-                  type="text"
-                  placeholder="Domain (e.g. tech.com)"
-                  value={coiDomain}
-                  onChange={(e) => setCoiDomain(e.target.value)}
-                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:ring-1 focus:ring-slate-400 outline-none transition-all placeholder:text-gray-400"
+              </Drawer.Content>
+            </Drawer.Portal>
+          </Drawer.Root>
+
+
+          {/* COLUMN 2: Feed + Stats (Mobile: Reordered) */}
+          <div className="flex-[100] lg:flex-[54] h-full min-w-0 overflow-y-auto lg:overflow-hidden pb-24 md:pb-0 scroll-smooth">
+            <div className="flex flex-col h-full gap-2 lg:gap-6">
+
+              {/* 1. Founders Section (Top on Mobile) */}
+              <div className="flex-shrink-0 min-h-0 lg:flex-1 h-[420px] lg:h-auto pt-2 lg:pt-0">
+                <FoundersPanel topFounders={topFounders} onNavigate={onNavigate} />
+              </div>
+
+              {/* 2. Stats Section (Middle on Mobile, Right Column on Desktop) */}
+              <div className="flex-shrink-0 lg:hidden min-h-0 pt-4 px-1 pb-4 bg-slate-50 border-t border-slate-100">
+                <StatsPanel
+                  currentUser={currentUser}
+                  coiCompanyName={coiCompanyName}
+                  setCoiCompanyName={setCoiCompanyName}
+                  coiDomain={coiDomain}
+                  setCoiDomain={setCoiDomain}
+                  coiSuggestions={coiSuggestions}
+                  showCoiSuggestions={showCoiSuggestions}
+                  setShowCoiSuggestions={setShowCoiSuggestions}
+                  onCheckConflict={onCheckConflict}
+                  isFindingInvestors={isFindingInvestors}
+                  handleFindInvestors={handleFindInvestors}
+                  investedCompanies={investedCompanies}
+                  hoveredCompanyId={hoveredCompanyId}
+                  setHoveredCompanyId={setHoveredCompanyId}
                 />
-                <button
-                  onClick={() => onCheckConflict?.(currentUser.name, coiCompanyName)}
-                  className="w-full mt-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold py-3 rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2"
-                >
-                  Check Conflict <ShieldCheck className="w-4 h-4" />
-                </button>
+              </div>
+
+              {/* 3. News Section (Bottom on Mobile) */}
+              <div className="flex-shrink-0 min-h-0 lg:flex-1 h-auto lg:h-auto border-t-[3px] border-slate-100 lg:border-none pt-2 lg:pt-0">
+                <NewsPanel />
               </div>
             </div>
+          </div>
 
-            {/* Find Investors (Flex 3.5 -> ~35%) */}
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col relative overflow-hidden group z-10 flex-shrink-0">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-slate-100 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none group-hover:bg-slate-200 transition-colors"></div>
 
-              <div className="relative flex flex-col h-full">
-                <div className="flex items-center gap-2 mb-4">
-                  <Users className="w-5 h-5 text-slate-800" />
-                  <h3 className="font-bold text-gray-900 text-lg"><b>Find Investors Like Me</b></h3>
-                </div>
-
-                <div className="flex-1 flex flex-col justify-center items-center text-center">
-                  <p className="text-sm text-gray-500 mb-6 leading-relaxed">
-                    Match with the perfect investors for your startup's stage and industry.
-                  </p>
-
-                  <button
-                    onClick={handleFindInvestors}
-                    disabled={isFindingInvestors}
-                    className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group-hover:scale-[1.02] disabled:opacity-70 disabled:cursor-wait"
-                  >
-                    {isFindingInvestors ? (
-                      <>
-                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                        Finding...
-                      </>
-                    ) : (
-                      <>
-                        Find Investors <ArrowUpRight className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Invested Companies (Flex 3.5 -> ~35%) */}
-            {/* Invested Companies (Flex 3.5 -> ~35%) */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 flex flex-col relative z-50 flex-shrink-0">
-              <div className="flex items-center gap-2 mb-3">
-                <PieChart className="w-4 h-4 text-slate-800" />
-                <h3 className="font-bold text-gray-800 text-base"><b>My Invested Company Stats</b></h3>
-              </div>
-
-              <div className="flex flex-col h-full justify-center gap-4 px-1">
-                {(() => {
-                  const defaultInvestments = [
-                    { id: 'd1', company: "Nebula AI", round: "Series A", amount: "$5M", year: "2024", img: 88, stock: '45.0M', growth: 120 },
-                    { id: 'd2', company: "Zephyr", round: "Seed", amount: "$2M", year: "2023", img: 52, stock: '12.0M', growth: 85 },
-                    { id: 'd3', company: "Flux Sys", round: "Seed", amount: "$1.2M", year: "2023", img: 33, stock: '15.5M', growth: 90 },
-                    { id: 'd4', company: "Apex Bio", round: "Series B", amount: "$15M", year: "2022", img: 11, stock: '60.0M', growth: 45 },
-                    { id: 'd5', company: "Vortex", round: "Series A", amount: "$8M", year: "2022", img: 95, stock: '32.0M', growth: 60 },
-                    { id: 'd6', company: "Horizon", round: "Seed", amount: "$500K", year: "2021", img: 61, stock: '8.0M', growth: 30 },
-                    { id: 'd7', company: "Pulse", round: "Pre-Seed", amount: "$200K", year: "2021", img: 72, stock: '2.5M', growth: 40 },
-                    { id: 'd8', company: "Echo Lab", round: "Series A", amount: "$10M", year: "2020", img: 48, stock: '50.0M', growth: 55 }
-                  ];
-
-                  // Combine API data with defaults to ensure we have a full grid if needed, or just show API data
-                  // Strategy: Show API data first. If less than 8, fill with defaults? 
-                  // User "want founder icons of those companies the user is invested". 
-                  // Use API data preferentially.
-
-                  // Map API data to UI format
-                  const uiInvestments = investedCompanies.map(c => ({
-                    id: c.founder_id,
-                    company: c.company,
-                    round: c.round,
-                    amount: typeof c.amount === 'number' ? `$${(c.amount / 1000000).toFixed(1)}M` : c.amount,
-                    year: c.year,
-                    img: c.founder_id,
-                    stock: c.valuation ? (c.valuation / 1000000).toFixed(1) + 'M' : 'N/A',
-                    growth: Math.floor(Math.random() * 40) + 10 // Mock growth if not in API
-                  }));
-
-                  // Deduplicate by ID
-                  const uniqueInvestments = Array.from(new Map(uiInvestments.map(item => [item.id, item])).values());
-
-                  let displayList = [...uniqueInvestments];
-
-                  // Fill the rest with defaults if we have space, just to keep the UI looking good for the demo
-                  if (displayList.length < 8) {
-                    const remaining = defaultInvestments.slice(0, 8 - displayList.length);
-                    displayList = [...displayList, ...remaining];
-                  } else {
-                    displayList = displayList.slice(0, 8);
-                  }
-
-                  const renderItem = (company: any, i: number) => {
-                    const uniqueId = company.id || `default-${i}`;
-                    // Simple alignment: first 2 items align left, last 2 align right
-                    const isRightSide = (i % 4) >= 2;
-                    const tooltipClass = isRightSide ? "right-0 translate-x-4" : "left-0 -translate-x-4";
-                    const arrowClass = isRightSide ? "right-8" : "left-8";
-
-                    return (
-                      <div
-                        key={i}
-                        className="relative group flex justify-center"
-                        onMouseEnter={() => setHoveredCompanyId(uniqueId)}
-                        onMouseLeave={() => setHoveredCompanyId(null)}
-                      >
-                        {hoveredCompanyId === uniqueId && (
-                          <div
-                            className={`absolute bottom-full mb-3 w-64 text-sm rounded-xl p-4 animate-in fade-in zoom-in-95 duration-200 pointer-events-none z-[100] shadow-2xl border border-white/20 flex flex-col gap-3 ${tooltipClass}`}
-                            style={{ backgroundColor: '#0f172a', color: 'white' }}
-                          >
-                            <div className="font-bold text-base border-b border-white/20 pb-2 mb-1 tracking-wide text-white">
-                              {company.company || company.name}
-                            </div>
-                            <div className="flex flex-col gap-2">
-                              <div className="flex justify-between items-center">
-                                <span className="text-slate-400">Round</span>
-                                <span className="font-semibold text-white">{company.round}</span>
-                              </div>
-                              <div className="flex justify-between items-center">
-                                <span className="text-slate-400">Amount</span>
-                                <span className="font-semibold text-white">{company.amount}</span>
-                              </div>
-                              <div className="flex justify-between items-center">
-                                <span className="text-slate-400">Year</span>
-                                <span className="font-semibold text-white">{company.year}</span>
-                              </div>
-                              <div className="flex justify-between items-center border-t border-white/10 pt-2 mt-1">
-                                <span className="text-slate-400">Growth Prediction</span>
-                                <span className="font-semibold text-green-400">+{company.growth || Math.floor(Math.random() * 150) + 20}%</span>
-                              </div>
-                              <div className="flex justify-between items-center">
-                                <span className="text-slate-400">Stock Value</span>
-                                <span className="font-semibold text-white">${company.stock || (Math.random() * 200 + 10).toFixed(2)}</span>
-                              </div>
-                            </div>
-                            {/* Arrow */}
-                            <div
-                              className={`absolute -bottom-1.5 w-3 h-3 rotate-45 border-r border-b border-white/20 ${arrowClass}`}
-                              style={{ backgroundColor: '#0f172a' }}
-                            ></div>
-                          </div>
-                        )}
-
-                        <div className="relative transform transition-transform duration-300 hover:scale-110">
-                          <img
-                            src={`https://i.pravatar.cc/150?u=${company.id || company.img || i}`}
-                            className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm cursor-pointer bg-white"
-                            alt={company.company}
-                          />
-                        </div>
-                      </div>
-                    );
-                  };
-
-                  return (
-                    <div className="grid grid-cols-4 gap-y-4 gap-x-2">
-                      {displayList.map((c, i) => renderItem(c, i))}
-                    </div>
-                  );
-                })()}
-              </div>
-            </div>
+          {/* COLUMN 3: Stats (Desktop Only) */}
+          <div className="hidden lg:flex lg:flex-[20] h-full min-w-0">
+            <StatsPanel
+              currentUser={currentUser}
+              coiCompanyName={coiCompanyName}
+              setCoiCompanyName={setCoiCompanyName}
+              coiDomain={coiDomain}
+              setCoiDomain={setCoiDomain}
+              coiSuggestions={coiSuggestions}
+              showCoiSuggestions={showCoiSuggestions}
+              setShowCoiSuggestions={setShowCoiSuggestions}
+              onCheckConflict={onCheckConflict}
+              isFindingInvestors={isFindingInvestors}
+              handleFindInvestors={handleFindInvestors}
+              investedCompanies={investedCompanies}
+              hoveredCompanyId={hoveredCompanyId}
+              setHoveredCompanyId={setHoveredCompanyId}
+            />
           </div>
 
         </div>
+      </div>
+
+      {/* --- Floating AI Assistant Button (Left Side) --- */}
+      <div className="lg:hidden fixed left-4 bottom-24 z-[90]">
+        <button
+          onClick={() => setIsChatOpen(true)}
+          className="w-12 h-12 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg shadow-indigo-600/30 flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
+        >
+          <Sparkles className="w-6 h-6" />
+        </button>
+      </div>
+
+      {/* --- Mobile Bottom Nav --- */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-6 py-3 z-[80] flex justify-between items-center shadow-[0_-4px_10px_rgba(0,0,0,0.02)] safe-area-pb">
+        <ActionItem icon={<Home />} label="Home" onClick={() => onNavigate('home')} active={true} />
+        <ActionItem icon={<Users className="w-6 h-6" />} label="Network" onClick={() => onNavigate('network')} />
+        <ActionItem icon={<BrainCircuit className="w-6 h-6" />} label="Analyze" onClick={() => onNavigate('conflict-report')} />
+        <ActionItem icon={<Bell className="w-6 h-6" />} label="Alerts" badge={true} onClick={() => onNavigate('notifications')} />
+        <ActionItem icon={<MessageSquare className="w-6 h-6" />} label="Inbox" onClick={() => onNavigate('messages')} />
       </div>
 
       {/* --- Profile Modal --- */}
@@ -745,7 +421,7 @@ export function HomePage({ currentUser, onNavigate, onSearch, onQueryChange, rag
         />
       )}
 
-      {/* --- Find Investors Modal --- */}
+      {/* --- Find Investors Modal (Global) --- */}
       {showFindInvestorsModal && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
@@ -820,18 +496,18 @@ function ActionItem({ icon, label, onClick, badge, active }: { icon: any, label:
   return (
     <button
       onClick={onClick}
-      className={`flex flex-col items-center justify-center gap-1.5 p-2 rounded-2xl transition-all duration-300 group min-w-20 relative ${active ? 'bg-indigo-50/80' : 'hover:bg-slate-50'}`}
+      className={`flex flex-col items-center justify-center gap-1.5 p-2 rounded-2xl transition-all duration-300 group min-w-16 md:min-w-20 relative ${active ? 'bg-indigo-50/80' : 'hover:bg-slate-50'}`}
     >
       <div className={`relative transform transition-transform duration-300 ${active ? 'scale-105' : 'group-hover:scale-110'}`}>
         <div className={`p-1.5 rounded-xl transition-colors duration-300 ${active ? 'bg-indigo-100 text-indigo-600' : 'text-slate-400 group-hover:text-slate-700 bg-transparent'}`}>
           {React.cloneElement(icon, {
             strokeWidth: active ? 2.5 : 2,
-            className: "w-6 h-6"
+            className: "w-5 h-5 md:w-6 md:h-6"
           })}
         </div>
-        {badge && <span className="absolute -top-1 -right-1 w-3 h-3 bg-rose-500 rounded-full border-2 border-white shadow-sm animate-pulse"></span>}
+        {badge && <span className="absolute -top-1 -right-1 w-2.5 h-2.5 md:w-3 md:h-3 bg-rose-500 rounded-full border-2 border-white shadow-sm animate-pulse"></span>}
       </div>
-      <span className={`text-[11px] font-bold tracking-tight transition-colors duration-300 ${active ? 'text-indigo-700' : 'text-slate-400 group-hover:text-slate-600'}`}>{label}</span>
+      <span className={`text-[9px] md:text-[11px] font-bold tracking-tight transition-colors duration-300 ${active ? 'text-indigo-700' : 'text-slate-400 group-hover:text-slate-600'}`}>{label}</span>
     </button>
   );
 }

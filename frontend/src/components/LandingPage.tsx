@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import {
     ArrowRight,
     CheckCircle2,
-    Layout,
     Target,
-    Zap,
-    ShieldCheck,
-    Check
+    Zap
 } from 'lucide-react';
 
 interface LandingPageProps {
@@ -55,7 +52,7 @@ export const LandingPage = ({ onLogin }: LandingPageProps) => {
         <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-indigo-100 selection:text-indigo-900" style={{ fontFamily: "'Inter', sans-serif" }}>
 
             {/* --- Navbar --- */}
-            <nav className="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center relative z-20">
+            <nav className="max-w-7xl mx-auto px-6 py-5 md:py-8 flex justify-between items-center relative z-20">
                 <div className="flex items-center gap-2">
                     <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
                         <Zap className="w-5 h-5 text-white" />
@@ -72,11 +69,11 @@ export const LandingPage = ({ onLogin }: LandingPageProps) => {
             </nav>
 
             {/* --- Hero Section --- */}
-            <header className="max-w-7xl mx-auto px-6 pt-12 pb-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+            <header className="max-w-7xl mx-auto px-6 pt-10 pb-16 md:pt-12 md:pb-32 grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center relative z-10">
 
                 {/* Left: Copy */}
                 <div className="max-w-xl">
-                    <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15] mb-8">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15] mb-6 md:mb-8">
                         Get funded early,<br />
                         scale automatically<br />
                         <span className="text-indigo-600">all your deals.</span>
@@ -188,7 +185,7 @@ export const LandingPage = ({ onLogin }: LandingPageProps) => {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-16">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16">
                         <div>
                             <h4 className="font-bold text-slate-900 mb-4">Solutions</h4>
                             <ul className="space-y-3 text-sm text-slate-500">
@@ -220,17 +217,3 @@ export const LandingPage = ({ onLogin }: LandingPageProps) => {
         </div>
     );
 };
-
-function Feature({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
-    return (
-        <div>
-            <div className="mb-6 w-12 h-12 bg-white border border-slate-100 rounded-2xl shadow-sm flex items-center justify-center">
-                {icon}
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">{title}</h3>
-            <p className="text-slate-500 leading-relaxed text-sm">
-                {desc}
-            </p>
-        </div>
-    )
-}

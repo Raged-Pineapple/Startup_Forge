@@ -11,6 +11,7 @@ import ComplianceActions from "@/components/coi/ComplianceActions";
 
 // UI Components
 import { Users, Bell, MessageSquare, X, BrainCircuit, Sparkles, ShieldCheck, Clock, Target, CheckCircle2, Building2, Home, Search } from 'lucide-react';
+import { MobileChatOverlay } from './common/MobileChatOverlay';
 import { toast } from "sonner";
 
 interface ConflictReportPageProps {
@@ -42,6 +43,7 @@ const ConflictReportPage = ({
     // --- Header State (for consistency with HomePage) ---
     const [searchQuery, setSearchQuery] = useState('');
     const [showProfileModal, setShowProfileModal] = useState(false);
+    const [isSearchExpanded, setIsSearchExpanded] = useState(false); // Mobile search
 
     // --- COI Logic State ---
     const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -50,9 +52,22 @@ const ConflictReportPage = ({
     const [selectedInvestor, setSelectedInvestor] = useState(currentInvestorName || "");
     const [selectedTarget, setSelectedTarget] = useState(targetCompanyName || "");
 
+    // Close search when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            const target = e.target as HTMLElement;
+            if (isSearchExpanded && !target.closest('.search-container')) {
+                setIsSearchExpanded(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isSearchExpanded]);
+
     const handleSearchSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onSearch(searchQuery);
+        setIsSearchExpanded(false);
     };
 
     const handleRunCheck = async (investor: string, target: string) => {
@@ -127,14 +142,14 @@ const ConflictReportPage = ({
 
     return (
         <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
-            {/* --- Fixed Header (From HomePage) --- */}
-            <div className="sticky top-0 bg-white px-8 py-6 shadow-sm border-b border-slate-100 z-50 flex-shrink-0">
-                <div className="flex items-center justify-between gap-6 w-full h-24">
+            {/* --- Responsive Header (Copied from HomePage) --- */}
+            <div className="sticky top-0 bg-white px-4 md:px-8 py-3 md:py-6 shadow-sm border-b border-slate-100 z-50 flex-shrink-0">
+                <div className="flex items-center justify-between gap-4 w-full h-14 md:h-24">
 
-                    {/* Profile */}
+                    {/* Desktop Profile */}
                     <button
                         onClick={() => setShowProfileModal(true)}
-                        className="flex items-center gap-4 hover:bg-slate-50 p-2 rounded-xl transition-all group flex-shrink-0 min-w-52"
+                        className="hidden md:flex items-center gap-4 hover:bg-slate-50 p-2 rounded-xl transition-all group flex-shrink-0 min-w-52"
                     >
                         <div className="relative">
                             <img
@@ -150,30 +165,59 @@ const ConflictReportPage = ({
                         </div>
                     </button>
 
+                    <button
+                        onClick={() => setShowProfileModal(true)}
+                        className="md:hidden flex-shrink-0"
+                    >
+                        <img src={currentUser.avatar} className="w-8 h-8 rounded-full border border-gray-200" />
+                    </button>
+
                     {/* Search */}
-                    <div className="flex-1 flex justify-center max-w-3xl px-8 relative">
-                        <form onSubmit={handleSearchSubmit} className="relative w-full group !z-50">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
-                                <div className="bg-slate-800 p-2 rounded-xl">
-                                    <Sparkles className="h-5 w-5 text-white animate-pulse" />
-                                </div>
+                    <div className="flex-1 flex justify-center max-w-3xl px-0 md:px-8 relative">
+                        <form onSubmit={handleSearchSubmit} className="relative w-full group search-container">
+                            {/* Mobile Search Icon Trigger */}
+                            <div className={`md:hidden ${isSearchExpanded ? 'hidden' : 'flex'} justify-end w-full`} >
+                                <button type="button" onClick={() => setIsSearchExpanded(true)} className="p-2.5 bg-slate-100 rounded-full text-slate-600">
+                                    <Sparkles className="w-5 h-5" />
+                                </button>
                             </div>
-                            <input
-                                type="text"
-                                className="w-full pl-20 pr-20 py-4 bg-slate-900 border border-slate-700 focus:border-slate-500 focus:ring-4 focus:ring-slate-800 rounded-2xl text-base transition-all placeholder-white font-medium outline-none shadow-sm text-white hover:shadow-md hover:border-slate-600 relative z-50"
-                                placeholder="Ask anything..."
-                                value={searchQuery}
-                                onChange={(e) => {
-                                    setSearchQuery(e.target.value);
-                                    if (onQueryChange) onQueryChange(e.target.value);
-                                }}
-                            />
-                            <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none z-50">
-                                <div className="flex items-center gap-2">
-                                    <span className="text-gray-300 text-xs">|</span>
-                                    <kbd className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1.5 bg-slate-800 border border-slate-600 border-b-2 rounded-lg text-[10px] font-bold text-slate-300 tracking-wider">
-                                        ⌘ K
-                                    </kbd>
+
+                            {/* Input field */}
+                            <div className={`${isSearchExpanded ? 'flex' : 'hidden md:block'} relative w-full`}>
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+                                    <div className="bg-slate-800 p-1.5 md:p-2 rounded-xl">
+                                        <Sparkles className="h-3 w-3 md:h-5 md:w-5 text-white animate-pulse" />
+                                    </div>
+                                </div>
+                                <input
+                                    type="text"
+                                    className="w-full pl-10 pr-4 md:pl-20 md:pr-20 py-2.5 md:py-4 bg-slate-900 border border-slate-700 focus:border-slate-500 focus:ring-4 focus:ring-slate-800 rounded-xl md:rounded-2xl text-xs md:text-base transition-all placeholder-white font-medium outline-none shadow-sm text-white hover:shadow-md hover:border-slate-600 relative z-50"
+                                    placeholder="Ask anything..."
+                                    value={searchQuery}
+                                    onChange={(e) => {
+                                        setSearchQuery(e.target.value);
+                                        if (onQueryChange) onQueryChange(e.target.value);
+                                    }}
+                                    autoFocus={isSearchExpanded}
+                                />
+                                {/* Close Button Mobile */}
+                                {isSearchExpanded && (
+                                    <button
+                                        type="button"
+                                        onClick={(e) => { e.stopPropagation(); setIsSearchExpanded(false); }}
+                                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1 bg-slate-700 rounded-full text-white md:hidden z-50"
+                                    >
+                                        <span className="text-xs">✕</span>
+                                    </button>
+                                )}
+
+                                <div className="hidden md:flex absolute inset-y-0 right-4 items-center pointer-events-none z-50">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-gray-300 text-xs">|</span>
+                                        <kbd className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-slate-800 border border-slate-600 border-b-2 rounded-lg text-[10px] font-bold text-slate-300 tracking-wider">
+                                            ⌘ K
+                                        </kbd>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -191,8 +235,8 @@ const ConflictReportPage = ({
                         )}
                     </div>
 
-                    {/* Icons */}
-                    <div className="flex items-center gap-2 flex-shrink-0">
+                    {/* Desktop Nav Icons */}
+                    <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
                         <ActionItem icon={<Home />} label="Home" onClick={() => onNavigate('home')} />
                         <ActionItem icon={<Users />} label="Network" onClick={() => onNavigate('network')} />
                         <ActionItem icon={<Bell />} label="Alerts" badge={true} onClick={() => onNavigate('notifications')} />
@@ -204,7 +248,7 @@ const ConflictReportPage = ({
 
             {/* --- Main Content Area --- */}
             <main
-                className="flex-1 w-full overflow-y-auto p-4"
+                className="flex-1 w-full overflow-y-auto p-4 pb-20 md:pb-4"
                 style={{
                     background: 'linear-gradient(to bottom right, rgb(248 250 252), rgb(238 242 255 / 0.2), rgb(248 250 252))'
                 }}
@@ -214,19 +258,19 @@ const ConflictReportPage = ({
                     {/* Header Row */}
                     <div className="w-full flex items-center justify-between flex-shrink-0 pb-1">
                         <div>
-                            <h2 className="text-2xl font-black tracking-tight text-slate-900 flex items-center gap-3">
-                                <div className="p-3 bg-gradient-to-br from-indigo-600 via-indigo-500 to-purple-600 rounded-2xl shadow-xl shadow-indigo-500/40 ring-2 ring-indigo-100 relative overflow-hidden group">
+                            <h2 className="text-xl md:text-2xl font-black tracking-tight text-slate-900 flex items-center gap-3">
+                                <div className="p-2 md:p-3 bg-gradient-to-br from-indigo-600 via-indigo-500 to-purple-600 rounded-2xl shadow-xl shadow-indigo-500/40 ring-2 ring-indigo-100 relative overflow-hidden group">
                                     <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                    <ShieldCheck className="w-5 h-5 text-white relative z-10" />
+                                    <ShieldCheck className="w-4 h-4 md:w-5 md:h-5 text-white relative z-10" />
                                 </div>
                                 <b>Institutional Conflict Check</b>
                             </h2>
-                            <p className="text-sm text-slate-600 font-semibold mt-1 ml-14 flex items-center gap-2">
+                            <p className="text-xs md:text-sm text-slate-600 font-semibold mt-1 ml-12 md:ml-14 flex items-center gap-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
                                 <b>Real-time adversarial relationship analysis</b>
                             </p>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="hidden md:flex items-center gap-3">
                             <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-white to-indigo-50/50 rounded-xl border border-indigo-200/60 shadow-md text-slate-700 font-semibold text-xs hover:shadow-lg transition-shadow">
                                 <Clock className="w-3.5 h-3.5 text-indigo-600" />
                                 {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
@@ -238,9 +282,9 @@ const ConflictReportPage = ({
                     <div className="flex flex-col gap-4 pb-16 max-w-[1600px] mx-auto w-full">
 
                         {/* ROW 1: Selection & Details */}
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             {/* Left: Entity Selection */}
-                            <div className="rounded-xl overflow-hidden shadow-md border border-slate-200 bg-white h-full flex flex-col">
+                            <div className="rounded-xl overflow-hidden shadow-md border border-slate-200 bg-white h-auto lg:h-full flex flex-col">
                                 {/* Header with Solid Navy Background */}
                                 <div className="bg-slate-900 px-4 py-3 flex items-center gap-2.5">
                                     <div className="bg-white/10 p-2 rounded-lg border border-white/20 backdrop-blur-sm">
@@ -263,7 +307,7 @@ const ConflictReportPage = ({
                             </div>
 
                             {/* Right: Current Analysis Details */}
-                            <div className="rounded-xl overflow-hidden shadow-md border border-slate-200 bg-white h-full flex flex-col">
+                            <div className="rounded-xl overflow-hidden shadow-md border border-slate-200 bg-white h-auto lg:h-full flex flex-col">
                                 {/* Header with Solid Navy Background */}
                                 <div className="bg-slate-900 px-4 py-3 flex items-center gap-2.5">
                                     <div className="bg-white/10 p-2 rounded-lg border border-white/20 backdrop-blur-sm">
@@ -334,7 +378,7 @@ const ConflictReportPage = ({
                         </div>
 
                         {/* ROW 2: Relationship Graph */}
-                        <div className="rounded-xl overflow-hidden shadow-md border border-slate-200 bg-white min-h-[550px] flex flex-col">
+                        <div className="rounded-xl overflow-hidden shadow-md border border-slate-200 bg-white min-h-[450px] md:min-h-[550px] flex flex-col">
                             {/* Header with Solid Navy Background */}
                             <div className="bg-slate-900 px-4 py-3 flex items-center gap-2.5">
                                 <div className="bg-white/10 p-2 rounded-lg border border-white/20 backdrop-blur-sm">
@@ -377,7 +421,7 @@ const ConflictReportPage = ({
                             </h3>
 
                             {/* Inner Grid for Risk Levels */}
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="flex flex-col h-full w-full">
                                     {hasResults ? (
                                         <RiskOverviewCard
@@ -498,6 +542,17 @@ const ConflictReportPage = ({
                 </div>
             </main>
 
+            {/* --- Mobile Bottom Nav --- */}
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-6 py-3 z-[80] flex justify-between items-center shadow-[0_-4px_10px_rgba(0,0,0,0.02)] safe-area-pb">
+                <ActionItem icon={<Home />} label="Home" onClick={() => onNavigate('home')} />
+                <ActionItem icon={<Users className="w-6 h-6" />} label="Network" onClick={() => onNavigate('network')} />
+                <ActionItem icon={<BrainCircuit className="w-6 h-6" />} label="Analyze" onClick={() => onNavigate('conflict-report')} active={true} />
+                <ActionItem icon={<Bell className="w-6 h-6" />} label="Alerts" badge={true} onClick={() => onNavigate('notifications')} />
+                <ActionItem icon={<MessageSquare className="w-6 h-6" />} label="Inbox" onClick={() => onNavigate('messages')} />
+            </div>
+
+            <MobileChatOverlay currentUser={currentUser} />
+
             {/* --- Profile Modal --- */}
             {showProfileModal && (
                 <ProfileModal
@@ -515,18 +570,18 @@ function ActionItem({ icon, label, onClick, badge, active }: { icon: any, label:
     return (
         <button
             onClick={onClick}
-            className={`flex flex-col items-center justify-center gap-1.5 p-2 rounded-2xl transition-all duration-300 group min-w-20 relative ${active ? 'bg-indigo-50/80' : 'hover:bg-slate-50'}`}
+            className={`flex flex-col items-center justify-center gap-1.5 p-1.5 md:p-2 rounded-2xl transition-all duration-300 group min-w-16 md:min-w-20 relative ${active ? 'bg-indigo-50/80' : 'hover:bg-slate-50'}`}
         >
             <div className={`relative transform transition-transform duration-300 ${active ? 'scale-105' : 'group-hover:scale-110'}`}>
                 <div className={`p-1.5 rounded-xl transition-colors duration-300 ${active ? 'bg-indigo-100 text-indigo-600' : 'text-slate-400 group-hover:text-slate-700 bg-transparent'}`}>
                     {React.cloneElement(icon, {
                         strokeWidth: active ? 2.5 : 2,
-                        className: "w-6 h-6"
+                        className: "w-5 h-5 md:w-6 md:h-6"
                     })}
                 </div>
                 {badge && <span className="absolute -top-1 -right-1 w-3 h-3 bg-rose-500 rounded-full border-2 border-white shadow-sm animate-pulse"></span>}
             </div>
-            <span className={`text-[11px] font-bold tracking-tight transition-colors duration-300 ${active ? 'text-indigo-700' : 'text-slate-400 group-hover:text-slate-600'}`}>{label}</span>
+            <span className={`text-[9px] md:text-[11px] font-bold tracking-tight transition-colors duration-300 ${active ? 'text-indigo-700' : 'text-slate-400 group-hover:text-slate-600'}`}>{label}</span>
         </button>
     );
 }

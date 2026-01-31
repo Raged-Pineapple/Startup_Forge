@@ -19,8 +19,10 @@ import {
   X,
   Briefcase,
   AlertTriangle,
-  CheckCircle2
+  CheckCircle2,
+  ArrowLeft
 } from 'lucide-react';
+import { SearchResultsDropdown } from './SearchResultsDropdown';
 
 type MessagesPageProps = {
   gun: any;
@@ -30,6 +32,9 @@ type MessagesPageProps = {
   targetUserId?: string | null;
   onNavigate: (page: string) => void;
   onSearch: (query: string) => void;
+  onQueryChange?: (query: string) => void;
+  ragResults?: any;
+  isSearching?: boolean;
 };
 
 interface Message {
@@ -48,36 +53,51 @@ interface Conversation {
   lastMessage: string;
   timestamp: string;
   unread: boolean;
-  roomKey?: string; // We'll fetch this
+  roomKey?: string;
 }
 
-// --- Sub-components for Header (Copied for consistency as per user request) ---
+// --- Sub-components for Header ---
 const ActionItem = ({ icon, label, onClick, badge, active }: { icon: any, label: string, onClick: () => void, badge?: boolean, active?: boolean }) => (
   <button
     onClick={onClick}
-    className={`flex flex-col items-center justify-center gap-1.5 p-2 rounded-2xl transition-all duration-300 group min-w-20 relative ${active ? 'bg-indigo-50/80' : 'hover:bg-slate-50'}`}
+    className={`flex flex-col items-center justify-center gap-1.5 p-1.5 md:p-2 rounded-2xl transition-all duration-300 group min-w-16 md:min-w-20 relative ${active ? 'bg-indigo-50/80' : 'hover:bg-slate-50'}`}
   >
     <div className={`relative transform transition-transform duration-300 ${active ? 'scale-105' : 'group-hover:scale-110'}`}>
       <div className={`p-1.5 rounded-xl transition-colors duration-300 ${active ? 'bg-indigo-100 text-indigo-600' : 'text-slate-400 group-hover:text-slate-700 bg-transparent'}`}>
         {React.cloneElement(icon, {
           strokeWidth: active ? 2.5 : 2,
-          className: "w-6 h-6"
+          className: "w-5 h-5 md:w-6 md:h-6"
         })}
       </div>
       {badge && <span className="absolute -top-1 -right-1 w-3 h-3 bg-rose-500 rounded-full border-2 border-white shadow-sm animate-pulse"></span>}
     </div>
-    <span className={`text-[11px] font-bold tracking-tight transition-colors duration-300 ${active ? 'text-indigo-700' : 'text-slate-400 group-hover:text-slate-600'}`}>{label}</span>
+    <span className={`text-[9px] md:text-[11px] font-bold tracking-tight transition-colors duration-300 ${active ? 'text-indigo-700' : 'text-slate-400 group-hover:text-slate-600'}`}>{label}</span>
   </button>
 );
 
-export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetUserId, onNavigate, onSearch }: MessagesPageProps) {
+export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetUserId, onNavigate, onSearch, onQueryChange, ragResults, isSearching }: MessagesPageProps) {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedConversation, setSelectedConversation] = useState<string | null>(targetUserId || null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [messageText, setMessageText] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [headerSearchQuery, setHeaderSearchQuery] = useState('');
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false); // Mobile search
   const [clearRequestPending, setClearRequestPending] = useState(false);
+
+  // Close search when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (isSearchExpanded && !target.closest('.search-container')) {
+        setIsSearchExpanded(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isSearchExpanded]);
+
+
 
   const [currentRoomKey, setCurrentRoomKey] = useState<string | null>(null);
   const [currentConnectionId, setCurrentConnectionId] = useState<number | null>(null);
@@ -447,14 +467,14 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
 
   return (
     <div className="h-screen bg-slate-50 flex flex-col font-sans overflow-hidden">
-      {/* --- Fixed Header (Copied from HomePage) --- */}
-      <div className="bg-white px-8 py-6 shadow-sm border-b border-slate-100 z-50 flex-shrink-0">
-        <div className="flex items-center justify-between gap-6 w-full h-24">
+      {/* --- Responsive Header --- */}
+      <div className="bg-white px-4 md:px-8 py-3 md:py-6 shadow-sm border-b border-slate-100 z-50 flex-shrink-0 relative">
+        <div className="flex items-center justify-between gap-4 w-full h-14 md:h-24">
 
-          {/* Profile */}
+          {/* Desktop Profile */}
           <button
             onClick={() => onNavigate('profile')}
-            className="flex items-center gap-4 hover:bg-slate-50 p-2 rounded-xl transition-all group flex-shrink-0 min-w-52"
+            className="hidden md:flex items-center gap-4 hover:bg-slate-50 p-2 rounded-xl transition-all group flex-shrink-0 min-w-52"
           >
             <div className="relative">
               <img
@@ -470,37 +490,61 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
             </div>
           </button>
 
+          <button
+            onClick={() => onNavigate('profile')}
+            className="md:hidden flex-shrink-0"
+          >
+            <img src={currentUser.avatar} className="w-8 h-8 rounded-full border border-gray-200" />
+          </button>
+
           {/* Search */}
-          <div className="flex-1 flex justify-center max-w-3xl px-8">
-            <form onSubmit={handleHeaderSearchSubmit} className="relative w-full group">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
-                <div className="bg-slate-800 p-2 rounded-xl">
-                  <Sparkles className="h-5 w-5 text-white animate-pulse" />
+          <div className="flex-1 flex justify-center max-w-3xl px-0 md:px-8 relative">
+            <form onSubmit={(e) => { handleHeaderSearchSubmit(e); setIsSearchExpanded(false); }} className="relative w-full group search-container">
+              {/* Search Input */}
+              <div className="relative w-full">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+                  <div className="bg-slate-800 p-1.5 md:p-2 rounded-xl">
+                    <Sparkles className="h-3 w-3 md:h-5 md:w-5 text-white animate-pulse" />
+                  </div>
                 </div>
-              </div>
-              <input
-                type="text"
-                className="w-full pl-20 pr-20 py-4 bg-slate-900 border border-slate-700 focus:border-slate-500 focus:ring-4 focus:ring-slate-800 rounded-2xl text-base transition-all placeholder-white font-medium outline-none shadow-sm text-white hover:shadow-md hover:border-slate-600"
-                placeholder="Ask anything..."
-                value={headerSearchQuery}
-                onChange={(e) => setHeaderSearchQuery(e.target.value)}
-              />
-              <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none">
-                <div className="flex items-center gap-2">
-                  <span className="text-slate-400 text-xs">|</span>
-                  <kbd className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1.5 bg-slate-800 border border-slate-600 border-b-2 rounded-lg text-[10px] font-bold text-slate-300 tracking-wider">
-                    ⌘ K
-                  </kbd>
+                <input
+                  type="text"
+                  className="w-full pl-10 pr-4 md:pl-20 md:pr-20 py-2.5 md:py-4 bg-slate-900 border border-slate-700 focus:border-slate-500 focus:ring-4 focus:ring-slate-800 rounded-xl md:rounded-2xl text-xs md:text-base transition-all placeholder-white font-medium outline-none shadow-sm text-white hover:shadow-md hover:border-slate-600 relative z-50"
+                  placeholder="Search messages..."
+                  value={headerSearchQuery}
+                  onChange={(e) => {
+                    setHeaderSearchQuery(e.target.value);
+                    if (onQueryChange) onQueryChange(e.target.value);
+                  }}
+                />
+                <div className="hidden md:flex absolute inset-y-0 right-4 items-center pointer-events-none z-50">
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-400 text-xs">|</span>
+                    <kbd className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-slate-800 border border-slate-600 border-b-2 rounded-lg text-[10px] font-bold text-slate-300 tracking-wider">
+                      ⌘ K
+                    </kbd>
+                  </div>
                 </div>
               </div>
             </form>
+            {/* RAG Search Results Dropdown */}
+            {headerSearchQuery.length >= 2 && ragResults && (
+              <div className="absolute top-full left-0 right-0 mt-2 z-[100] shadow-2xl rounded-2xl border border-slate-100 overflow-hidden bg-white">
+                <SearchResultsDropdown
+                  results={ragResults}
+                  isVisible={true}
+                  isLoading={isSearching || false}
+                  onSelectResult={(id) => onNavigate('profile')} // Just navigate to profile, App handles ID if needed or we change onNavigate signature
+                />
+              </div>
+            )}
           </div>
 
-          {/* Icons */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          {/* Desktop Nav Icons */}
+          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
             <ActionItem icon={<Home />} label="Home" onClick={() => onNavigate('home')} />
             <ActionItem icon={<Users />} label="Network" onClick={() => onNavigate('network')} />
-            <ActionItem icon={<Bell />} label="Alerts" badge={false} onClick={() => onNavigate('notifications')} />
+            <ActionItem icon={<Bell />} label="Alerts" badge={true} onClick={() => onNavigate('notifications')} />
             <ActionItem icon={<MessageSquare />} label="Inbox" onClick={() => onNavigate('messages')} active={true} />
             <ActionItem icon={<BrainCircuit />} label="Deep Analysis" onClick={() => onNavigate('conflict-report')} />
           </div>
@@ -508,11 +552,11 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
       </div>
 
       {/* --- Main Content (Messages Layout) --- */}
-      <div className="flex-1 max-w-6xl mx-auto w-full px-4 py-4 overflow-hidden">
-        <div className="bg-white rounded-[2rem] border border-slate-200 h-full flex overflow-hidden shadow-xl ring-1 ring-slate-100/50">
+      <div className="flex-1 max-w-6xl mx-auto w-full px-0 md:px-4 py-0 md:py-4 pb-20 md:pb-4 overflow-hidden h-full">
+        <div className="bg-white md:rounded-[2rem] border-x-0 md:border border-slate-200 h-full flex overflow-hidden shadow-none md:shadow-xl ring-0 md:ring-1 ring-slate-100/50">
 
           {/* Sidebar */}
-          <div className="w-80 border-r border-slate-100 flex flex-col bg-slate-50/50">
+          <div className={`w-full md:w-80 border-r border-slate-100 flex-col bg-slate-50/50 ${selectedConversation ? 'hidden md:flex' : 'flex'}`}>
             <div className="p-4">
               <div className="flex items-center justify-between mb-3 px-1">
                 <h2 className="text-lg font-bold text-slate-900 tracking-tight">Messages</h2>
@@ -532,7 +576,7 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
                 />
               </div>
             </div>
-            <div className="flex-1 overflow-y-auto px-2 pb-2 space-y-1">
+            <div className="flex-1 overflow-y-auto px-2 pb-2 space-y-1 custom-scrollbar">
               {conversations
                 .filter(c => c.userName.toLowerCase().includes(searchQuery.toLowerCase()))
                 .map(conversation => (
@@ -559,12 +603,20 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
 
           {/* Chat Area */}
           {selectedConversation && selectedUser ? (
-            <div className="flex-1 flex flex-col bg-white">
+            <div className={`flex-1 flex-col bg-white ${selectedConversation ? 'flex' : 'hidden md:flex'}`}>
               {/* Header */}
-              <div className="grid grid-cols-3 items-center z-10 sticky top-0 px-6 py-3 bg-white/80 backdrop-blur-sm border-b border-slate-100">
+              <div className="grid grid-cols-[auto_1fr_auto] items-center z-10 sticky top-0 px-4 md:px-6 py-3 bg-white/80 backdrop-blur-sm border-b border-slate-100">
 
                 {/* Left: User Info */}
                 <div className="justify-self-start flex items-center gap-3">
+                  {/* Back Button for Mobile */}
+                  <button
+                    onClick={() => setSelectedConversation(null)}
+                    className="md:hidden p-1.5 -ml-2 text-slate-500 hover:bg-slate-100 rounded-full"
+                  >
+                    <ArrowLeft className="w-5 h-5" />
+                  </button>
+
                   <div className="relative group cursor-pointer">
                     <img src={selectedUser.userAvatar} alt="" className="w-9 h-9 rounded-full object-cover border border-slate-200 shadow-sm" />
                     <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></div>
@@ -578,8 +630,8 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
                   </div>
                 </div>
 
-                {/* Center: Report Button */}
-                <div className="justify-self-center">
+                {/* Center: Report Button (Hidden on small mobile if needed, or compact) */}
+                <div className="justify-self-center hidden sm:block">
                   <button
                     onClick={handleReportInvestment}
                     className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-full shadow-lg shadow-indigo-200 transition-all font-bold text-xs uppercase tracking-wider animate-pulse ring-4 ring-indigo-50"
@@ -588,10 +640,15 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
                     Report Investment
                   </button>
                 </div>
+                {/* Mobile Report Icon only */}
+                <div className="justify-self-center sm:hidden">
+                  <button onClick={handleReportInvestment} className="p-2 bg-indigo-600 text-white rounded-full shadow-md"><Briefcase className="w-4 h-4" /></button>
+                </div>
+
 
                 {/* Right: Actions */}
                 <div className="justify-self-end flex flex-col items-end gap-2">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-full border border-slate-100 group cursor-help hover:border-slate-200 transition-colors">
+                  <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-full border border-slate-100 group cursor-help hover:border-slate-200 transition-colors">
                     <Shield className="w-4 h-4 text-emerald-500 fill-emerald-50" />
                     <span className="text-xs font-bold text-slate-600 group-hover:text-emerald-700 transition-colors uppercase tracking-wide">Decentralized Chat</span>
                   </div>
@@ -601,7 +658,7 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
                     title="Request to Clear Chat"
                   >
                     <Trash2 className="w-4 h-4" />
-                    Clear Chat
+                    <span className="hidden sm:inline">Clear Chat</span>
                   </button>
                 </div>
               </div>
@@ -667,13 +724,13 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
                   return (
                     <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'} group`}>
                       <div className={`
-                        max-w-[70%] rounded-3xl px-5 py-2.5 text-sm relative shadow-sm transition-all
+                        max-w-[85%] md:max-w-[70%] rounded-3xl px-4 md:px-5 py-2.5 text-sm relative shadow-sm transition-all
                         ${isMe
                           ? 'bg-slate-900 text-white rounded-br-sm'
                           : 'bg-white text-slate-700 border border-slate-100 rounded-bl-sm shadow-sm'
                         }
                       `}>
-                        {msg.type === 'text' && <p className="leading-relaxed">{msg.content}</p>}
+                        {msg.type === 'text' && <p className="leading-relaxed break-words">{msg.content}</p>}
                         {msg.type === 'image' && <img src={msg.content} alt="Shared" className="rounded-lg max-w-full hover:opacity-95 transition-opacity cursor-pointer" />}
                         {msg.type === 'file' && (
                           <a
@@ -700,7 +757,7 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
               </div>
 
               {/* Input Area */}
-              <div className="bg-white p-3 border-t border-slate-100">
+              <div className="bg-white p-3 border-t border-slate-100 pb-24 md:pb-3">
                 {/* Preview Area */}
                 {previewAttachment && (
                   <div className="p-2 bg-slate-50 border border-slate-200 flex items-center justify-between mb-2 rounded-2xl mx-1">
@@ -733,13 +790,13 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
                     </button>
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className={`p-2.5 rounded-full transition-all duration-200 ${previewAttachment ? 'text-slate-300 cursor-not-allowed' : 'text-slate-400 hover:bg-slate-50 hover:text-slate-600 hover:scale-105 active:scale-95'}`}
+                      className={`hidden sm:block p-2.5 rounded-full transition-all duration-200 ${previewAttachment ? 'text-slate-300 cursor-not-allowed' : 'text-slate-400 hover:bg-slate-50 hover:text-slate-600 hover:scale-105 active:scale-95'}`}
                       disabled={!!previewAttachment}
                       title="Upload File"
                     >
                       <Plus className="w-5 h-5" />
                     </button>
-                    <div className="w-px h-6 bg-slate-200 mx-1"></div>
+                    <div className="w-px h-6 bg-slate-200 mx-1 hidden sm:block"></div>
                     <button
                       onClick={handleAutocomplete}
                       className={`p-2.5 rounded-full transition-all duration-200 ${isGenerating ? 'animate-pulse text-purple-500 bg-purple-50' : 'text-slate-400 hover:bg-purple-50 hover:text-purple-600 hover:scale-105 active:scale-95'}`}
@@ -785,7 +842,7 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
 
             </div>
           ) : (
-            <div className="flex-1 flex flex-col items-center justify-center bg-slate-50 text-slate-400">
+            <div className="hidden md:flex flex-1 flex-col items-center justify-center bg-slate-50 text-slate-400">
               <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-sm mb-6">
                 <MessageSquare className="w-10 h-10 text-slate-300" />
               </div>
@@ -795,6 +852,16 @@ export function MessagesPage({ gun, gunUser, currentUser, onViewProfile, targetU
           )}
         </div>
       </div >
+
+      {/* --- Mobile Bottom Nav --- */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-6 py-3 z-[80] flex justify-between items-center shadow-[0_-4px_10px_rgba(0,0,0,0.02)] safe-area-pb">
+        <ActionItem icon={<Home />} label="Home" onClick={() => onNavigate('home')} />
+        <ActionItem icon={<Users className="w-6 h-6" />} label="Network" onClick={() => onNavigate('network')} />
+        <ActionItem icon={<BrainCircuit className="w-6 h-6" />} label="Analyze" onClick={() => onNavigate('conflict-report')} />
+        <ActionItem icon={<Bell className="w-6 h-6" />} label="Alerts" badge={true} onClick={() => onNavigate('notifications')} />
+        <ActionItem icon={<MessageSquare className="w-6 h-6" />} label="Inbox" onClick={() => onNavigate('messages')} active={true} />
+      </div>
+
       {/* Investment Confirmation Modal */}
       {
         showInvModal && (

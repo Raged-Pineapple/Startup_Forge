@@ -776,6 +776,9 @@ function App() {
             else if (page === 'conflict-report') navigateTo('conflict-report');
           }}
           onSearch={handleSearch}
+          onQueryChange={handleQueryChange}
+          ragResults={ragResults}
+          isSearching={isSearching}
         />
       )}
 
@@ -812,6 +815,10 @@ function App() {
             else if (page === 'jobs') navigateTo('jobs');
             else if (page === 'home') navigateTo('home');
           }}
+          onSearch={handleSearch}
+          onQueryChange={handleQueryChange}
+          ragResults={ragResults}
+          isSearching={isSearching}
         />
       )}
 
@@ -829,6 +836,9 @@ function App() {
             else if (page === 'home') navigateTo('home');
           }}
           onSearch={handleSearch}
+          onQueryChange={handleQueryChange}
+          ragResults={ragResults}
+          isSearching={isSearching}
           onNavigateToChat={(userId) => {
             setTargetChatUserId(userId);
             navigateTo('messages');
@@ -837,7 +847,22 @@ function App() {
       )}
 
       {currentPage === 'jobs' && (
-        <JobsPage />
+        <JobsPage
+          currentUser={currentUser}
+          onNavigate={(page) => {
+            if (page === 'network') navigateTo('network');
+            else if (page === 'notifications') navigateTo('notifications');
+            else if (page === 'messages') navigateTo('messages');
+            else if (page === 'profile') navigateTo('profile', 'current-user');
+            else if (page === 'conflict-report') navigateTo('conflict-report');
+            else if (page === 'jobs') navigateTo('jobs');
+            else if (page === 'home') navigateTo('home');
+          }}
+          onSearch={handleSearch}
+          onQueryChange={handleQueryChange}
+          ragResults={ragResults}
+          isSearching={isSearching}
+        />
       )}
 
       {showCreatePost && (

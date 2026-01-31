@@ -1,10 +1,53 @@
-import { Search, MapPin, Briefcase, DollarSign, Filter, Bookmark } from 'lucide-react';
-import { useState } from 'react';
+import { Search, MapPin, Briefcase, DollarSign, Filter, Bookmark, Home, Users, Bell, MessageSquare, BrainCircuit, Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { MobileChatOverlay } from './common/MobileChatOverlay';
+import { SearchResultsDropdown } from './SearchResultsDropdown';
 
-export function JobsPage() {
+type JobsPageProps = {
+  currentUser?: any;
+  onNavigate?: (page: string) => void;
+  onSearch?: (query: string) => void;
+  onQueryChange?: (query: string) => void;
+  ragResults?: any;
+  isSearching?: boolean;
+};
+
+// --- Sub-components for Header ---
+const ActionItem = ({ icon, label, onClick, badge, active }: { icon: any, label: string, onClick?: () => void, badge?: boolean, active?: boolean }) => (
+  <button
+    onClick={onClick}
+    className={`flex flex-col items-center justify-center gap-1.5 p-1.5 md:p-2 rounded-2xl transition-all duration-300 group min-w-16 md:min-w-20 relative ${active ? 'bg-indigo-50/80' : 'hover:bg-slate-50'}`}
+  >
+    <div className={`relative transform transition-transform duration-300 ${active ? 'scale-105' : 'group-hover:scale-110'}`}>
+      <div className={`p-1.5 rounded-xl transition-colors duration-300 ${active ? 'bg-indigo-100 text-indigo-600' : 'text-slate-400 group-hover:text-slate-700 bg-transparent'}`}>
+        {React.cloneElement(icon, {
+          strokeWidth: active ? 2.5 : 2,
+          className: "w-5 h-5 md:w-6 md:h-6"
+        })}
+      </div>
+      {badge && <span className="absolute -top-1 -right-1 w-3 h-3 bg-rose-500 rounded-full border-2 border-white shadow-sm animate-pulse"></span>}
+    </div>
+    <span className={`text-[9px] md:text-[11px] font-bold tracking-tight transition-colors duration-300 ${active ? 'text-indigo-700' : 'text-slate-400 group-hover:text-slate-600'}`}>{label}</span>
+  </button>
+);
+
+export function JobsPage({ currentUser, onNavigate, onSearch, onQueryChange, ragResults, isSearching }: JobsPageProps) {
   const [savedJobs, setSavedJobs] = useState<Set<string>>(new Set());
   const [searchQuery, setSearchQuery] = useState('');
   const [location, setLocation] = useState('');
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false); // Mobile search
+
+  // Close search when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (isSearchExpanded && !target.closest('.search-container')) {
+        setIsSearchExpanded(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isSearchExpanded]);
 
   const jobs = [
     {
@@ -72,211 +115,335 @@ export function JobsPage() {
   };
 
   const filteredJobs = jobs.filter(job => {
-    const matchesSearch = !searchQuery || 
+    const matchesSearch = !searchQuery ||
       job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       job.company.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesLocation = !location || 
+    const matchesLocation = !location ||
       job.location.toLowerCase().includes(location.toLowerCase());
     return matchesSearch && matchesLocation;
   });
 
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (onSearch) onSearch(searchQuery);
+    setIsSearchExpanded(false);
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6">
-      <div className="grid grid-cols-12 gap-6">
-        {/* Left Sidebar - Filters */}
-        <div className="col-span-3">
-          <div className="bg-white rounded-lg border border-gray-200 p-4 sticky top-20">
-            <h3 className="text-gray-900 mb-4 flex items-center gap-2">
-              <Filter className="w-5 h-5" />
-              Filters
-            </h3>
+    <div className="h-screen bg-slate-50 flex flex-col font-sans overflow-hidden">
+      {/* --- Responsive Header (Copied from HomePage) --- */}
+      <div className="bg-white px-4 md:px-8 py-3 md:py-6 shadow-sm border-b border-slate-100 z-50 flex-shrink-0 relative">
+        <div className="flex items-center justify-between gap-4 w-full h-14 md:h-24">
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm text-gray-700 mb-2">Job type</label>
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" className="rounded" defaultChecked />
-                    <span className="text-sm text-gray-700">Full-time</span>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" className="rounded" />
-                    <span className="text-sm text-gray-700">Part-time</span>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" className="rounded" />
-                    <span className="text-sm text-gray-700">Contract</span>
-                  </label>
+          {/* Desktop Profile */}
+          <button
+            onClick={() => onNavigate?.('profile')}
+            className="hidden md:flex items-center gap-4 hover:bg-slate-50 p-2 rounded-xl transition-all group flex-shrink-0 min-w-52"
+          >
+            {currentUser && (
+              <>
+                <div className="relative">
+                  <img
+                    src={currentUser.avatar}
+                    alt={currentUser.name}
+                    className="w-14 h-14 rounded-full border-2 border-gray-100 group-hover:border-slate-300 transition-colors object-cover"
+                  />
+                  <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div>
                 </div>
-              </div>
-
-              <div className="border-t border-gray-200 pt-4">
-                <label className="block text-sm text-gray-700 mb-2">Work type</label>
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" className="rounded" defaultChecked />
-                    <span className="text-sm text-gray-700">Remote</span>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" className="rounded" />
-                    <span className="text-sm text-gray-700">Hybrid</span>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" className="rounded" />
-                    <span className="text-sm text-gray-700">On-site</span>
-                  </label>
+                <div className="flex flex-col items-start">
+                  <span className="text-lg font-bold text-gray-900 leading-tight group-hover:text-slate-800">{currentUser.name}</span>
+                  <span className="text-xs text-gray-500 font-medium">View Profile</span>
                 </div>
-              </div>
+              </>
+            )}
+          </button>
 
-              <div className="border-t border-gray-200 pt-4">
-                <label className="block text-sm text-gray-700 mb-2">Experience level</label>
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" className="rounded" />
-                    <span className="text-sm text-gray-700">Entry level</span>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" className="rounded" />
-                    <span className="text-sm text-gray-700">Mid-level</span>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" className="rounded" defaultChecked />
-                    <span className="text-sm text-gray-700">Senior</span>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" className="rounded" />
-                    <span className="text-sm text-gray-700">Lead</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          <button
+            onClick={() => onNavigate?.('profile')}
+            className="md:hidden flex-shrink-0"
+          >
+            {currentUser && <img src={currentUser.avatar} className="w-8 h-8 rounded-full border border-gray-200" />}
+          </button>
 
-        {/* Main Content */}
-        <div className="col-span-9">
-          {/* Search Bar */}
-          <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
-            <div className="flex gap-4">
-              <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search by title, skill, or company"
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                />
-              </div>
-              <div className="flex-1 relative">
-                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  placeholder="City, state, or zip code"
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                />
-              </div>
-              <button className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                Search
-              </button>
-            </div>
-          </div>
-
-          {/* Job Preferences Banner */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-            <div className="flex items-start gap-3">
-              <Briefcase className="w-6 h-6 text-blue-600 mt-1" />
-              <div className="flex-1">
-                <h3 className="text-gray-900">Set your job preferences</h3>
-                <p className="text-sm text-gray-600 mt-1">
-                  Tell us what you're looking for and we'll show you jobs that match your preferences
-                </p>
-                <button className="mt-3 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 text-sm">
-                  Set preferences
+          {/* Search */}
+          <div className="flex-1 flex justify-center max-w-3xl px-0 md:px-8 relative">
+            <form onSubmit={handleSearchSubmit} className="relative w-full group search-container">
+              {/* Mobile Search Icon Trigger */}
+              <div className={`md:hidden ${isSearchExpanded ? 'hidden' : 'flex'} justify-end w-full`} >
+                <button type="button" onClick={() => setIsSearchExpanded(true)} className="p-2.5 bg-slate-100 rounded-full text-slate-600">
+                  <Sparkles className="w-5 h-5" />
                 </button>
               </div>
-            </div>
-          </div>
 
-          {/* Jobs List */}
-          <div className="space-y-4">
-            <h2 className="text-xl text-gray-900">
-              {filteredJobs.length} jobs found
-            </h2>
+              {/* Input field */}
+              <div className={`${isSearchExpanded ? 'flex' : 'hidden md:block'} relative w-full`}>
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+                  <div className="bg-slate-800 p-1.5 md:p-2 rounded-xl">
+                    <Sparkles className="h-3 w-3 md:h-5 md:w-5 text-white animate-pulse" />
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  className="w-full pl-10 pr-4 md:pl-20 md:pr-20 py-2.5 md:py-4 bg-slate-900 border border-slate-700 focus:border-slate-500 focus:ring-4 focus:ring-slate-800 rounded-xl md:rounded-2xl text-xs md:text-base transition-all placeholder-white font-medium outline-none shadow-sm text-white hover:shadow-md hover:border-slate-600 relative z-50"
+                  placeholder="Search jobs..."
+                  value={searchQuery}
 
-            {filteredJobs.map(job => (
-              <div key={job.id} className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow">
-                <div className="flex gap-4">
-                  <img 
-                    src={job.companyLogo} 
-                    alt={job.company}
-                    className="w-16 h-16 rounded"
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="text-xl text-gray-900 hover:text-blue-600 cursor-pointer">
-                          {job.title}
-                        </h3>
-                        <p className="text-gray-700 mt-1">{job.company}</p>
-                      </div>
-                      <button
-                        onClick={() => handleToggleSave(job.id)}
-                        className={`p-2 rounded hover:bg-gray-100 ${
-                          savedJobs.has(job.id) ? 'text-blue-600' : 'text-gray-600'
-                        }`}
-                      >
-                        <Bookmark className="w-5 h-5" fill={savedJobs.has(job.id) ? 'currentColor' : 'none'} />
-                      </button>
-                    </div>
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    if (onQueryChange) onQueryChange(e.target.value);
+                  }}
+                  autoFocus={isSearchExpanded}
+                />
+                {/* Close Button Mobile */}
+                {isSearchExpanded && (
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); setIsSearchExpanded(false); }}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 bg-slate-700 rounded-full text-white md:hidden z-50"
+                  >
+                    <span className="text-xs">✕</span>
+                  </button>
+                )}
 
-                    <div className="flex flex-wrap gap-4 mt-3 text-sm text-gray-600">
-                      <div className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" />
-                        {job.location}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <DollarSign className="w-4 h-4" />
-                        {job.salary}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Briefcase className="w-4 h-4" />
-                        {job.type}
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2 mt-3">
-                      <span className={`text-xs px-3 py-1 rounded-full ${
-                        job.workType === 'Remote' ? 'bg-green-100 text-green-700' :
-                        job.workType === 'Hybrid' ? 'bg-purple-100 text-purple-700' :
-                        'bg-gray-100 text-gray-700'
-                      }`}>
-                        {job.workType}
-                      </span>
-                      <span className="text-xs px-3 py-1 bg-blue-100 text-blue-700 rounded-full">
-                        {job.type}
-                      </span>
-                    </div>
-
-                    <p className="text-sm text-gray-600 mt-3">{job.description}</p>
-
-                    <div className="flex items-center justify-between mt-4">
-                      <p className="text-xs text-gray-500">
-                        {job.applicants} applicants • Posted {job.postedDate}
-                      </p>
-                      <button className="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">
-                        Apply
-                      </button>
-                    </div>
+                <div className="hidden md:flex absolute inset-y-0 right-4 items-center pointer-events-none z-50">
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-300 text-xs">|</span>
+                    <kbd className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-slate-800 border border-slate-600 border-b-2 rounded-lg text-[10px] font-bold text-slate-300 tracking-wider">
+                      ⌘ K
+                    </kbd>
                   </div>
                 </div>
               </div>
-            ))}
+            </form>
+            {/* RAG Search Results Dropdown */}
+            {searchQuery.length >= 2 && ragResults && (
+              <div className="absolute top-full left-0 right-0 mt-2 z-[100] shadow-2xl rounded-2xl border border-slate-100 overflow-hidden bg-white">
+                <SearchResultsDropdown
+                  results={ragResults}
+                  isVisible={true}
+                  isLoading={isSearching || false}
+                  onSelectResult={(id) => onNavigate?.('profile')}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Desktop Nav Icons */}
+          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
+            <ActionItem icon={<Home />} label="Home" onClick={() => onNavigate?.('home')} />
+            <ActionItem icon={<Users />} label="Network" onClick={() => onNavigate?.('network')} />
+            <ActionItem icon={<Bell />} label="Alerts" badge={false} onClick={() => onNavigate?.('notifications')} />
+            <ActionItem icon={<MessageSquare />} label="Inbox" onClick={() => onNavigate?.('messages')} />
+            <ActionItem icon={<BrainCircuit />} label="Deep Analysis" onClick={() => onNavigate?.('conflict-report')} />
           </div>
         </div>
       </div>
+
+      <div className="flex-1 overflow-auto bg-slate-50 px-0 md:px-4 py-0 md:py-6 pb-20 md:pb-4">
+        <div className="max-w-[1600px] mx-auto flex flex-col lg:flex-row gap-6 p-4">
+
+          {/* Left Sidebar - Filters (Hidden on Mobile for now, needs a toggle or dedicated page) */}
+          <div className="hidden lg:block w-72 flex-shrink-0">
+            <div className="bg-white rounded-2xl border border-gray-200 p-5 sticky top-6">
+              <h3 className="text-gray-900 mb-4 flex items-center gap-2 font-bold">
+                <Filter className="w-5 h-5 text-slate-500" />
+                Filters
+              </h3>
+
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">Job type</label>
+                  <div className="space-y-2.5">
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" defaultChecked />
+                      <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">Full-time</span>
+                    </label>
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">Part-time</span>
+                    </label>
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">Contract</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-100 pt-6">
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">Work type</label>
+                  <div className="space-y-2.5">
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" defaultChecked />
+                      <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">Remote</span>
+                    </label>
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">Hybrid</span>
+                    </label>
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">On-site</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-100 pt-6">
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">Experience level</label>
+                  <div className="space-y-2.5">
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">Entry level</span>
+                    </label>
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">Mid-level</span>
+                    </label>
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" defaultChecked />
+                      <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">Senior</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <div className="flex-1 min-w-0">
+            {/* Search Bar (Secondary, specific to Jobs) */}
+            <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6 shadow-sm hidden md:block">
+              <div className="flex gap-4">
+                <div className="flex-1 relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search by title, skill, or company"
+                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all text-sm font-medium"
+                  />
+                </div>
+                <div className="flex-1 relative">
+                  <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="text"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    placeholder="City, state, or zip code"
+                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all text-sm font-medium"
+                  />
+                </div>
+                <button className="px-6 py-2.5 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 font-medium transition-colors shadow-sm shadow-indigo-200">
+                  Search
+                </button>
+              </div>
+            </div>
+
+            {/* Job Preferences Banner */}
+            <div className="bg-indigo-50/50 border border-indigo-100 rounded-2xl p-5 mb-6">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-white rounded-xl shadow-sm text-indigo-600">
+                  <Briefcase className="w-6 h-6" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-slate-900 font-bold text-lg">Set your job preferences</h3>
+                  <p className="text-sm text-slate-600 mt-1 leading-relaxed">
+                    Tell us what you're looking for and we'll show you jobs that match your preferences
+                  </p>
+                  <button className="mt-3 px-5 py-2 bg-white text-indigo-700 border border-indigo-200 rounded-full hover:bg-slate-50 text-sm font-bold shadow-sm transition-all">
+                    Set preferences
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Jobs List */}
+            <div className="space-y-4">
+              <h2 className="text-xl font-bold text-slate-900 px-1">
+                {filteredJobs.length} jobs found
+              </h2>
+
+              {filteredJobs.map(job => (
+                <div key={job.id} className="bg-white rounded-2xl border border-gray-200 p-5 hover:shadow-md transition-shadow cursor-pointer">
+                  <div className="flex gap-4">
+                    <img
+                      src={job.companyLogo}
+                      alt={job.company}
+                      className="w-14 h-14 md:w-16 md:h-16 rounded-xl object-cover border border-slate-100"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <h3 className="text-lg md:text-xl font-bold text-slate-900 hover:text-indigo-600 transition-colors">
+                            {job.title}
+                          </h3>
+                          <p className="text-slate-600 font-medium mt-0.5">{job.company}</p>
+                        </div>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); handleToggleSave(job.id); }}
+                          className={`p-2 rounded-full hover:bg-slate-50 transition-colors ${savedJobs.has(job.id) ? 'text-indigo-600 bg-indigo-50' : 'text-slate-400'
+                            }`}
+                        >
+                          <Bookmark className="w-5 h-5" fill={savedJobs.has(job.id) ? 'currentColor' : 'none'} />
+                        </button>
+                      </div>
+
+                      <div className="flex flex-wrap gap-3 mt-3 text-sm text-slate-600">
+                        <div className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-100">
+                          <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                          {job.location}
+                        </div>
+                        <div className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-100">
+                          <DollarSign className="w-3.5 h-3.5 text-slate-400" />
+                          {job.salary}
+                        </div>
+                        <div className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-100">
+                          <Briefcase className="w-3.5 h-3.5 text-slate-400" />
+                          {job.type}
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2 mt-4">
+                        <span className={`text-xs font-bold px-3 py-1 rounded-full ${job.workType === 'Remote' ? 'bg-emerald-100 text-emerald-700' :
+                          job.workType === 'Hybrid' ? 'bg-purple-100 text-purple-700' :
+                            'bg-amber-100 text-amber-700'
+                          }`}>
+                          {job.workType}
+                        </span>
+                        <span className="text-xs font-bold px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">
+                          {job.type}
+                        </span>
+                      </div>
+
+                      <p className="text-sm text-slate-600 mt-3 line-clamp-2">{job.description}</p>
+
+                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-50">
+                        <p className="text-xs font-medium text-slate-400">
+                          {job.applicants} applicants • Posted {job.postedDate}
+                        </p>
+                        <button className="px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 text-sm font-bold shadow-sm shadow-indigo-200 transition-all">
+                          Apply
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* --- Mobile Bottom Nav --- */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-6 py-3 z-[80] flex justify-between items-center shadow-[0_-4px_10px_rgba(0,0,0,0.02)] safe-area-pb">
+        <ActionItem icon={<Home />} label="Home" onClick={() => onNavigate?.('home')} />
+        <ActionItem icon={<Users className="w-6 h-6" />} label="Network" onClick={() => onNavigate?.('network')} />
+        <ActionItem icon={<BrainCircuit className="w-6 h-6" />} label="Analyze" onClick={() => onNavigate?.('conflict-report')} />
+        <ActionItem icon={<Bell className="w-6 h-6" />} label="Alerts" badge={true} onClick={() => onNavigate?.('notifications')} />
+        <ActionItem icon={<MessageSquare className="w-6 h-6" />} label="Inbox" onClick={() => onNavigate?.('messages')} />
+      </div>
+
+      <MobileChatOverlay currentUser={currentUser} />
     </div>
   );
 }
